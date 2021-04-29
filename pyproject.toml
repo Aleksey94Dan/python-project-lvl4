@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "hexlet-code"
+version = "0.1.0"
+description = """
+    Task Manager is a task management system similar to http://www.redmine.org/.
+    It allows you to set tasks, assign performers and change their statuses.
+    Registration and authentication are required to work with the system.
+"""
+authors = ["Aleksey94Dan <danilchenko.aleksey94@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+django = "^3.2"
+python-dotenv = "^0.17.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
