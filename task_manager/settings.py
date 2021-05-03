@@ -9,12 +9,26 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import logging
+import os
+from pathlib import Path
 
-from pathlib import Path, PurePosixPath
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+# Logging setup
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    filename=os.path.join(BASE_DIR, 'logs/events.log'),
+    filemode='w',
+    format='{asctime} - {levelname} - {message}',
+    datefmt='%H:%M:%S',
+    style='{'
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -23,9 +37,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ic)bz@ux9_a)93rdj#*ri5xljg5+t^8@6lutqu!9e#su2l^ei$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.herokuapp.com',
+]
 
 
 # Application definition
@@ -75,12 +94,23 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
+CONN_MAX_AGE = 500
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('POSTGRES_NAME'),
+        'USER': os.getenv('POSTGRES_USER') ,
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT'),
+    },
 }
+
+
+if os.getenv('DATABASE_URL'):
+    DATABASES['defsault'] = dj_database_url.config(conn_max_age=CONN_MAX_AGE)
 
 
 # Password validation
@@ -118,9 +148,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-# PROJ
+
 STATIC_URL = '/static/'
-STATIC_ROOT = PurePosixPath(BASE_DIR).joinpath(STATIC_URL)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
