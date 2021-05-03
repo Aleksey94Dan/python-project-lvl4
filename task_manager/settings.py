@@ -27,7 +27,7 @@ logging.basicConfig(
     filemode='w',
     format='{asctime} - {levelname} - {message}',
     datefmt='%H:%M:%S',
-    style='{'
+    style='{',
 )
 
 # Quick-start development settings - unsuitable for production

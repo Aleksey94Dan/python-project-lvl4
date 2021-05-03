@@ -11,8 +11,7 @@ migrate:
 run:
 		poetry run python manage.py runserver
 lint:
-		poetry run flake8 page_loader tests
-		poetry run mypy page_loader tests
+		poetry run flake8 task_manager task manage.py
 build:
 		poetry build
 publish:

@@ -115,3 +115,4 @@ dmypy.json
 .vscode/settings.json
 
 db.sqlite3
+.env
