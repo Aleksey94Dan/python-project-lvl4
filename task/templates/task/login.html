@@ -3,5 +3,18 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-<h1>login</h1>
+<div>
+    <h1>Вход</h1>
+</div>
+<form >
+  <div class="mb-3">
+    <label for="exampleInputName" class="form-label">Имя пользователя</label>
+    {{ form.name }}
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Пароль</label>
+    {{ form.password }}
+  </div>
+  <button type="submit" class="btn btn-primary">Войти</button>
+</form>
 {% endblock %}

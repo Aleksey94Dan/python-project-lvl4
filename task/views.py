@@ -1,6 +1,7 @@
 """Views for task_manager."""
 
 from django.shortcuts import render
+from task.form import LoginForm, RegisterForm
 
 
 def index(request):
@@ -12,8 +13,10 @@ def users(request):
 
 
 def create_user(request):
-    return render(request, 'task/create_user.html', {'title': 'create_users'})
+    form = RegisterForm()
+    return render(request, 'task/create_user.html', {'title': 'create_users', 'form': form})
 
 
 def login(request):
-    return render(request, 'task/login.html', {'title': 'login'})
+    form = LoginForm()
+    return render(request, 'task/login.html', {'title': 'login', 'form': form})
