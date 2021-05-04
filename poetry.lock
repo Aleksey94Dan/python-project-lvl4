@@ -95,14 +95,6 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 category = "main"
-description = "Best way to have Django DRY forms"
-name = "django-crispy-forms"
-optional = false
-python-versions = ">=3.5"
-version = "1.11.2"
-
-[[package]]
-category = "main"
 description = "This is a Django library for Heroku apps."
 name = "django-heroku"
 optional = false
@@ -620,7 +612,7 @@ docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "pytest-enabler", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
 [metadata]
-content-hash = "69383dcb4736c882158a0c3f8e4a3be2ac7b7cf988516f408a2078cd06a5e3db"
+content-hash = "3d7138b207840eb1f079c7f7118ab3ad7ba2c9983449fe9ef35a96fa68e82054"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -655,10 +647,6 @@ dj-database-url = [
 django = [
     {file = "Django-3.2-py3-none-any.whl", hash = "sha256:0604e84c4fb698a5e53e5857b5aea945b2f19a18f25f10b8748dbdf935788927"},
     {file = "Django-3.2.tar.gz", hash = "sha256:21f0f9643722675976004eb683c55d33c05486f94506672df3d6a141546f389d"},
-]
-django-crispy-forms = [
-    {file = "django-crispy-forms-1.11.2.tar.gz", hash = "sha256:88efa857ce6111bd696cc4f74057539a3456102fe9c3a3ece8868e1e4579e70a"},
-    {file = "django_crispy_forms-1.11.2-py3-none-any.whl", hash = "sha256:3db71ab06d17ec9d0195c086d3ad454da300ac268752ac3a4f63d72f7a490254"},
 ]
 django-heroku = [
     {file = "django-heroku-0.3.1.tar.gz", hash = "sha256:6af4bc3ae4a9b55eaad6dbe5164918982d2762661aebc9f83d9fa49f6009514e"},
