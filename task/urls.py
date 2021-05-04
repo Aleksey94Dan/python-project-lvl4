@@ -1,8 +1,12 @@
 """Configuration routing."""
 
 from django.urls import path
-from task.views import GreetingView
+
+from task.views import create_user, index, login, users
 
 urlpatterns = [
-    path('greeting/', GreetingView.as_view(), name='greeting'),
+    path('', index, name='home'),
+    path('users/', users, name='users'),
+    path('users/create/', create_user, name='create_user'),
+    path('login/', login, name='login'),
 ]

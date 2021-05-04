@@ -1,11 +1,19 @@
+"""Views for task_manager."""
+
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.views import View
 
-# Create your views here.
 
-class GreetingView(View):
-    """Greeting."""
+def index(request):
+    return render(request, 'task/index.html', {'title': 'home'})
 
-    def get(self, request, *args, **kwargs):
-        return HttpResponse('Hello, World')
+
+def users(request):
+    return render(request, 'task/users.html', {'title': 'users'})
+
+
+def create_user(request):
+    return render(request, 'task/create_user.html', {'title': 'create_users'})
+
+
+def login(request):
+    return render(request, 'task/login.html', {'title': 'login'})
