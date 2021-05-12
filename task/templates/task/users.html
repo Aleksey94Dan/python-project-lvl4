@@ -4,4 +4,31 @@
 
 {% block content %}
 <h1>Пользователи</h1>
+<table class="table table-striped table-dark">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Имя пользователя</th>
+      <th scope="col">Польное имя</th>
+      <th scope="col">Дата создания</th>
+      <th scope="col">  </th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for user in users %}
+    <tr>
+        <th scope="row">{{ user.pk }}</th>
+        <td>{{ user.username }}</td>
+        <td>{{ user.get_full_name }}</td>
+        <td>{{ user.date_joined | date:"d.m.Y H:i"}}</td>
+        <td>
+            <a href="{% url 'update-user' user.pk %}">Изменить</a>
+            <br>
+            <a href="{% url 'delete-user' user.pk %}">Удалить</a>
+            <br>
+        </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

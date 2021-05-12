@@ -1,0 +1,33 @@
+{% extends "task/base.html" %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<h1>Задачи</h1>
+<p><a href={% url 'tasks-create' %}>Создать задачу</a></p>
+<table class="table table-striped table-dark">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Дата создания</th>
+      <th scope="col">  </th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for task in tasks %}
+    <tr>
+        <th scope="row">{{ task.pk }}</th>
+        <td>{{ task.name }}</td>
+        <td>{{ task.date_joined | date:"d.m.Y H:i"}}</td>
+        <td>
+            <a href="#">Изменить</a>
+            <br>
+            <a href="#">Удалить</a>
+            <br>
+        </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
