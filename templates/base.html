@@ -1,0 +1,27 @@
+{% extends 'bootstrap.html' %}
+
+{% load bootstrap4 %}
+
+{% block bootstrap4_content %}
+
+
+    <div class="container">
+        <h1>{% block title %}(no title){% endblock %}</h1>
+
+        <p>
+            <a href="{% url 'home' %}">Менеджер задач</a>
+            <a href="{% url 'users-list' %}">Пользователи</a>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}">Выход</a>
+            {% else %}
+                <a href="{% url 'login' %}">Вход</a>
+                <a href="{% url 'users-create' %}">Регистрация</a>
+            {% endif %}
+        </p>
+
+        {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+{% endblock %}

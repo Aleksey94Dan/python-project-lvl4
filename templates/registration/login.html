@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+
+{% load bootstrap4 %}
+
+
+
+{% block title %}{{title}}{% endblock %}
+
+
+
+
+{% block content %}
+
+<h1>Вход</h1>
+
+<form role="form" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons submit='Вход' %}{% endbuttons %}
+</form>
+
+{% endblock %}

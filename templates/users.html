@@ -1,0 +1,39 @@
+
+{% extends "base.html" %}
+
+{% load bootstrap4 %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<h1>Пользователи</h1>
+<table class="table table-striped table-dark">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Имя пользователя</th>
+      <th scope="col">Полное имя</th>
+      <th scope="col">Дата создания</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for user in users %}
+    <tr>
+        <th scope="row">{{ user.pk }}</th>
+        <td>{{ user.username }}</td>
+        <td>{{ user.get_full_name }}</td>
+        <td>{{ user.date_joined | date:"d.m.Y H:i"}}</td>
+        <td>
+            <a href="{% url 'user-update' user.pk %}">Изменить</a>
+            <br>
+            <a href="{% url 'user-delete' user.pk %}">Удалить</a>
+            <br>
+        </td>
+    </tr>
+  {% empty %}
+    <p>Пользователей еще нет.</p>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
