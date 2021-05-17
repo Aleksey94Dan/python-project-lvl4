@@ -16,7 +16,7 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', CustomLogoutView.as_view(), name='logout'),
-    path('users/create/', UserCreateView.as_view(), name='users-create'),
+    path('users/create/', UserCreateView.as_view(), name='user-create'),
     path('users/', UsersListView.as_view(), name='users-list'),
     path(
         'users/<int:pk>/update/', UserUpdateView.as_view(), name='user-update',
