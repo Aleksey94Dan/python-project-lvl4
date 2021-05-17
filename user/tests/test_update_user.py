@@ -20,15 +20,11 @@ class TestUserUpdateView(TestCase):
         )
         self.faker = Faker()
         self.client = Client()
+        self.url = reverse_lazy('user-update', kwargs={'pk': self.user.pk})
 
     def test(self):
         """Send get request, and check data page assertions."""
-        response = self.client.get(
-            reverse_lazy(
-                'user-update',
-                kwargs={'pk': self.user.pk},
-            ),
-        )
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
         first_name = self.faker.first_name()
@@ -37,7 +33,7 @@ class TestUserUpdateView(TestCase):
         password1 = self.faker.password()
         password2 = password1
         response = self.client.post(
-            reverse_lazy('user-update', kwargs={'pk': self.user.pk}),
+            self.url,
             data={
                 'first_name': first_name,
                 'last_name': last_name,
