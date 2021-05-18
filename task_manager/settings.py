@@ -102,7 +102,7 @@ DATABASES = {
 }
 
 if os.getenv('DATABASE_URL'):
-    DATABASES['defsault'] = dj_database_url.config(conn_max_age=CONN_MAX_AGE)
+    DATABASES['default'] = dj_database_url.config(conn_max_age=CONN_MAX_AGE)
 
 
 # Password validation
