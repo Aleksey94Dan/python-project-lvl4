@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+from django.contrib.messages import constants as message
 
 import dj_database_url
 
@@ -162,4 +163,12 @@ BOOTSTRAP4 = {
     "required_css_class": "bootstrap4-required",
     "javascript_in_head": True,
     "include_jquery": True,
+}
+
+MESSAGE_TAGS = {
+    message.DEBUG: 'debug',
+    message.INFO: 'info',
+    message.SUCCESS: 'success',
+    message.WARNING: 'warning',
+    message.ERROR: 'danger',
 }
