@@ -9,7 +9,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from user.forms import LoginForm, RegistrationForm, UserUpdateForm
-from user.mixins import CustomEditUserMixin, CustomLogoutMixin
+from user.mixins import CustomRequiredMixin, UserEditMixin
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
@@ -33,7 +33,7 @@ class CustomLoginView(SuccessMessageMixin, LoginView):
         return reverse_lazy('home')
 
 
-class CustomLogoutView(CustomLogoutMixin, LogoutView):
+class CustomLogoutView(CustomRequiredMixin, LogoutView):
     """User logout view."""
 
     next_page = 'home'
@@ -53,18 +53,24 @@ class HomeView(TemplateView):
     template_name = 'home.html'
 
 
-class UserUpdateView(CustomEditUserMixin, UpdateView):
+class UserUpdateView(UserEditMixin, UpdateView):
     """Change user data."""
 
     template_name = 'updating.html'
     form_class = UserUpdateForm
     model = User
     success_url = reverse_lazy('home')
+    success_message = 'Пользователь успешно изменен'
+    message_error_for_get = 'У вас нет прав для изменения другого пользователя.'
+    redirect_url = reverse_lazy('users-list')
 
 
-class UserDeleteView(CustomEditUserMixin, DeleteView):
+class UserDeleteView(UserEditMixin, DeleteView):
     """Delete user data."""
 
     model = User
     template_name = 'deleting.html'
     success_url = reverse_lazy('home')
+    message_error_for_post = 'Невозможно удалить пользователя, потому что он используется'
+    message_error_for_get = 'У вас нет прав для изменения другого пользователя.'
+    redirect_url = reverse_lazy('users-list')
