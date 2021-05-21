@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
@@ -18,7 +19,7 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     template_name = 'registration/registration.html'
     form_class = RegistrationForm
     success_url = reverse_lazy('login')
-    success_message = 'Пользователь успешно зарегистрирован'
+    success_message = _('Пользователь успешно зарегистрирован')
 
 
 class CustomLoginView(SuccessMessageMixin, LoginView):
@@ -26,7 +27,7 @@ class CustomLoginView(SuccessMessageMixin, LoginView):
 
     template_name = 'registration/login.html'
     form_class = LoginForm
-    success_message = 'Вы залогинены'
+    success_message = _('Вы залогинены')
 
     def get_success_url(self):
         """Redirect after successful check."""
@@ -60,8 +61,10 @@ class UserUpdateView(UserEditMixin, UpdateView):
     form_class = UserUpdateForm
     model = User
     success_url = reverse_lazy('home')
-    success_message = 'Пользователь успешно изменен'
-    message_error_for_get = 'У вас нет прав для изменения другого пользователя.'
+    success_message = _('Пользователь успешно изменен')
+    message_error_for_get = _(
+        'У вас нет прав для изменения другого пользователя.',
+    )
     redirect_url = reverse_lazy('users-list')
 
 
@@ -71,6 +74,10 @@ class UserDeleteView(UserEditMixin, DeleteView):
     model = User
     template_name = 'deleting.html'
     success_url = reverse_lazy('home')
-    message_error_for_post = 'Невозможно удалить пользователя, потому что он используется'
-    message_error_for_get = 'У вас нет прав для изменения другого пользователя.'
+    message_error_for_post = _(
+        'Невозможно удалить пользователя, потому что он используется',
+    )
+    message_error_for_get = _(
+        'У вас нет прав для изменения другого пользователя.',
+    )
     redirect_url = reverse_lazy('users-list')

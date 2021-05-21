@@ -20,7 +20,6 @@ class CustomRequiredMixin(LoginRequiredMixin):
             messages.add_message(self.request, messages.INFO, info_message)
         return super().get_next_page(**kwargs)
 
-
     def handle_no_permission(self):  # noqa: D102
         error_message = self.error_message
         if error_message:
@@ -33,8 +32,10 @@ class CustomRequiredMixin(LoginRequiredMixin):
 
 
 class UserEditMixin(CustomRequiredMixin):
-    """ Overriding get, post, queryset methods
-        for user access only to their posts.
+    """
+    Overriding get, post, queryset methods
+
+    for user access only to their posts.
     """
 
     message_error_for_get = ''
@@ -47,8 +48,8 @@ class UserEditMixin(CustomRequiredMixin):
         user = self.request.user.pk
         return query_set.filter(id=user)
 
-
     def get(self, request, *args, **kwargs):
+        """Redirect user if he is not accessing his record."""
         pk = kwargs['pk']
         user = self.request.user.pk
         message_error_for_get = self.message_error_for_get
@@ -62,8 +63,8 @@ class UserEditMixin(CustomRequiredMixin):
             return HttpResponseRedirect(self.redirect_url)
         return super().get(request, *args, **kwargs)
 
-
     def post(self, request, *args, **kwargs):
+        """Prevent user from deleting himself."""
         message_error_for_post = self.message_error_for_post
         if message_error_for_post:
             messages.add_message(
