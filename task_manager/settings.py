@@ -29,6 +29,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
+print()
+print()
+print()
+print(DEBUG)
+
 ALLOWED_HOSTS = [
     '0.0.0.0',
     'localhost',
@@ -112,6 +117,11 @@ if os.getenv('DATABASE_URL'):
 
 # if os.getenv('DB_ENGINE') == 'SQLite':
 #     DATABASES['default'] = SQLITE_SETTINGS
+
+print()
+print()
+print('DATABASES', DATABASES)
+print()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
