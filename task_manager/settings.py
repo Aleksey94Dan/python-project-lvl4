@@ -108,23 +108,11 @@ DATABASES = {
 }
 
 
-SQLITE_SETTINGS = {
-    'ENGINE': 'django.db.backends.sqlite3',
-    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-}
-
-if os.getenv('DB_ENGINE') == 'SQLite':
-    DATABASES['default'] = SQLITE_SETTINGS
-
 CONN_MAX_AGE = 500
 
 if os.getenv('DATABASE_URL'):
     DATABASES['default'] = dj_database_url.config(conn_max_age=CONN_MAX_AGE)
 
-
-
-print(DATABASES)
-print(DATABASES)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
