@@ -13,20 +13,33 @@ class TestUserUpdateView(TestCase):
 
     def setUp(self):
         """Create a test database."""
-        self.user = User.objects.create(
-            first_name='test_first_name',
-            last_name='test_last_name',
-            username='test_username',
-        )
+        self.user = User.objects.create(username='testuser')
+        self.user.set_password('12345')
+        self.user.save()
         self.faker = Faker()
         self.client = Client()
         self.url = reverse_lazy('user-update', kwargs={'pk': self.user.pk})
 
-    def test(self):
-        """Send get request, and check data page assertions."""
+    def test_update_not_logged_in(self):
+        """Testing user change if not logged in."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertRedirects(response, reverse_lazy('login'))
+
+    def test_update_logged_in(self):
+        """Testing user change if logged in."""
+        response = self.client.get(reverse_lazy('login'))
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        response = self.client.post(
+            reverse_lazy('login'),
+            data={
+                'username': 'testuser',
+                'password': '12345',
+            },
+        )
+        self.assertRedirects(response, reverse_lazy('home'))
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-
         first_name = self.faker.first_name()
         last_name = self.faker.last_name()
         username = self.faker.user_name()
@@ -42,5 +55,5 @@ class TestUserUpdateView(TestCase):
                 'password2': password2,
             },
         )
-        self.assertRedirects(response, reverse_lazy('home'))
         self.assertTrue(User.objects.filter(username=username))
+        self.assertRedirects(response, reverse_lazy('users-list'))
