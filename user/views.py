@@ -8,6 +8,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 
 from user.forms import LoginForm, RegistrationForm, UserUpdateForm
 from user.mixins import CustomRequiredMixin, UserEditMixin
@@ -37,7 +39,7 @@ class CustomLoginView(SuccessMessageMixin, LoginView):
 class CustomLogoutView(CustomRequiredMixin, LogoutView):
     """User logout view."""
 
-    next_page = 'home'
+    next_page = reverse_lazy('home')
 
 
 class UsersListView(ListView):
@@ -56,28 +58,42 @@ class HomeView(TemplateView):
 
 class UserUpdateView(UserEditMixin, UpdateView):
     """Change user data."""
-
+    login_url=reverse_lazy('login')
     template_name = 'updating.html'
     form_class = UserUpdateForm
     model = User
     success_url = reverse_lazy('home')
-    success_message = _('Пользователь успешно изменен')
-    message_error_for_get = _(
+    message_error = _(
         'У вас нет прав для изменения другого пользователя.',
     )
     redirect_url = reverse_lazy('users-list')
+    success_message = _('Пользователь успешно изменен')
+
+
+
+
 
 
 class UserDeleteView(UserEditMixin, DeleteView):
     """Delete user data."""
-
+    login_url=reverse_lazy('login')
     model = User
     template_name = 'deleting.html'
     success_url = reverse_lazy('home')
-    message_error_for_post = _(
-        'Невозможно удалить пользователя, потому что он используется',
-    )
-    message_error_for_get = _(
+    message_error = _(
         'У вас нет прав для изменения другого пользователя.',
     )
     redirect_url = reverse_lazy('users-list')
+
+    def post(self, request, *args, **kwargs):
+        """Prevent user from deleting himself."""
+        message_error_post = _(
+            'Невозможно удалить пользователя, потому что он используется',
+        )
+        if message_error_post:
+            messages.add_message(
+                self.request,
+                messages.ERROR,
+                message_error_post,
+            )
+        return HttpResponseRedirect(self.redirect_url,)

@@ -7,8 +7,8 @@ from django.test import Client, TestCase
 from django.urls import reverse_lazy
 
 
-class TestLoginLogoutViews(TestCase):
-    """Test login and logout."""
+class TestUserDeleteView(TestCase):
+    """Test deleted view."""
 
     def setUp(self):
         """Create a test database."""
@@ -17,7 +17,7 @@ class TestLoginLogoutViews(TestCase):
         self.client = Client()
 
     def test_delete(self):
-        """Test login."""
+        """Test delete."""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, HTTPStatus.OK)
         response = self.client.post(self.url)
