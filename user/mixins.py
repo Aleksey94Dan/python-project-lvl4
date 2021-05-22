@@ -2,8 +2,9 @@
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
+
 
 class CustomRequiredMixin(LoginRequiredMixin):
     """Add a info message on successful logout."""
@@ -61,5 +62,3 @@ class UserEditMixin(CustomRequiredMixin, SuccessMessageMixin):
                 )
             return HttpResponseRedirect(self.redirect_url)
         return super().get(request, *args, **kwargs)
-
-

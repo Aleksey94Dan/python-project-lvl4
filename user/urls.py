@@ -2,15 +2,9 @@
 
 from django.urls import path
 
-from user.views import (
-    CustomLoginView,
-    CustomLogoutView,
-    HomeView,
-    UserCreateView,
-    UserDeleteView,
-    UsersListView,
-    UserUpdateView,
-)
+from user.views.auth import CustomLoginView, CustomLogoutView, UserCreateView
+from user.views.home import HomeView
+from user.views.users import UserDeleteView, UsersListView, UserUpdateView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
