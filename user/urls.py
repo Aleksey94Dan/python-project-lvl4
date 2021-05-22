@@ -1,10 +1,10 @@
-"""Routes for authorization and registration."""
+"""Routes for authorization and registration, users."""
 
 from django.urls import path
 
 from user.views.auth import CustomLoginView, CustomLogoutView, UserCreateView
 from user.views.home import HomeView
-from user.views.users import UserDeleteView, UsersListView, UserUpdateView
+from user.views.user import UserDeleteView, UsersListView, UserUpdateView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),

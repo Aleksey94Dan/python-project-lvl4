@@ -58,6 +58,7 @@ class UserDeleteView(UserEditMixin, DeleteView):
         'У вас нет прав для изменения другого пользователя.',
     )
     redirect_url = reverse_lazy('users-list')
+    extra_context = {'header': 'Удаление пользователя'}
 
     def post(self, request, *args, **kwargs):
         """Prevent user from deleting himself."""

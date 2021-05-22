@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<h1>Удаление пользователя</h1>
+<h1>{{ header }}</h1>
 
 <form method="post">{% csrf_token %}
     <p>Вы уверены, что хотите удалить {{ object }}?</p>
