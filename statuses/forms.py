@@ -3,7 +3,7 @@
 from django.forms import ModelForm, TextInput
 from django.utils.translation import gettext_lazy as _
 
-from tasks.models.models import Statuses
+from statuses.models import Statuses
 
 
 class CreateStatusForm(ModelForm):

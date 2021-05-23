@@ -57,12 +57,15 @@ class UserDeleteView(UserEditMixin, DeleteView):
     message_error = _(
         'У вас нет прав для изменения другого пользователя.',
     )
+    message_error_for_post = _(
+        'Невозможно удалить пользователя, потому что он используется',
+    )
     redirect_url = reverse_lazy('users-list')
     extra_context = {'header': 'Удаление пользователя'}
 
     def post(self, request, *args, **kwargs):
         """Prevent user from deleting himself."""
-        message_error = self.message_error
+        message_error = self.message_error_for_post
         if message_error:
             messages.add_message(
                 self.request,
