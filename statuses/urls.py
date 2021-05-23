@@ -1,4 +1,4 @@
-"""Routes for statuses"""
+"""Routes for statuses."""
 
 from django.urls import path
 

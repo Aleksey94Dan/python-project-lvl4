@@ -1,5 +1,4 @@
-"""Logic for home page of statuses, tasks, labels."""
-
+"""Logic for home page of statuses"""
 
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView

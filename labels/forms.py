@@ -1,20 +1,20 @@
-"""Description of forms for status."""
+"""Description of forms for labels."""
 
 from django.forms import ModelForm, TextInput
 from django.utils.translation import gettext_lazy as _
 
-from statuses.models import Statuses
+from labels.models import Labels
 
 
-class CreateStatusForm(ModelForm):
-    """Statuses."""
+class CreateLabelForm(ModelForm):
+    """Labels."""
 
     class Meta:
-        model = Statuses
+        model = Labels
         fields = ['name']
         labels = {'name': _('Имя')}
         widgets = {'name': TextInput()}
 
 
-class UpdateStatusForm(CreateStatusForm):
-    """Update statuses."""
+class UpdateLabelForm(CreateLabelForm):
+    """Update labels."""
