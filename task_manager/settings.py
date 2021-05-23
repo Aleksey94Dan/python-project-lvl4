@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'statuses.apps.StatusesConfig',
     'labels.apps.LabelsConfig',
+    'tasks.apps.TasksConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',

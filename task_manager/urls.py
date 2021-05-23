@@ -8,4 +8,5 @@ urlpatterns = [
     path('', include('user.urls')),
     path('', include('statuses.urls')),
     path('', include('labels.urls')),
+    path('', include('tasks.urls')),
 ]

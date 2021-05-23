@@ -7,7 +7,7 @@ createsuperuser:
 run:
 		poetry run python manage.py runserver
 lint:
-		poetry run flake8 user statuses labels
+		poetry run flake8 user statuses labels tasks
 test:
 		poetry run python manage.py test
 check:

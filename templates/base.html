@@ -14,7 +14,7 @@
             {% if request.user.is_authenticated %}
                 <a href="{% url 'statuses' %}">Статусы</a>
                 <a href="{% url 'labels' %}">Метки</a>
-                <a href="{% url 'logout' %}">Задачи</a>
+                <a href="{% url 'tasks' %}">Задачи</a>
                 <a href="{% url 'logout' %}">Выход</a>
             {% else %}
                 <a href="{% url 'login' %}">Вход</a>
