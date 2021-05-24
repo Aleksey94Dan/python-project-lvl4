@@ -15,16 +15,22 @@ class CreateTaskForm(ModelForm):
 
     class Meta:
         model = Tasks
-        fields = ['name', 'description', 'status', 'executor',]
+        fields = ['name', 'description', 'status', 'executor', 'author']
         labels = {
             'name': _('Имя'),
             'description': _('Описание'),
             'status': _('Статус'),
             'executor': _('Испольнитель'),
+            'author': _('Автор')
+        }
+        widgets = {
+            'author': forms.HiddenInput(),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
         super(CreateTaskForm, self).__init__(*args, **kwargs)
+        self.fields['author'].initial = user
         self['labels'].label = _('Метки')
 
 

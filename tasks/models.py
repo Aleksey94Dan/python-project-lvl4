@@ -15,6 +15,7 @@ class Tasks(models.Model):
     name = models.CharField(_("name of task"), max_length=100)
     created_at = models.DateTimeField(auto_now=True)
     description = models.TextField(blank=True)
+    author = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     status = models.ForeignKey(
         Statuses,
         on_delete=SET_NULL,
