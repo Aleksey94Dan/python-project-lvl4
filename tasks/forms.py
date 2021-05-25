@@ -8,6 +8,23 @@ from tasks.models import Tasks
 from labels.models import Labels
 
 
+class TaskListSortForm(forms.Form):
+    """A form for sort and search."""
+
+    status = forms.ChoiceField(label=_("Статус"), required=False)
+    executor = forms.ChoiceField(label=_("Исполнитель"), required=False)
+    labels = forms.ChoiceField(label=_("Метка"), required=False)
+    their_tasks = forms.BooleanField(
+        label=_("Только свои задачи"),
+        required=False,
+        initial=False,
+    )
+
+    def __init__(self, *args, **kwargs):
+        """Initialize the form."""
+        super().__init__(*args, **kwargs)
+
+
 class CreateTaskForm(ModelForm):
     """Tasks."""
 
@@ -37,3 +54,6 @@ class CreateTaskForm(ModelForm):
 
 class UpdateTaskForm(CreateTaskForm):
     """Update task."""
+
+
+
