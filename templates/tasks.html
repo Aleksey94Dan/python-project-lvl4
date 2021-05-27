@@ -13,7 +13,7 @@
   <form role="form" method="get" class="form-inline center">
 
     {% bootstrap_form form %}
-    {% buttons submit='Создать'%}{% endbuttons %}
+    {% buttons submit='Принят'%}{% endbuttons %}
 
   </form>
 
@@ -41,7 +41,7 @@
         <td>{{ task.name }}</td>
         <td>{{ task.status }}</td>
         <td>{{ task.author }}</td>
-        <td>{{ task.executor }}</td>
+        <td>{{ task.executor.get_full_name }}</td>
         <td>{{ task.created_at | date:"d.m.Y H:i"}}</td>
         <td>
             <a href="{% url 'tasks-update' task.pk %}">Изменить</a>
