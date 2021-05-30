@@ -19,26 +19,23 @@ class Tasks(models.Model):
         CustomUser,
         blank=True,
         null=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
     )
     status = models.ForeignKey(
         Statuses,
-        on_delete=SET_NULL,
+        on_delete=models.CASCADE,
         related_name='description',
         null=True,
         blank=False,
     )
-    labels = models.ForeignKey(
+    labels = models.ManyToManyField(
         Labels,
-        on_delete=SET_NULL,
-        related_name='labels',
-        blank=False,
-        null=True,
+        blank=True,
         default='',
     )
     executor = models.ForeignKey(
         CustomUser,
-        on_delete=SET_NULL,
+        on_delete=models.CASCADE,
         related_name='executor',
         blank=True,
         null=True,

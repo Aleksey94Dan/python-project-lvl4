@@ -8,12 +8,13 @@ from tasks.models import Tasks
 from user.mixins import CustomRequiredMixin
 
 
-class TasksListView(CustomRequiredMixin, ListView):
+class TasksListView(ListView):
     """Tasks list view."""
 
     template_name = 'tasks.html'
     model = Tasks
     login_url = reverse_lazy('login')
+
 
     def get_context_data(self, *args, **kwargs):
         """Pass filter to context."""
