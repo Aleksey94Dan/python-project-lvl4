@@ -2,7 +2,6 @@
 
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db import models
 from django.http import HttpResponseRedirect
 from django.urls.base import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -32,7 +31,6 @@ class TasksCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
     }
     login_url = reverse_lazy('login')
     model = Tasks
-
 
     def get_form_kwargs(self, *args, **kwargs):
         """Return the keyword arguments for instantiating the form."""
