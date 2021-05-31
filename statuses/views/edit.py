@@ -15,6 +15,7 @@ STATUS_MESSAGES = {
     'succes_create': _('Статус успешно создан'),
     'succes_update': _('Статус успешно изменён'),
     'succes_delete': _('Статус успешно удален'),
+    'error_delete': _('Невозможно удалить статус, потому что он используется'),
 }.get
 
 
@@ -57,9 +58,9 @@ class StatusesDeleteView(CustomRequiredMixin, DeleteView):
     success_url = reverse_lazy('statuses')
     login_url = reverse_lazy('login')
 
-    def post(self, request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs):
         """Delete status and display message"""
-        super().post(request, *args, **kwargs)
+        status = self.get_object()
         message_error = self.success_message
         if message_error:
             messages.add_message(

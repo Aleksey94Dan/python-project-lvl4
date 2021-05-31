@@ -1,0 +1,57 @@
+
+{% extends "base.html" %}
+
+{% load bootstrap4 %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<h1>{{ header }}</h1>
+
+
+<div class="ticket">
+    <div class="ticket-header bg-secondary text-white">
+        <h2>{{  task.name }}</h2>
+    </div>
+    <div class="card-body bg-light">
+        <p>{{  task.description }}</p>
+        <hr>
+    </div>
+    <div class="container">
+        <div class="row p-1">
+          <div class="col">Автор</div>
+          <div class="col">{{ task.author }}</div>
+        </div>
+        <div class="row p-1">
+          <div class="col">Исполнитель</div>
+          <div class="col">{{ task.executor }}</div>
+        </div>
+        <div class="row p-1">
+          <div class="col">Статус</div>
+          <div class="col">{{ task.status }}</div>
+        </div>
+        <div class="row p-1">
+          <div class="col">Дата создания</div>
+          <div class="col">{{ task.created_at | date:"d.m.Y H:i"}}</div>
+        </div>
+        <div class="row p-1">
+          <div class="col">
+              <h6>{{ labels }}</h6>
+            <h6>Метки:</h6>
+            <ul>
+                {% for label in task.labels.all %}
+                <li>{{ label }}</li>
+                {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col">
+            <a href="{% url 'tasks-update' task.pk %}">Изменить</a>
+            <br>
+            <a href="{% url 'tasks-delete' task.pk %}">Удалить</a>
+          </div>
+        </div>
+      </div>
+</div>
+{% endblock %}

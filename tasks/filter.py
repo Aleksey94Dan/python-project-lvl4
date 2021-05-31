@@ -1,20 +1,14 @@
 
 
 import django_filters
-from django import forms
-from django.contrib.auth.models import User
 
 from labels.models import Labels
 from statuses.models import Statuses
 from tasks.models import Tasks
 from user.models import CustomUser
 
+CHOICES = (('1', '1'),)
 
-def only_self(request):
-    """Show only own tasks."""
-    if request is None:
-        return User.objects.all()
-    return User.objects.filter(pk=request.user.pk)
 
 class TaskFilter(django_filters.FilterSet):
     """Filter for sorting jobs."""
@@ -34,13 +28,19 @@ class TaskFilter(django_filters.FilterSet):
         field_name='executor',
         label='Исполнитель',
     )
-    author = django_filters.ModelChoiceFilter(
-        queryset=only_self,
-        field_name='author',
+
+    only_self = django_filters.ChoiceFilter(
+        choices=CHOICES,
+        method='filter_by_self',
         label='Только свои задачи',
-        # widget=forms.CheckboxInput(),
     )
 
     class Meta:
         model = Tasks
-        fields = ['status', 'executor', 'label',]
+        fields = ['status', 'executor', 'label']
+
+    def filter_by_self(self, queryset, name, value):  # noqa: WPS110
+        """Return only your tasks."""
+        if value:
+            return queryset.filter(author=self.request.user.pk)
+        return queryset.all()

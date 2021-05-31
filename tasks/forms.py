@@ -1,24 +1,25 @@
 """Description of forms for tasks."""
 
 
-from django.forms import HiddenInput, ModelForm, ModelMultipleChoiceField
+from django.forms import HiddenInput, ModelForm
 from django.utils.translation import gettext_lazy as _
 
-from labels.models import Labels
 from tasks.models import Tasks
 
 
 class CreateTaskForm(ModelForm):
     """Tasks."""
 
-    labels = ModelMultipleChoiceField(
-        queryset=Labels.objects.all(),
-        label=_('Метки'),
-    )
-
     class Meta:
         model = Tasks
-        fields = ['name', 'description', 'status', 'executor', 'author']
+        fields = [
+            'name',
+            'description',
+            'status',
+            'executor',
+            'author',
+            'labels',
+        ]
         labels = {
             'name': _('Имя'),
             'description': _('Описание'),
@@ -26,9 +27,7 @@ class CreateTaskForm(ModelForm):
             'executor': _('Испольнитель'),
             'author': _('Автор'),
         }
-        widgets = {
-            'author': HiddenInput(),
-        }
+        widgets = {'author': HiddenInput()}
 
     def __init__(self, user, *args, **kwargs):
         """Init."""

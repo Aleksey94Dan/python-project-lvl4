@@ -12,9 +12,10 @@ from tasks.models import Tasks
 from user.mixins import CustomRequiredMixin
 
 TASKS_MESSAGES = {
-    'succes_create': _('Задача успешно создан'),
-    'succes_update': _('Задача успешно изменён'),
-    'succes_delete': _('Задача успешно удален'),
+    'succes_create': _('Задача успешно создана'),
+    'succes_update': _('Задача успешно изменена'),
+    'succes_delete': _('Задача успешно удалена'),
+    'error_delete': _('Задачу может удалить только её автор'),
 }.get
 
 
@@ -65,19 +66,25 @@ class TasksDeleteView(CustomRequiredMixin, DeleteView):
 
     template_name = "deleting.html"
     success_message = TASKS_MESSAGES('succes_delete')
+    error_message = TASKS_MESSAGES('error_delete')
     model = Tasks
     extra_context = {'header': 'Удаление '}
     success_url = reverse_lazy('tasks')
     login_url = reverse_lazy('login')
 
-    def post(self, request, *args, **kwargs):
-        """Delete tasks and display message"""
-        super().post(request, *args, **kwargs)
-        message_error = self.success_message
-        if message_error:
+    def delete(self, request, *args, **kwargs):
+        """Delete tasks and display message."""
+        task = self.get_object()
+        if task.author.pk == request.user.pk:
             messages.add_message(
-                self.request,
+                request,
                 messages.SUCCESS,
-                message_error,
+                self.success_message,
             )
+            return super().delete(request, *args, **kwargs)
+        messages.add_message(
+            request,
+            messages.ERROR,
+            self.error_message,
+        )
         return HttpResponseRedirect(self.success_url)

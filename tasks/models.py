@@ -1,7 +1,6 @@
 """Description of tasks models."""
 
 from django.db import models
-from django.db.models.deletion import SET_NULL
 from django.utils.translation import gettext_lazy as _
 
 from labels.models import Labels
@@ -31,7 +30,6 @@ class Tasks(models.Model):
     labels = models.ManyToManyField(
         Labels,
         blank=True,
-        default='',
     )
     executor = models.ForeignKey(
         CustomUser,
