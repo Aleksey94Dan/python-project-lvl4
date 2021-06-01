@@ -7,7 +7,7 @@ from django.contrib.auth.forms import (
     password_validation,
 )
 from django.contrib.auth.models import User
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext as _
 
 
 class RegistrationForm(UserCreationForm):

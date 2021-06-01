@@ -2,7 +2,7 @@
 
 
 from django.forms import HiddenInput, ModelForm
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext as _
 
 from tasks.models import Tasks
 
