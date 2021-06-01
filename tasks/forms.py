@@ -21,11 +21,12 @@ class CreateTaskForm(ModelForm):
             'labels',
         ]
         labels = {
-            'name': _('Имя'),
-            'description': _('Описание'),
-            'status': _('Статус'),
-            'executor': _('Испольнитель'),
-            'author': _('Автор'),
+            'name': _('Name'),
+            'description': _('Description'),
+            'status': _('Status'),
+            'executor': _('Executor'),
+            'author': _('Author'),
+            'labels': _('Labels'),
         }
         widgets = {'author': HiddenInput()}
 

@@ -12,7 +12,7 @@ class CreateLabelForm(ModelForm):
     class Meta:
         model = Labels
         fields = ['name']
-        labels = {'name': _('Имя')}
+        labels = {'name': _('Name')}
         widgets = {'name': TextInput()}
 
 

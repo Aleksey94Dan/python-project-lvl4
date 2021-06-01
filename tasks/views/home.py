@@ -2,6 +2,7 @@
 
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
@@ -22,7 +23,7 @@ class TasksListView(CustomRequiredMixin, ListView):
         """Pass filter to context."""
         context = super().get_context_data(*args, **kwargs)
         context['filter'] = TaskFilter(
-            data=self.request.GET,
+            data=self.request.GET or None,
             request=self.request,
             queryset=self.queryset,
         )
@@ -35,7 +36,7 @@ class TasksTicketView(CustomRequiredMixin, DetailView):
     template_name = 'task_ticket.html'
     model = Tasks
     context_object_name = 'task'
-    extra_context = {'header': 'Просмотр задачи'}
+    extra_context = {'header': _('View a task')}
 
     def get_object(self):
         """Return object for detail."""

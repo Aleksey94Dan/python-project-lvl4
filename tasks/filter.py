@@ -1,6 +1,7 @@
 
 
 import django_filters
+from django.utils.translation import gettext_lazy as _
 
 from labels.models import Labels
 from statuses.models import Statuses
@@ -16,23 +17,23 @@ class TaskFilter(django_filters.FilterSet):
     status = django_filters.ModelChoiceFilter(
         queryset=Statuses.objects.all(),
         field_name='status',
-        label='Статус',
+        label=_('Status'),
     )
     label = django_filters.ModelChoiceFilter(
         queryset=Labels.objects.all(),
         field_name='labels',
-        label='Метки',
+        label=_('Labels'),
     )
     executor = django_filters.ModelChoiceFilter(
         queryset=CustomUser.objects.all(),
         field_name='executor',
-        label='Исполнитель',
+        label=_('Executor'),
     )
 
     only_self = django_filters.ChoiceFilter(
         choices=CHOICES,
         method='filter_by_self',
-        label='Только свои задачи',
+        label=_('Only your tasks'),
     )
 
     class Meta:

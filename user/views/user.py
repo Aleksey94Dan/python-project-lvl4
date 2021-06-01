@@ -34,9 +34,9 @@ class UserUpdateView(UserEditMixin, UpdateView):
     redirect_url = reverse_lazy('users-list')
     success_url = redirect_url
 
-    success_message = _('Пользователь успешно изменен')
+    success_message = _('User changed successfully')
     message_error = _(
-        'У вас нет прав для изменения другого пользователя.',
+        'You do not have permission to change another user.',
     )
 
     @method_decorator(never_cache)
@@ -55,13 +55,13 @@ class UserDeleteView(UserEditMixin, DeleteView):
     template_name = 'deleting.html'
     success_url = reverse_lazy('home')
     message_error = _(
-        'У вас нет прав для изменения другого пользователя.',
+        'You do not have permission to change another user.',
     )
     message_error_for_post = _(
-        'Невозможно удалить пользователя, потому что он используется',
+        'Unable to delete user because he is in use',
     )
     redirect_url = reverse_lazy('users-list')
-    extra_context = {'header': 'Удаление пользователя'}
+    extra_context = {'header': _('Deleting a user')}
 
     def post(self, request, *args, **kwargs):
         """Prevent user from deleting himself."""

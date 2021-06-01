@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomRequiredMixin(LoginRequiredMixin):
@@ -11,8 +12,8 @@ class CustomRequiredMixin(LoginRequiredMixin):
 
     login_url = '/'
     redirect_field_name = None
-    info_message = 'Вы разлогинены'
-    error_message = 'Вы не авторизованы! Пожалуйста, выполните вход.'
+    info_message = _('You are logged out')
+    error_message = _('You are not authorized! Please sign in.')
 
     def get_next_page(self, **kwargs):  # noqa: WPS615
         """Get redirect page."""

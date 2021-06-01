@@ -1,13 +1,13 @@
 
 {% extends "base.html" %}
-
+{% load i18n %}
 {% load bootstrap4 %}
 
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
 
-<h1>Изменение пользователя</h1>
+<h1>{% trans "UserChange" %}</h1>
 <form role="form" method="post">
     {% csrf_token %}
     {% bootstrap_form form %}

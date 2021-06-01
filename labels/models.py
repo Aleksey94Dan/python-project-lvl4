@@ -10,5 +10,9 @@ class Labels(models.Model):
     name = models.CharField(_("name of labels"), max_length=100)
     created_at = models.DateTimeField(auto_now=True)
 
+    def has_related(self):
+        """Is there a connection with tasks."""
+        return self.tasks_set.exists()
+
     def __str__(self):  # noqa: D105
         return self.name

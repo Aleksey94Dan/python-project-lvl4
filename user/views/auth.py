@@ -15,7 +15,7 @@ class CustomLoginView(SuccessMessageMixin, LoginView):
 
     template_name = 'registration/login.html'
     form_class = LoginForm
-    success_message = _('Вы залогинены')
+    success_message = _('You are logged in')
 
     def get_success_url(self):
         """Redirect after successful check."""
@@ -34,4 +34,4 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     template_name = 'registration/registration.html'
     form_class = RegistrationForm
     success_url = reverse_lazy('login')
-    success_message = _('Пользователь успешно зарегистрирован')
+    success_message = _('User registered successfully')

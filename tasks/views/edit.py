@@ -12,10 +12,10 @@ from tasks.models import Tasks
 from user.mixins import CustomRequiredMixin
 
 TASKS_MESSAGES = {
-    'succes_create': _('Задача успешно создана'),
-    'succes_update': _('Задача успешно изменена'),
-    'succes_delete': _('Задача успешно удалена'),
-    'error_delete': _('Задачу может удалить только её автор'),
+    'succes_create': _('Task successfully created'),
+    'succes_update': _('Task successfully updated'),
+    'succes_delete': _('Task successfully deleted'),
+    'error_delete': _('A task can only be deleted by its author'),
 }.get
 
 
@@ -27,7 +27,7 @@ class TasksCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = CreateTaskForm
     success_url = reverse_lazy('tasks')
     extra_context = {
-        'header': 'Cоздать задачу',
+        'header': _('Create task'),
         'button': 'Создать',
     }
     login_url = reverse_lazy('login')
@@ -48,7 +48,7 @@ class TasksUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = UpdateTaskForm
     model = Tasks
     extra_context = {
-        'header': 'Изменение задачи',
+        'header': _('Changing a task'),
         'button': 'Изменить',
     }
     success_url = reverse_lazy('tasks')
@@ -68,7 +68,7 @@ class TasksDeleteView(CustomRequiredMixin, DeleteView):
     success_message = TASKS_MESSAGES('succes_delete')
     error_message = TASKS_MESSAGES('error_delete')
     model = Tasks
-    extra_context = {'header': 'Удаление '}
+    extra_context = {'header': _('Deleting')}
     success_url = reverse_lazy('tasks')
     login_url = reverse_lazy('login')
 

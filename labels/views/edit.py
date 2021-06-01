@@ -12,9 +12,10 @@ from labels.models import Labels
 from user.mixins import CustomRequiredMixin
 
 LABEL_MESSAGES = {
-    'succes_create': _('Метка успешно создана'),
-    'succes_update': _('Метка успешно изменена'),
-    'succes_delete': _('Метка успешно удалена'),
+    'succes_create': _('Label created successfully'),
+    'succes_update': _('Label changed successfully'),
+    'succes_delete': _('Label deleted successfully'),
+    'error_delete': _('Cannot remove a label because it is in use'),
 }.get
 
 
@@ -26,7 +27,7 @@ class LabelsCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = CreateLabelForm
     success_url = reverse_lazy('labels')
     extra_context = {
-        'header': 'Cоздать метку',
+        'header': 'Create a label',
         'button': 'Создать',
     }
     login_url = reverse_lazy('login')
@@ -40,7 +41,7 @@ class LabelsUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = UpdateLabelForm
     model = Labels
     extra_context = {
-        'header': 'Изменить метку',
+        'header': 'Change label',
         'button': 'Изменить',
     }
     success_url = reverse_lazy('labels')
@@ -52,19 +53,27 @@ class LabelsDeleteView(CustomRequiredMixin, DeleteView):
 
     template_name = "deleting.html"
     success_message = LABEL_MESSAGES('succes_delete')
+    error_message = LABEL_MESSAGES('error_delete')
     model = Labels
     extra_context = {'header': 'Удалить метку'}
     success_url = reverse_lazy('labels')
     login_url = reverse_lazy('login')
 
-    def post(self, request, *args, **kwargs):
-        """Delete status and display message"""
-        super().post(request, *args, **kwargs)
-        message_error = self.success_message
-        if message_error:
+    def delete(self, request, *args, **kwargs):
+        """Delete status and display message."""
+        label = self.get_object()
+        related_tasks = label.has_related()
+
+        if related_tasks:
             messages.add_message(
-                self.request,
-                messages.SUCCESS,
-                message_error,
+                request,
+                messages.ERROR,
+                self.error_message,
             )
-        return HttpResponseRedirect(self.success_url)
+            return HttpResponseRedirect(self.success_url)
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            self.success_message,
+        )
+        return super().delete(request, *args, **kwargs)

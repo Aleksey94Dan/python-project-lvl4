@@ -12,7 +12,7 @@ class CreateStatusForm(ModelForm):
     class Meta:
         model = Statuses
         fields = ['name']
-        labels = {'name': _('Имя')}
+        labels = {'name': _('Name')}
         widgets = {'name': TextInput()}
 
 
