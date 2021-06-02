@@ -9,14 +9,8 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from tasks.forms import CreateTaskForm, UpdateTaskForm
 from tasks.models import Tasks
+from user.messages import TASKS_MESSAGES
 from user.mixins import CustomRequiredMixin
-
-TASKS_MESSAGES = {
-    'succes_create': _('Task successfully created'),
-    'succes_update': _('Task successfully updated'),
-    'succes_delete': _('Task successfully deleted'),
-    'error_delete': _('A task can only be deleted by its author'),
-}.get
 
 
 class TasksCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):

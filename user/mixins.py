@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
+from django.views.generic.edit import DeleteView
 
 
 class CustomRequiredMixin(LoginRequiredMixin):
@@ -63,3 +64,29 @@ class UserEditMixin(CustomRequiredMixin, SuccessMessageMixin):
                 )
             return HttpResponseRedirect(self.redirect_url)
         return super().get(request, *args, **kwargs)
+
+
+class CustomDeleteViewMixin(DeleteView):
+    """Allow only unrelated objects to be deleted."""
+
+    model = None
+    success_message = None
+    error_message = None
+
+    def delete(self, request, *args, **kwargs):
+        """Delete status and display message"""
+        object_ = self.get_object()  # noqa: WPS120
+        related_object_ = object_.has_related()
+        if related_object_:
+            messages.add_message(
+                request,
+                messages.ERROR,
+                self.error_message,
+            )
+            return HttpResponseRedirect(self.success_url)
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            self.success_message,
+        )
+        return super().delete(request, *args, **kwargs)
