@@ -11,7 +11,7 @@ from user.models import CustomUser
 class Tasks(models.Model):
     """Status designation model."""
 
-    name = models.CharField(_("name of task"), max_length=100)
+    name = models.CharField(_("name of task"), max_length=100, unique=True)
     created_at = models.DateTimeField(auto_now=True)
     description = models.TextField(blank=True)
     author = models.ForeignKey(

@@ -7,7 +7,7 @@ from django.utils.translation import ugettext as _
 class Labels(models.Model):
     """Status designation model."""
 
-    name = models.CharField(_("name of labels"), max_length=100)
+    name = models.CharField(_("name of labels"), max_length=100, unique=True)
     created_at = models.DateTimeField(auto_now=True)
 
     def has_related(self):

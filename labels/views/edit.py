@@ -27,7 +27,7 @@ class LabelsCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = CreateLabelForm
     success_url = reverse_lazy('labels')
     extra_context = {
-        'header': 'Create a label',
+        'header': _('Create a label'),
         'button': 'Создать',
     }
     login_url = reverse_lazy('login')

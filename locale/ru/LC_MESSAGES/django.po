@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-01 22:57+0700\n"
+"POT-Creation-Date: 2021-06-02 21:43+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,6 +44,10 @@ msgstr "Метка успешно удалена"
 #: labels/views/edit.py:18
 msgid "Cannot remove a label because it is in use"
 msgstr "Невозможно удалить ярлык, потому что он уже используется"
+
+#: labels/views/edit.py:30
+msgid "Create a label"
+msgstr "Создать метку"
 
 #: statuses/models.py:10
 msgid "name of status"
@@ -82,7 +86,8 @@ msgstr "Удалить статус"
 msgid "Status"
 msgstr "Статус"
 
-#: tasks/filter.py:25 templates/base.html:16 templates/labels.html:9
+#: tasks/filter.py:25 tasks/forms.py:29 templates/base.html:16
+#: templates/labels.html:9
 msgid "Labels"
 msgstr "Метки"
 
@@ -135,7 +140,7 @@ msgstr "Изменить задачу"
 msgid "Deleting"
 msgstr "Удалить"
 
-#: tasks/views/home.py:38
+#: tasks/views/home.py:39
 msgid "View a task"
 msgstr "Имя задачи"
 
@@ -151,7 +156,7 @@ msgstr "Пользователи"
 msgid "Statuses"
 msgstr "Статусы"
 
-#: templates/base.html:17
+#: templates/base.html:17 templates/tasks.html:23
 msgid "Tasks"
 msgstr "Задачи"
 
