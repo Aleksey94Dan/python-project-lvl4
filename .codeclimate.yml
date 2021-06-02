@@ -10,6 +10,6 @@ exclude_patterns:
  - "templates/*"
  - "logs/*"
  - "static/*"
- - "/tests/*"
+ - "*/tests/*"
  - "*/migrations/*"
- - "/locale/*"
+ - "*/locale/*"
