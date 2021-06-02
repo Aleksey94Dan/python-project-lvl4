@@ -11,5 +11,5 @@ exclude_patterns:
  - "logs/*"
  - "static/*"
  - "/tests/*"
- - "/migrations/*"
+ - "*/migrations/*"
  - "/locale/*"
