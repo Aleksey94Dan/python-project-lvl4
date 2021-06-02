@@ -1,6 +1,5 @@
 """Logic for creating and editing labels."""
 
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls.base import reverse_lazy
 from django.utils.translation import ugettext as _
