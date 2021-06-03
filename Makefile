@@ -9,7 +9,7 @@ run:
 lint:
 		poetry run flake8 user statuses labels tasks
 test:
-		poetry run python manage.py test
+		poetry run python manage.py test --parallel
 check:
 		poetry check
 clean:

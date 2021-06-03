@@ -66,9 +66,11 @@ class UserEditMixin(CustomRequiredMixin, SuccessMessageMixin):
         return super().get(request, *args, **kwargs)
 
 
-class CustomDeleteViewMixin(DeleteView):
+class CustomDeleteViewMixin(LoginRequiredMixin, DeleteView):
     """Allow only unrelated objects to be deleted."""
 
+    login_url = '/'
+    redirect_field_name = None
     model = None
     success_message = None
     error_message = None
@@ -76,7 +78,7 @@ class CustomDeleteViewMixin(DeleteView):
     def delete(self, request, *args, **kwargs):
         """Delete status and display message"""
         object_ = self.get_object()  # noqa: WPS120
-        related_object_ = object_.has_related()
+        related_object_ = object_.has_related()  # noqa: WPS120
         if related_object_:
             messages.add_message(
                 request,
