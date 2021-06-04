@@ -4,14 +4,14 @@
 from django.forms import HiddenInput, ModelForm
 from django.utils.translation import ugettext as _
 
-from tasks.models import Tasks
+from tasks.models import Task
 
 
 class CreateTaskForm(ModelForm):
     """Tasks."""
 
     class Meta:
-        model = Tasks
+        model = Task
         fields = [
             'name',
             'description',

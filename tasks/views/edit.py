@@ -8,7 +8,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from tasks.forms import CreateTaskForm, UpdateTaskForm
-from tasks.models import Tasks
+from tasks.models import Task
 from user.messages import TASKS_MESSAGES
 from user.mixins import CustomRequiredMixin
 
@@ -25,7 +25,7 @@ class TasksCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
         'button': 'Создать',
     }
     login_url = reverse_lazy('login')
-    model = Tasks
+    model = Task
 
     def get_form_kwargs(self, *args, **kwargs):
         """Return the keyword arguments for instantiating the form."""
@@ -40,7 +40,7 @@ class TasksUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'creates.html'
     success_message = TASKS_MESSAGES('succes_update')
     form_class = UpdateTaskForm
-    model = Tasks
+    model = Task
     extra_context = {
         'header': _('Changing a task'),
         'button': 'Изменить',
@@ -61,7 +61,7 @@ class TasksDeleteView(CustomRequiredMixin, DeleteView):
     template_name = "deleting.html"
     success_message = TASKS_MESSAGES('succes_delete')
     error_message = TASKS_MESSAGES('error_delete')
-    model = Tasks
+    model = Task
     extra_context = {'header': _('Deleting')}
     success_url = reverse_lazy('tasks')
     login_url = reverse_lazy('login')

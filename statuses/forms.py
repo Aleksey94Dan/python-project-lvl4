@@ -3,14 +3,14 @@
 from django.forms import ModelForm, TextInput
 from django.utils.translation import ugettext as _
 
-from statuses.models import Statuses
+from statuses.models import Status
 
 
 class CreateStatusForm(ModelForm):
     """Statuses."""
 
     class Meta:
-        model = Statuses
+        model = Status
         fields = ['name']
         labels = {'name': _('Name')}
         widgets = {'name': TextInput()}

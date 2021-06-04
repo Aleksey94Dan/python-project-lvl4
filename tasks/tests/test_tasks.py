@@ -6,14 +6,13 @@ from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse_lazy
 
-
-from tasks.models import Tasks
-from labels.models import Labels
-from statuses.models import Statuses
+from labels.models import Label
+from statuses.models import Status
+from tasks.models import Task
 from user.models import CustomUser
 
 
-class TestTasksView(TestCase):
+class TestTaskView(TestCase):
     """Test create tasks."""
 
     def setUp(self):
@@ -21,14 +20,14 @@ class TestTasksView(TestCase):
         self.user = User.objects.create(username='testuser')
         self.user.set_password('12345')
         self.user.save()
-        self.status = Statuses.objects.create(name='Первый статус')
+        self.status = Status.objects.create(name='Первый статус')
         self.status.save()
-        self.labels = Labels.objects.create(name='Первая метка')
+        self.labels = Label.objects.create(name='Первая метка')
         self.labels.save()
-        self.task = Tasks.objects.create(
+        self.task = Task.objects.create(
             name='Тест',
             author=CustomUser.objects.get(pk=self.user.pk),
-            )
+        )
         self.task.save()
         self.url_delete = reverse_lazy(
             'tasks-delete',
@@ -68,7 +67,7 @@ class TestTasksView(TestCase):
             data=task,
         )
         self.assertRedirects(response, reverse_lazy('tasks'))
-        self.assertTrue(Tasks.objects.filter(name=task['name']))
+        self.assertTrue(Task.objects.filter(name=task['name']))
 
         response = self.client.post(
             reverse_lazy('tasks-create'),
@@ -78,7 +77,7 @@ class TestTasksView(TestCase):
 
     def test_delete(self):
         """Test delete tasks."""
-        self.assertTrue(Tasks.objects.filter(name='Тест'))
+        self.assertTrue(Task.objects.filter(name='Тест'))
         response = self.client.get(self.url_delete)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         response = self.client.post(
@@ -92,11 +91,11 @@ class TestTasksView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         response = self.client.post(self.url_delete)
         self.assertRedirects(response, reverse_lazy('tasks'))
-        self.assertFalse(Tasks.objects.filter(name='Тест'))
+        self.assertFalse(Task.objects.filter(name='Тест'))
 
     def test_update(self):
         """Test update tasks."""
-        self.assertTrue(Tasks.objects.filter(name='Тест'))
+        self.assertTrue(Task.objects.filter(name='Тест'))
         response = self.client.get(self.url_update)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         response = self.client.post(
@@ -121,4 +120,4 @@ class TestTasksView(TestCase):
             data=task,
         )
         self.assertRedirects(response, reverse_lazy('tasks'))
-        self.assertTrue(Tasks.objects.filter(name='Тсет'))
+        self.assertTrue(Task.objects.filter(name='Тсет'))

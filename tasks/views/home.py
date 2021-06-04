@@ -7,7 +7,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from tasks.filter import TaskFilter
-from tasks.models import Tasks
+from tasks.models import Task
 from user.mixins import CustomRequiredMixin
 
 
@@ -15,9 +15,9 @@ class TasksListView(CustomRequiredMixin, ListView):
     """Tasks list view."""
 
     template_name = 'tasks.html'
-    model = Tasks
+    model = Task
     login_url = reverse_lazy('login')
-    queryset = Tasks.objects.all()
+    queryset = Task.objects.all()
 
     def get_context_data(self, *args, **kwargs):
         """Pass filter to context."""
@@ -34,7 +34,7 @@ class TasksTicketView(CustomRequiredMixin, DetailView):
     """Detail task."""
 
     template_name = 'task_ticket.html'
-    model = Tasks
+    model = Task
     context_object_name = 'task'
     extra_context = {'header': _('View a task')}
 

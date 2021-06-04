@@ -6,10 +6,10 @@ from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse_lazy
 
-from statuses.models import Statuses
+from statuses.models import Status
 
 
-class TestStatusesCreateView(TestCase):
+class TestStatusCreateView(TestCase):
     """Test create."""
 
     def setUp(self):
@@ -17,7 +17,7 @@ class TestStatusesCreateView(TestCase):
         self.user = User.objects.create(username='testuser')
         self.user.set_password('12345')
         self.user.save()
-        self.status = Statuses.objects.create(name='Тест')
+        self.status = Status.objects.create(name='Тест')
         self.status.save()
         self.url_delete = reverse_lazy(
             'statuses-delete',
@@ -52,7 +52,7 @@ class TestStatusesCreateView(TestCase):
             data=status,
         )
         self.assertRedirects(response, reverse_lazy('statuses'))
-        self.assertTrue(Statuses.objects.filter(name=status['name']))
+        self.assertTrue(Status.objects.filter(name=status['name']))
 
         response = self.client.post(
             reverse_lazy('statuses-create'),
@@ -62,7 +62,7 @@ class TestStatusesCreateView(TestCase):
 
     def test_delete(self):
         """Test delete status."""
-        self.assertTrue(Statuses.objects.filter(name='Тест'))
+        self.assertTrue(Status.objects.filter(name='Тест'))
         response = self.client.get(self.url_delete)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         response = self.client.post(
@@ -76,11 +76,11 @@ class TestStatusesCreateView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         response = self.client.post(self.url_delete)
         self.assertRedirects(response, reverse_lazy('statuses'))
-        self.assertFalse(Statuses.objects.filter(name='Тест'))
+        self.assertFalse(Status.objects.filter(name='Тест'))
 
     def test_update(self):
         """Test update status."""
-        self.assertTrue(Statuses.objects.filter(name='Тест'))
+        self.assertTrue(Status.objects.filter(name='Тест'))
         response = self.client.get(self.url_update)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         response = self.client.post(
@@ -97,4 +97,4 @@ class TestStatusesCreateView(TestCase):
             data={'name': 'Тсет'},
         )
         self.assertRedirects(response, reverse_lazy('statuses'))
-        self.assertTrue(Statuses.objects.filter(name='Тсет'))
+        self.assertTrue(Status.objects.filter(name='Тсет'))

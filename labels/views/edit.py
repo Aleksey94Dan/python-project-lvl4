@@ -6,7 +6,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic.edit import CreateView, UpdateView
 
 from labels.forms import CreateLabelForm, UpdateLabelForm
-from labels.models import Labels
+from labels.models import Label
 from user.messages import LABEL_MESSAGES
 from user.mixins import CustomDeleteViewMixin, CustomRequiredMixin
 
@@ -31,7 +31,7 @@ class LabelsUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'creates.html'
     success_message = LABEL_MESSAGES('succes_update')
     form_class = UpdateLabelForm
-    model = Labels
+    model = Label
     extra_context = {
         'header': _('Change label'),
         'button': 'Изменить',
@@ -46,7 +46,7 @@ class LabelsDeleteView(CustomDeleteViewMixin):
     template_name = "deleting.html"
     success_message = LABEL_MESSAGES('succes_delete')
     error_message = LABEL_MESSAGES('error_delete')
-    model = Labels
+    model = Label
     extra_context = {'header': _('Delete label')}
     success_url = reverse_lazy('labels')
     login_url = reverse_lazy('login')

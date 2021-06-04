@@ -6,10 +6,10 @@ from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse_lazy
 
-from labels.models import Labels
+from labels.models import Label
 
 
-class TestLabelsView(TestCase):
+class TestLabelView(TestCase):
     """Test create labels."""
 
     def setUp(self):
@@ -17,7 +17,7 @@ class TestLabelsView(TestCase):
         self.user = User.objects.create(username='testuser')
         self.user.set_password('12345')
         self.user.save()
-        self.label = Labels.objects.create(name='Тест')
+        self.label = Label.objects.create(name='Тест')
         self.label.save()
         self.url_delete = reverse_lazy(
             'labels-delete',
@@ -51,7 +51,7 @@ class TestLabelsView(TestCase):
             data=label,
         )
         self.assertRedirects(response, reverse_lazy('labels'))
-        self.assertTrue(Labels.objects.filter(name=label['name']))
+        self.assertTrue(Label.objects.filter(name=label['name']))
 
         response = self.client.post(
             reverse_lazy('labels-create'),
@@ -61,7 +61,7 @@ class TestLabelsView(TestCase):
 
     def test_delete(self):
         """Test delete status."""
-        self.assertTrue(Labels.objects.filter(name='Тест'))
+        self.assertTrue(Label.objects.filter(name='Тест'))
         response = self.client.get(self.url_delete)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         response = self.client.post(
@@ -75,11 +75,11 @@ class TestLabelsView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         response = self.client.post(self.url_delete)
         self.assertRedirects(response, reverse_lazy('labels'))
-        self.assertFalse(Labels.objects.filter(name='Тест'))
+        self.assertFalse(Label.objects.filter(name='Тест'))
 
     def test_update(self):
         """Test update labels."""
-        self.assertTrue(Labels.objects.filter(name='Тест'))
+        self.assertTrue(Label.objects.filter(name='Тест'))
         response = self.client.get(self.url_update)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         response = self.client.post(
@@ -96,4 +96,4 @@ class TestLabelsView(TestCase):
             data={'name': 'Тсет'},
         )
         self.assertRedirects(response, reverse_lazy('labels'))
-        self.assertTrue(Labels.objects.filter(name='Тсет'))
+        self.assertTrue(Label.objects.filter(name='Тсет'))

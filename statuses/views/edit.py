@@ -6,7 +6,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic.edit import CreateView, UpdateView
 
 from statuses.forms import CreateStatusForm, UpdateStatusForm
-from statuses.models import Statuses
+from statuses.models import Status
 from user.messages import STATUS_MESSAGES
 from user.mixins import CustomDeleteViewMixin, CustomRequiredMixin
 
@@ -31,7 +31,7 @@ class StatusesUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'creates.html'
     success_message = STATUS_MESSAGES('succes_update')
     form_class = UpdateStatusForm
-    model = Statuses
+    model = Status
     extra_context = {
         'header': _('Update status'),
         'button': 'Изменить',
@@ -46,7 +46,7 @@ class StatusesDeleteView(CustomDeleteViewMixin):
     template_name = "deleting.html"
     success_message = STATUS_MESSAGES('succes_delete')
     error_message = STATUS_MESSAGES('error_delete')
-    model = Statuses
+    model = Status
     extra_context = {'header': _('Deleting status')}
     success_url = reverse_lazy('statuses')
     login_url = reverse_lazy('login')

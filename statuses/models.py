@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext as _
 
 
-class Statuses(models.Model):
+class Status(models.Model):
     """Status designation model."""
 
     name = models.CharField(_("name of status"), max_length=100, unique=True)

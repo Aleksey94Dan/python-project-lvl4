@@ -1,26 +1,27 @@
 
 
 import django_filters
+from django import forms
 from django.utils.translation import ugettext as _
 
-from labels.models import Labels
-from statuses.models import Statuses
-from tasks.models import Tasks
+from labels.models import Label
+from statuses.models import Status
+from tasks.models import Task
 from user.models import CustomUser
 
-CHOICES = (('1', '1'),)
+CHOICES = (('1', ''),)
 
 
 class TaskFilter(django_filters.FilterSet):
     """Filter for sorting jobs."""
 
     status = django_filters.ModelChoiceFilter(
-        queryset=Statuses.objects.all(),
+        queryset=Status.objects.all(),
         field_name='status',
         label=_('Status'),
     )
     label = django_filters.ModelChoiceFilter(
-        queryset=Labels.objects.all(),
+        queryset=Label.objects.all(),
         field_name='labels',
         label=_('Labels'),
     )
@@ -30,14 +31,15 @@ class TaskFilter(django_filters.FilterSet):
         label=_('Executor'),
     )
 
-    only_self = django_filters.ChoiceFilter(
+    only_self = django_filters.MultipleChoiceFilter(
         choices=CHOICES,
         method='filter_by_self',
         label=_('Only your tasks'),
+        widget=forms.CheckboxSelectMultiple,
     )
 
     class Meta:
-        model = Tasks
+        model = Task
         fields = ['status', 'executor', 'label']
 
     def filter_by_self(self, queryset, name, value):  # noqa: WPS110
