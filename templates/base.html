@@ -17,7 +17,7 @@
                 <a href="{% url 'tasks' %}">{% trans "Tasks" %}</a>
                 <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
             {% else %}
-                <a href="{% url 'login' %}">Вход</a>
+                <a href="{% url 'login' %}">{% trans "Login" %}</a>
                 <a href="{% url 'user-create' %}">{% trans "Signup" %}</a>
             {% endif %}
         </p>
