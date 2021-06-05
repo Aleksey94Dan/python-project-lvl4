@@ -49,7 +49,7 @@ ROLLBAR = {
     'root': BASE_DIR,
 }
 
-print(ROLLBAR['environment'])
+print('development' if DEBUG else 'production')
 
 # Application definition
 
