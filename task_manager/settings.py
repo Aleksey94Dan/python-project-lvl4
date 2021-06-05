@@ -74,6 +74,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
+print(DEBUG)
 
 ROLLBAR = {
     'access_token': os.getenv('ACCESS_TOKEN_ROLLBAR'),
