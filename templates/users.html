@@ -12,7 +12,7 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">{% trans "Username" %}</th>
-      <th scope="col">{% trans "FullName" %}</th>
+      <th scope="col">{% trans "Full Name" %}</th>
       <th scope="col">{% trans "Created" %}</th>
       <th scope="col"></th>
     </tr>
@@ -25,9 +25,9 @@
         <td>{{ user.get_full_name }}</td>
         <td>{{ user.date_joined | date:"d.m.Y H:i"}}</td>
         <td>
-            <a href="{% url 'user-update' user.pk %}">{% trans "Update" %}</a>
+            <a href="{% url 'user-update' user.pk %}">{% trans "update" %}</a>
             <br>
-            <a href="{% url 'user-delete' user.pk %}">{% trans "Delete" %}</a>
+            <a href="{% url 'user-delete' user.pk %}">{% trans "delete" %}</a>
             <br>
         </td>
     </tr>

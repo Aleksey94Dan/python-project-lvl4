@@ -7,7 +7,7 @@
 
 {% block content %}
 <h1>{% trans "Statuses" %}</h1>
-<a class="nav-link" href="{% url 'statuses-create' %}">{% trans "AddStatuses" %}</a>
+<a class="nav-link" href="{% url 'statuses-create' %}">{% trans "Add Statuses" %}</a>
 <table class="table table-striped table-dark">
   <thead>
     <tr>
@@ -24,9 +24,9 @@
         <td>{{ status.name }}</td>
         <td>{{ status.created_at | date:"d.m.Y H:i"}}</td>
         <td>
-            <a href="{% url 'statuses-update' status.pk %}">{% trans "Update" %}</a>
+            <a href="{% url 'statuses-update' status.pk %}">{% trans "update" %}</a>
             <br>
-            <a href="{% url 'statuses-delete' status.pk %}">{% trans "Delete" %}</a>
+            <a href="{% url 'statuses-delete' status.pk %}">{% trans "delete" %}</a>
             <br>
         </td>
     </tr>

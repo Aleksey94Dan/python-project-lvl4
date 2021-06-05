@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-05 18:59+0700\n"
+"POT-Creation-Date: 2021-06-05 19:48+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,20 +34,16 @@ msgid "Create a label"
 msgstr "Создать метку"
 
 #: labels/views/edit.py:36
-#, fuzzy
-#| msgid "Create a label"
 msgid "Change label"
-msgstr "Создать метку"
+msgstr "Изменить метку"
 
 #: labels/views/edit.py:50
-#, fuzzy
-#| msgid "Create a label"
 msgid "Delete label"
-msgstr "Создать метку"
+msgstr "Удалить метку"
 
 #: statuses/models.py:10
 msgid "name of status"
-msgstr "название статуса"
+msgstr "Название статуса"
 
 #: statuses/views/edit.py:22
 msgid "Create status"
@@ -109,7 +105,7 @@ msgid "View a task"
 msgstr "Имя задачи"
 
 #: templates/base.html:12 templates/bootstrap.html:3 templates/home.html:9
-msgid "TaskManager"
+msgid "Task Manager"
 msgstr "Менеджер задач"
 
 #: templates/base.html:13 templates/users.html:9
@@ -137,7 +133,7 @@ msgid "Signup"
 msgstr "Регистрация"
 
 #: templates/labels.html:10
-msgid "AddLabel"
+msgid "Add Label"
 msgstr "Создать метку"
 
 #: templates/labels.html:16 templates/statuses.html:16
@@ -149,25 +145,25 @@ msgstr "Дата создания"
 #: templates/labels.html:27 templates/statuses.html:27
 #: templates/task_ticket.html:50 templates/tasks.html:47
 #: templates/users.html:28
-msgid "Update"
+msgid "update"
 msgstr "Изменить"
 
 #: templates/labels.html:29 templates/statuses.html:29
 #: templates/task_ticket.html:52 templates/tasks.html:49
 #: templates/users.html:30
-msgid "Delete"
+msgid "delete"
 msgstr "Удалить"
 
 #: templates/statuses.html:10
-msgid "AddStatuses"
+msgid "Add Statuses"
 msgstr "Создать статус"
 
 #: templates/tasks.html:24
-msgid "AddTask"
+msgid "Add task"
 msgstr "Создать задачу"
 
 #: templates/updating.html:10
-msgid "UserChange"
+msgid "User Change"
 msgstr "Изменить"
 
 #: templates/users.html:14
@@ -175,7 +171,7 @@ msgid "Username"
 msgstr "Имя пользователя"
 
 #: templates/users.html:15
-msgid "FullName"
+msgid "Full Name"
 msgstr "Полное имя"
 
 #: user/forms.py:35
