@@ -3,6 +3,7 @@
 import logging
 import os
 from pathlib import Path
+import rollbar
 
 import dj_database_url
 from django.contrib.messages import constants as message
@@ -43,7 +44,7 @@ ROLLBAR = {
     'branch': 'master',
     'root': BASE_DIR,
 }
-
+rollbar.init(**ROLLBAR)
 # Application definition
 
 INSTALLED_APPS = [
@@ -175,6 +176,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+PROJECT_NAME = 'hexlet code'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
