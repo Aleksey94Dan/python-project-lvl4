@@ -1,11 +1,12 @@
 """Django settings for task_manager project."""
 
-import os
 import logging
+import os
 from pathlib import Path
-from django.contrib.messages import constants as message
 
 import dj_database_url
+import rollbar
+from django.contrib.messages import constants as message
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -69,9 +70,21 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
+
+ROLLBAR = {
+    'access_token': os.getenv('ACCESS_TOKEN_ROLLBAR'),
+    'environment': 'development' if DEBUG else 'production',
+    'branch': 'master',
+    'root': BASE_DIR,
+}
+
+print(ROLLBAR['environment'])
+
+rollbar.init(**ROLLBAR)
 
 TEMPLATES = [
     {
