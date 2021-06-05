@@ -5,7 +5,6 @@ import os
 from pathlib import Path
 
 import dj_database_url
-# import rollbar
 from django.contrib.messages import constants as message
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,8 +27,7 @@ logging.basicConfig(
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
-
+DEBUG = True if os.getenv('DEBUG') == 'True' else False
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
