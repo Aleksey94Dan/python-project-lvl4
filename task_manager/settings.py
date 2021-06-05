@@ -40,6 +40,17 @@ ALLOWED_HOSTS = [
 ]
 
 
+print(DEBUG)
+
+ROLLBAR = {
+    'access_token': os.getenv('ACCESS_TOKEN_ROLLBAR'),
+    'environment': 'development' if DEBUG else 'production',
+    'branch': 'master',
+    'root': BASE_DIR,
+}
+
+print(ROLLBAR['environment'])
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -74,18 +85,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
-print(DEBUG)
 
-ROLLBAR = {
-    'access_token': os.getenv('ACCESS_TOKEN_ROLLBAR'),
-    'environment': 'development' if DEBUG else 'production',
-    'branch': 'master',
-    'root': BASE_DIR,
-}
 
-print(ROLLBAR['environment'])
-
-rollbar.init(**ROLLBAR)
 
 TEMPLATES = [
     {
