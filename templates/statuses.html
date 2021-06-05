@@ -6,14 +6,14 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Statuses" %}</h1>
-<a class="nav-link" href="{% url 'statuses-create' %}">{% trans "Add Statuses" %}</a>
+<h1>Статусы</h1>
+<a class="nav-link" href="{% url 'statuses-create' %}">Создать статус</a>
 <table class="table table-striped table-dark">
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">{% trans "Name" %}</th>
-      <th scope="col">{% trans "Created" %}</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Дата создания</th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -24,9 +24,9 @@
         <td>{{ status.name }}</td>
         <td>{{ status.created_at | date:"d.m.Y H:i"}}</td>
         <td>
-            <a href="{% url 'statuses-update' status.pk %}">{% trans "update" %}</a>
+            <a href="{% url 'statuses-update' status.pk %}">Изменить</a>
             <br>
-            <a href="{% url 'statuses-delete' status.pk %}">{% trans "delete" %}</a>
+            <a href="{% url 'statuses-delete' status.pk %}">Удалить</a>
             <br>
         </td>
     </tr>
