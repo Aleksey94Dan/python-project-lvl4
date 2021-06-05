@@ -9,7 +9,6 @@ plugins:
 exclude_patterns:
  - "templates/*"
  - "logs/*"
- - "static/*"
  - "*/tests/*"
  - "*/migrations/*"
  - "*/locale/*"
