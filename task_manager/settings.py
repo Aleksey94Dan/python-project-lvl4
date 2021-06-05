@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 
 import dj_database_url
-import rollbar
+# import rollbar
 from django.contrib.messages import constants as message
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
