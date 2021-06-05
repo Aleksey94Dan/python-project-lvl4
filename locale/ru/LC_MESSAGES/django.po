@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-02 21:43+0700\n"
+"POT-Creation-Date: 2021-06-05 18:59+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,74 +29,54 @@ msgstr "Имя"
 msgid "name of labels"
 msgstr "Имя метки"
 
-#: labels/views/edit.py:15
-msgid "Label created successfully"
-msgstr "Метка успешно создана"
-
-#: labels/views/edit.py:16
-msgid "Label changed successfully"
-msgstr "Метка успешно изменена"
-
-#: labels/views/edit.py:17
-msgid "Label deleted successfully"
-msgstr "Метка успешно удалена"
-
-#: labels/views/edit.py:18
-msgid "Cannot remove a label because it is in use"
-msgstr "Невозможно удалить ярлык, потому что он уже используется"
-
-#: labels/views/edit.py:30
+#: labels/views/edit.py:22
 msgid "Create a label"
+msgstr "Создать метку"
+
+#: labels/views/edit.py:36
+#, fuzzy
+#| msgid "Create a label"
+msgid "Change label"
+msgstr "Создать метку"
+
+#: labels/views/edit.py:50
+#, fuzzy
+#| msgid "Create a label"
+msgid "Delete label"
 msgstr "Создать метку"
 
 #: statuses/models.py:10
 msgid "name of status"
 msgstr "название статуса"
 
-#: statuses/views/edit.py:15
-msgid "Status successfully created"
-msgstr "Статус успешно создан"
-
-#: statuses/views/edit.py:16
-msgid "Status successfully updated"
-msgstr "Статус успешно изменен"
-
-#: statuses/views/edit.py:17
-msgid "Status successfully deleted"
-msgstr "Статус успешно удален"
-
-#: statuses/views/edit.py:18
-msgid "Unable to delete status because it is in use"
-msgstr "Невозможно удалить статус, потому что он уже используется"
-
-#: statuses/views/edit.py:30
+#: statuses/views/edit.py:22
 msgid "Create status"
 msgstr "Создать статус"
 
-#: statuses/views/edit.py:44
+#: statuses/views/edit.py:36
 msgid "Update status"
 msgstr "Изменить статус"
 
-#: statuses/views/edit.py:58
+#: statuses/views/edit.py:50
 msgid "Deleting status"
 msgstr "Удалить статус"
 
-#: tasks/filter.py:20 tasks/forms.py:26 templates/task_ticket.html:30
+#: tasks/filter.py:21 tasks/forms.py:26 templates/task_ticket.html:30
 #: templates/tasks.html:30
 msgid "Status"
 msgstr "Статус"
 
-#: tasks/filter.py:25 tasks/forms.py:29 templates/base.html:16
+#: tasks/filter.py:26 tasks/forms.py:29 templates/base.html:16
 #: templates/labels.html:9
 msgid "Labels"
 msgstr "Метки"
 
-#: tasks/filter.py:30 tasks/forms.py:27 templates/task_ticket.html:26
+#: tasks/filter.py:31 tasks/forms.py:27 templates/task_ticket.html:26
 #: templates/tasks.html:32
 msgid "Executor"
 msgstr "Исполнитель"
 
-#: tasks/filter.py:36
+#: tasks/filter.py:37
 msgid "Only your tasks"
 msgstr "Только свои задачи"
 
@@ -112,31 +92,15 @@ msgstr "Автор"
 msgid "name of task"
 msgstr "Имя задачи"
 
-#: tasks/views/edit.py:15
-msgid "Task successfully created"
-msgstr "Задача успешно создана"
-
-#: tasks/views/edit.py:16
-msgid "Task successfully updated"
-msgstr "Задача успешно изменена"
-
-#: tasks/views/edit.py:17
-msgid "Task successfully deleted"
-msgstr "Задача успешно удалена"
-
-#: tasks/views/edit.py:18
-msgid "A task can only be deleted by its author"
-msgstr "Задание может быть удалено только его автором"
-
-#: tasks/views/edit.py:30
+#: tasks/views/edit.py:24
 msgid "Create task"
 msgstr "Создать задачу"
 
-#: tasks/views/edit.py:51
+#: tasks/views/edit.py:45
 msgid "Changing a task"
 msgstr "Изменить задачу"
 
-#: tasks/views/edit.py:71
+#: tasks/views/edit.py:65
 msgid "Deleting"
 msgstr "Удалить"
 
@@ -230,11 +194,59 @@ msgstr "Подтверждение пароля"
 msgid "Enter the same password as before, for verification."
 msgstr "Введите тот же пароль, что и раньше, для проверки"
 
-#: user/mixins.py:15
+#: user/messages.py:7
+msgid "Label created successfully"
+msgstr "Метка успешно создана"
+
+#: user/messages.py:8
+msgid "Label changed successfully"
+msgstr "Метка успешно изменена"
+
+#: user/messages.py:9
+msgid "Label deleted successfully"
+msgstr "Метка успешно удалена"
+
+#: user/messages.py:10
+msgid "Cannot remove a label because it is in use"
+msgstr "Невозможно удалить ярлык, потому что он уже используется"
+
+#: user/messages.py:14
+msgid "Status successfully created"
+msgstr "Статус успешно создан"
+
+#: user/messages.py:15
+msgid "Status successfully updated"
+msgstr "Статус успешно изменен"
+
+#: user/messages.py:16
+msgid "Status successfully deleted"
+msgstr "Статус успешно удален"
+
+#: user/messages.py:17
+msgid "Unable to delete status because it is in use"
+msgstr "Невозможно удалить статус, потому что он уже используется"
+
+#: user/messages.py:21
+msgid "Task successfully created"
+msgstr "Задача успешно создана"
+
+#: user/messages.py:22
+msgid "Task successfully updated"
+msgstr "Задача успешно изменена"
+
+#: user/messages.py:23
+msgid "Task successfully deleted"
+msgstr "Задача успешно удалена"
+
+#: user/messages.py:24
+msgid "A task can only be deleted by its author"
+msgstr "Задание может быть удалено только его автором"
+
+#: user/mixins.py:16
 msgid "You are logged out"
 msgstr "Вы вышли из системы"
 
-#: user/mixins.py:16
+#: user/mixins.py:17
 msgid "You are not authorized! Please sign in."
 msgstr "Вы не авторизованы! Пожалуйста войдите"
 
@@ -261,8 +273,3 @@ msgstr "Невозможно удалить пользователя, потом
 #: user/views/user.py:64
 msgid "Deleting a user"
 msgstr "Удаление пользователя"
-
-#, fuzzy
-#~| msgid "Username"
-#~ msgid "name"
-#~ msgstr "Имя пользователя"
