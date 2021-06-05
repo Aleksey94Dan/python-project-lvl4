@@ -56,7 +56,7 @@ class UserDeleteView(UserEditMixin, DeleteView):
     message_error = USER_MESSAGES('error_update')
     message_error_for_post = USER_MESSAGES('error_delete')
     redirect_url = reverse_lazy('users-list')
-    extra_context = {'header': _('Deleting a user')}
+    extra_context = {'header': _('Удаление пользователя')}
 
     def post(self, request, *args, **kwargs):
         """Prevent user from deleting himself."""

@@ -7,13 +7,13 @@
 
 {% block content %}
 
-<h1>{% trans "Signup" %}</h1>
+<h1>Регистрация</h1>
 
 <form role="form" method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
     {% bootstrap_form_errors form type='fields' %}
-    {% buttons submit='Регистрация'%}{% endbuttons %}
+    {% buttons submit='Зарегистрировать'%}{% endbuttons %}
 </form>
 
 {% endblock %}
