@@ -1,7 +1,7 @@
 """Stores text for flash messages."""
 
 
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 LABEL_MESSAGES = {
     'succes_create': _('Label created successfully'),

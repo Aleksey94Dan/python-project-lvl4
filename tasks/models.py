@@ -1,7 +1,7 @@
 """Description of tasks models."""
 
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from labels.models import Label
 from statuses.models import Status

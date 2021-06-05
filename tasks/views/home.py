@@ -2,7 +2,7 @@
 
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 

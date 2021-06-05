@@ -2,7 +2,7 @@
 
 
 from django.forms import HiddenInput, ModelForm
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from tasks.models import Task
 

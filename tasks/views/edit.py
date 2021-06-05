@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.urls.base import reverse_lazy
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from tasks.forms import CreateTaskForm, UpdateTaskForm

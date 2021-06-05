@@ -1,7 +1,7 @@
 """Description of forms for status."""
 
 from django.forms import ModelForm, TextInput
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from statuses.models import Status
 
