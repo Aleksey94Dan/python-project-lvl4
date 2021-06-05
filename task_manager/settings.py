@@ -39,12 +39,17 @@ ALLOWED_HOSTS = [
     '[::1]',
 ]
 
+
+print(DEBUG)
+
 ROLLBAR = {
     'access_token': os.getenv('ACCESS_TOKEN_ROLLBAR'),
-    'environment': 'production',
+    'environment': 'development' if DEBUG else 'production',
     'branch': 'master',
     'root': BASE_DIR,
 }
+
+print(DEBUG)
 
 # Application definition
 
