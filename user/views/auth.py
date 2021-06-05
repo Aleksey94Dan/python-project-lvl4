@@ -3,10 +3,10 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.utils.translation import gettext as _
 from django.views.generic.edit import CreateView
 
 from user.forms import LoginForm, RegistrationForm
+from user.messages import USER_MESSAGES
 from user.mixins import CustomRequiredMixin
 
 
@@ -15,7 +15,7 @@ class CustomLoginView(SuccessMessageMixin, LoginView):
 
     template_name = 'registration/login.html'
     form_class = LoginForm
-    success_message = _('You are logged in')
+    success_message = USER_MESSAGES('succes_login')
 
     def get_success_url(self):
         """Redirect after successful check."""
@@ -34,4 +34,4 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     template_name = 'registration/registration.html'
     form_class = RegistrationForm
     success_url = reverse_lazy('login')
-    success_message = _('User registered successfully')
+    success_message = USER_MESSAGES('succes_create')

@@ -12,6 +12,7 @@ from django.views.generic.edit import DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from user.forms import UserUpdateForm
+from user.messages import USER_MESSAGES
 from user.mixins import UserEditMixin
 
 
@@ -34,10 +35,8 @@ class UserUpdateView(UserEditMixin, UpdateView):
     redirect_url = reverse_lazy('users-list')
     success_url = redirect_url
 
-    success_message = _('User changed successfully')
-    message_error = _(
-        'You do not have permission to change another user.',
-    )
+    success_message = USER_MESSAGES('succes_update')
+    message_error = USER_MESSAGES('error_update')
 
     @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):
@@ -54,12 +53,8 @@ class UserDeleteView(UserEditMixin, DeleteView):
     model = User
     template_name = 'deleting.html'
     success_url = reverse_lazy('home')
-    message_error = _(
-        'You do not have permission to change another user.',
-    )
-    message_error_for_post = _(
-        'Unable to delete user because he is in use',
-    )
+    message_error = USER_MESSAGES('error_update')
+    message_error_for_post = USER_MESSAGES('error_delete')
     redirect_url = reverse_lazy('users-list')
     extra_context = {'header': _('Deleting a user')}
 

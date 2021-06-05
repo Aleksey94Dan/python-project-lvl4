@@ -13,8 +13,8 @@ class CustomRequiredMixin(LoginRequiredMixin):
 
     login_url = '/'
     redirect_field_name = None
-    info_message = _('You are logged out')
-    error_message = _('You are not authorized! Please sign in.')
+    info_message = _('Вы разлогинены')
+    error_message = _('Вы не авторизованы! Пожалуйста, выполните вход.')
 
     def get_next_page(self, **kwargs):  # noqa: WPS615
         """Get redirect page."""
