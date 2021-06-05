@@ -105,7 +105,7 @@ msgid "View a task"
 msgstr "Имя задачи"
 
 #: templates/base.html:12 templates/bootstrap.html:3 templates/home.html:9
-msgid "Task Manager"
+msgid "TaskManager"
 msgstr "Менеджер задач"
 
 #: templates/base.html:13 templates/users.html:9
