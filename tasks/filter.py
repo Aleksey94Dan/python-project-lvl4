@@ -34,7 +34,7 @@ class TaskFilter(django_filters.FilterSet):
     only_self = django_filters.MultipleChoiceFilter(
         choices=CHOICES,
         method='filter_by_self',
-        label=_('Только свои задачиs'),
+        label=_('Только свои задачи'),
         widget=forms.CheckboxSelectMultiple,
     )
 
