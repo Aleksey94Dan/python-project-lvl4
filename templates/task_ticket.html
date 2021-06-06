@@ -19,24 +19,23 @@
     </div>
     <div class="container">
         <div class="row p-1">
-          <div class="col">{% trans "Author" %}</div>
+          <div class="col">Автор</div>
           <div class="col">{{ task.author }}</div>
         </div>
         <div class="row p-1">
-          <div class="col">{% trans "Executor" %}</div>
+          <div class="col">Исполнитель</div>
           <div class="col">{{ task.executor }}</div>
         </div>
         <div class="row p-1">
-          <div class="col">{% trans "Status" %}</div>
+          <div class="col">Статус</div>
           <div class="col">{{ task.status }}</div>
         </div>
         <div class="row p-1">
-          <div class="col">{% trans "Created" %}</div>
+          <div class="col">Дата создания</div>
           <div class="col">{{ task.created_at | date:"d.m.Y H:i"}}</div>
         </div>
         <div class="row p-1">
           <div class="col">
-              <h6>{{ labels }}</h6>
             <h6>Метки:</h6>
             <ul>
                 {% for label in task.labels.all %}
