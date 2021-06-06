@@ -20,8 +20,8 @@ class TaskFilter(django_filters.FilterSet):
     )
     label = django_filters.ModelChoiceFilter(
         queryset=Label.objects.all(),
-        field_name='labels',
-        label=_('Метки'),
+        field_name='label',
+        label=_('Метка'),
     )
     executor = django_filters.ModelChoiceFilter(
         queryset=CustomUser.objects.all(),
