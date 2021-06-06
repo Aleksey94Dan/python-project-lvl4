@@ -42,13 +42,13 @@ ALLOWED_HOSTS = [
     '[::1]',
 ]
 
-if not DEBUG:
-    ROLLBAR = {
-        'access_token': os.getenv('ACCESS_TOKEN_ROLLBAR'),
-        'environment': 'development' if DEBUG else 'production',
-        'branch': 'master',
-        'root': BASE_DIR,
-    }
+ROLLBAR = {
+    'access_token': os.getenv('ACCESS_TOKEN_ROLLBAR'),
+    'environment': 'development' if DEBUG else 'production',
+    'branch': 'master',
+    'root': BASE_DIR,
+}
+rollbar.init(**ROLLBAR)
 # Application definition
 
 INSTALLED_APPS = [
