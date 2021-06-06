@@ -3,9 +3,9 @@
 import logging
 import os
 from pathlib import Path
-import rollbar
 
 import dj_database_url
+import rollbar
 from django.contrib.messages import constants as message
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,7 +28,11 @@ logging.basicConfig(
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.getenv('DEBUG') == 'True' else False
+if os.getenv('DEBUG') == 'True':
+    DEBUG = True
+else:
+    DEBUG = False
+
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
@@ -81,7 +85,6 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'task_manager.urls'
 
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -103,7 +106,6 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 
 
 DATABASES = {

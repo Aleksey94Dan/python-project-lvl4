@@ -37,7 +37,7 @@ class FilterTaskTests(TestCase):
         )
         t1 = Task.objects.create(
             name='первая задача',
-            status = s1,
+            status=s1,
             description='Описание',
             author=CustomUser.objects.get(pk=a1.pk),
             executor=CustomUser.objects.get(pk=a2.pk),
@@ -45,7 +45,7 @@ class FilterTaskTests(TestCase):
         t1.labels.add(l1.pk)
         t2 = Task.objects.create(
             name='вторая задача',
-            status = s2,
+            status=s2,
             description='Описание',
             author=CustomUser.objects.get(pk=a2.pk),
             executor=CustomUser.objects.get(pk=a1.pk),
@@ -53,7 +53,7 @@ class FilterTaskTests(TestCase):
         t2.labels.add(l2.pk)
         t3 = Task.objects.create(
             name='третья задача',
-            status = s3,
+            status=s3,
             description='Описание',
             author=CustomUser.objects.get(pk=a3.pk),
             executor=CustomUser.objects.get(pk=a1.pk),
