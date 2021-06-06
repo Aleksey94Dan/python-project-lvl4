@@ -8,12 +8,13 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
-from django.views.generic.edit import DeleteView, UpdateView
+from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
 
 from user.forms import UserUpdateForm
 from user.messages import USER_MESSAGES
-from user.mixins import UserEditMixin
+from user.mixins import CustomDeleteViewMixin, UserEditMixin
+from user.models import CustomUser
 
 
 class UsersListView(ListView):
@@ -46,25 +47,36 @@ class UserUpdateView(UserEditMixin, UpdateView):
         return query
 
 
-class UserDeleteView(UserEditMixin, DeleteView):
+class UserDeleteView(CustomDeleteViewMixin):
     """Delete user data."""
 
-    login_url = reverse_lazy('login')
-    model = User
     template_name = 'deleting.html'
-    success_url = reverse_lazy('home')
-    message_error = USER_MESSAGES('error_update')
-    message_error_for_post = USER_MESSAGES('error_delete')
+    success_message = USER_MESSAGES('succes_delete')
+    error_message = USER_MESSAGES('error_delete')
+    error_update_message = USER_MESSAGES('error_update')
+    model = CustomUser
+    extra_context = {'header': _('Удаление пользователя ')}
+    success_url = reverse_lazy('users-list')
+    login_url = reverse_lazy('login')
     redirect_url = reverse_lazy('users-list')
-    extra_context = {'header': _('Удаление пользователя')}
 
-    def post(self, request, *args, **kwargs):
-        """Prevent user from deleting himself."""
-        message_error = self.message_error_for_post
-        if message_error:
-            messages.add_message(
-                self.request,
-                messages.ERROR,
-                message_error,
-            )
-        return HttpResponseRedirect(self.redirect_url)
+    def get_queryset(self):
+        """Access to own records only."""
+        query_set = super().get_queryset()
+        user = self.request.user.pk
+        return query_set.filter(id=user)
+
+    def get(self, request, *args, **kwargs):
+        """Redirect user if he is not accessing his record."""
+        pk = kwargs['pk']
+        user = self.request.user.pk
+        message_error = self.error_update_message
+        if pk != user:
+            if message_error:
+                messages.add_message(
+                    self.request,
+                    messages.ERROR,
+                    message_error,
+                )
+            return HttpResponseRedirect(self.redirect_url)
+        return super().get(request, *args, **kwargs)
