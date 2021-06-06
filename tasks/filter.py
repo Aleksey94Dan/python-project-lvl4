@@ -18,23 +18,23 @@ class TaskFilter(django_filters.FilterSet):
     status = django_filters.ModelChoiceFilter(
         queryset=Status.objects.all(),
         field_name='status',
-        label=_('Status'),
+        label=_('Статус'),
     )
     label = django_filters.ModelChoiceFilter(
         queryset=Label.objects.all(),
         field_name='labels',
-        label=_('Labels'),
+        label=_('Метки'),
     )
     executor = django_filters.ModelChoiceFilter(
         queryset=CustomUser.objects.all(),
         field_name='executor',
-        label=_('Executor'),
+        label=_('Исполнитель'),
     )
 
     only_self = django_filters.MultipleChoiceFilter(
         choices=CHOICES,
         method='filter_by_self',
-        label=_('Only your tasks'),
+        label=_('Только свои задачиs'),
         widget=forms.CheckboxSelectMultiple,
     )
 
