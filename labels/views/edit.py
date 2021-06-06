@@ -19,7 +19,7 @@ class LabelsCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = CreateLabelForm
     success_url = reverse_lazy('labels')
     extra_context = {
-        'header': _('Create a label'),
+        'header': _('Создать метку'),
         'button': 'Создать',
     }
     login_url = reverse_lazy('login')
@@ -33,7 +33,7 @@ class LabelsUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = UpdateLabelForm
     model = Label
     extra_context = {
-        'header': _('Change label'),
+        'header': _('Изменение метки'),
         'button': 'Изменить',
     }
     success_url = reverse_lazy('labels')
@@ -47,6 +47,6 @@ class LabelsDeleteView(CustomDeleteViewMixin):
     success_message = LABEL_MESSAGES('succes_delete')
     error_message = LABEL_MESSAGES('error_delete')
     model = Label
-    extra_context = {'header': _('Delete label')}
+    extra_context = {'header': _('Удаление метки')}
     success_url = reverse_lazy('labels')
     login_url = reverse_lazy('login')
