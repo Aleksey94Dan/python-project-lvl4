@@ -9,8 +9,6 @@ from statuses.models import Status
 from tasks.models import Task
 from user.models import CustomUser
 
-CHOICES = (('1', ''),)
-
 
 class TaskFilter(django_filters.FilterSet):
     """Filter for sorting jobs."""
@@ -31,11 +29,10 @@ class TaskFilter(django_filters.FilterSet):
         label=_('Исполнитель'),
     )
 
-    only_self = django_filters.MultipleChoiceFilter(
-        choices=CHOICES,
+    only_self = django_filters.BooleanFilter(
         method='filter_by_self',
         label=_('Только свои задачи'),
-        widget=forms.CheckboxSelectMultiple,
+        widget=forms.CheckboxInput(),
     )
 
     class Meta:
