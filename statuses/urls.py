@@ -10,7 +10,7 @@ from statuses.views.edit import (
 from statuses.views.home import StatusesListView
 
 urlpatterns = [
-    path('statuses', StatusesListView.as_view(), name='statuses'),
+    path('statuses/', StatusesListView.as_view(), name='statuses'),
     path(
         'statuses/create/',
         StatusesCreateView.as_view(),

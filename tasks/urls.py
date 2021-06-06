@@ -6,7 +6,7 @@ from tasks.views.edit import TasksCreateView, TasksDeleteView, TasksUpdateView
 from tasks.views.home import TasksListView, TasksTicketView
 
 urlpatterns = [
-    path('tasks', TasksListView.as_view(), name='tasks'),
+    path('tasks/', TasksListView.as_view(), name='tasks'),
     path('tasks/<int:id>/', TasksTicketView.as_view(), name='task-ticket'),
     path(
         'tasks/create/',
