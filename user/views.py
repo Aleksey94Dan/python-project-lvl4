@@ -32,7 +32,7 @@ class UserUpdateView(UserEditMixin, UpdateView):
     redirect_url = reverse_lazy('users-list')
     success_url = redirect_url
 
-    success_message = _('Пользователь успешно изменен')
+    success_message = _('Пользователь успешно изменён')
 
 
 class UserDeleteView(UserEditMixin, CustomDeleteMixin, DeleteView):
