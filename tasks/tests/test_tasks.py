@@ -9,7 +9,6 @@ from django.urls import reverse_lazy
 from labels.models import Label
 from statuses.models import Status
 from tasks.models import Task
-from user.models import User
 
 
 class TestTaskView(TestCase):
