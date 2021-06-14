@@ -4,32 +4,34 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
-from django.views.generic.edit import DeleteView
 
 
 class CustomRequiredMixin(LoginRequiredMixin):
     """Add a info message on successful logout."""
 
-    login_url = '/'
+    login_url = reverse_lazy('home')
     redirect_field_name = None
     info_message = _('Вы разлогинены')
-    error_message = _('Вы не авторизованы! Пожалуйста, выполните вход.')
+    error_messages = _('Вы не авторизованы! Пожалуйста, выполните вход.')
 
     def get_next_page(self, **kwargs):  # noqa: WPS615
         """Get redirect page."""
-        info_message = self.info_message
-        if info_message:
-            messages.add_message(self.request, messages.INFO, info_message)
+        if self.info_message:
+            messages.add_message(
+                self.request,
+                messages.INFO,
+                self.info_message,
+            )
         return super().get_next_page(**kwargs)
 
     def handle_no_permission(self):  # noqa: D102
-        error_message = self.error_message
-        if error_message:
+        if self.error_messages:
             messages.add_message(
                 self.request,
                 messages.ERROR,
-                error_message,
+                self.error_messages,
             )
         return super().handle_no_permission()
 
@@ -41,7 +43,7 @@ class UserEditMixin(CustomRequiredMixin, SuccessMessageMixin):
     for user access only to their posts.
     """
 
-    message_error = None
+    message_error = _('У вас нет прав для изменения другого пользователя.')
     redirect_url = None
 
     def get_queryset(self):
@@ -54,31 +56,27 @@ class UserEditMixin(CustomRequiredMixin, SuccessMessageMixin):
         """Redirect user if he is not accessing his record."""
         pk = kwargs['pk']
         user = self.request.user.pk
-        message_error = self.message_error
         if pk != user:
-            if message_error:
+            if self.message_error:
                 messages.add_message(
                     self.request,
                     messages.ERROR,
-                    message_error,
+                    self.message_error,
                 )
             return HttpResponseRedirect(self.redirect_url)
         return super().get(request, *args, **kwargs)
 
 
-class CustomDeleteViewMixin(LoginRequiredMixin, DeleteView):
+class CustomDeleteMixin:
     """Allow only unrelated objects to be deleted."""
 
-    login_url = '/'
-    redirect_field_name = None
-    model = None
     success_message = None
     error_message = None
 
     def delete(self, request, *args, **kwargs):
         """Delete status and display message"""
         object_ = self.get_object()  # noqa: WPS120
-        related_object_ = object_.has_related()  # noqa: WPS120
+        related_object_ = object_.task_set.exists()  # noqa: WPS120
         if related_object_:
             messages.add_message(
                 request,

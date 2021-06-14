@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from labels.models import Label
 from statuses.models import Status
 from tasks.models import Task
-from user.models import CustomUser
+from user.models import User
 
 
 class TestTaskView(TestCase):
@@ -26,7 +26,7 @@ class TestTaskView(TestCase):
         self.labels.save()
         self.task = Task.objects.create(
             name='Тест',
-            author=CustomUser.objects.get(pk=self.user.pk),
+            author=User.objects.get(pk=self.user.pk),
         )
         self.task.save()
         self.url_delete = reverse_lazy(

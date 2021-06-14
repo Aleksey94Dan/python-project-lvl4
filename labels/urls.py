@@ -2,12 +2,12 @@
 
 from django.urls import path
 
-from labels.views.edit import (
+from labels.views import (
     LabelsCreateView,
     LabelsDeleteView,
+    LabelsListView,
     LabelsUpdateView,
 )
-from labels.views.home import LabelsListView
 
 urlpatterns = [
     path('labels/', LabelsListView.as_view(), name='labels'),

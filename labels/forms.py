@@ -6,7 +6,7 @@ from django.utils.translation import gettext as _
 from labels.models import Label
 
 
-class CreateLabelForm(ModelForm):
+class LabelForm(ModelForm):
     """Labels."""
 
     class Meta:
@@ -14,7 +14,3 @@ class CreateLabelForm(ModelForm):
         fields = ['name']
         labels = {'name': _('Имя')}
         widgets = {'name': TextInput()}
-
-
-class UpdateLabelForm(CreateLabelForm):
-    """Update labels."""

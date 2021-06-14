@@ -1,9 +1,8 @@
 
-
-import django_filters
 from django import forms
 from django.utils.translation import gettext as _
 
+import django_filters  # noqa: I001
 from labels.models import Label
 from statuses.models import Status
 from tasks.models import Task
@@ -28,7 +27,6 @@ class TaskFilter(django_filters.FilterSet):
         field_name='executor',
         label=_('Исполнитель'),
     )
-
     only_self = django_filters.BooleanFilter(
         method='filter_by_self',
         label=_('Только свои задачи'),

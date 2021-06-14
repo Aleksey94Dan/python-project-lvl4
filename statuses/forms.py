@@ -6,7 +6,7 @@ from django.utils.translation import gettext as _
 from statuses.models import Status
 
 
-class CreateStatusForm(ModelForm):
+class StatusForm(ModelForm):
     """Statuses."""
 
     class Meta:
@@ -14,7 +14,3 @@ class CreateStatusForm(ModelForm):
         fields = ['name']
         labels = {'name': _('Имя')}
         widgets = {'name': TextInput()}
-
-
-class UpdateStatusForm(CreateStatusForm):
-    """Update statuses."""

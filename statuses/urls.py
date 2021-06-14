@@ -2,12 +2,12 @@
 
 from django.urls import path
 
-from statuses.views.edit import (
+from statuses.views import (
     StatusesCreateView,
     StatusesDeleteView,
+    StatusesListView,
     StatusesUpdateView,
 )
-from statuses.views.home import StatusesListView
 
 urlpatterns = [
     path('statuses/', StatusesListView.as_view(), name='statuses'),

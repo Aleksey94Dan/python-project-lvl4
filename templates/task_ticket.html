@@ -6,15 +6,15 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block content %}
-<h1>{{ header }}</h1>
+<h1>Просмотр задачи</h1>
 
 
 <div class="ticket">
     <div class="ticket-header bg-secondary text-white">
-        <h2>{{  task.name }}</h2>
+        <h2>{{ task.name }}</h2>
     </div>
     <div class="card-body bg-light">
-        <p>{{  task.description }}</p>
+        <p>{{ task.description }}</p>
         <hr>
     </div>
     <div class="container">
