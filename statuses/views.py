@@ -41,7 +41,7 @@ class StatusesUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
     login_url = reverse_lazy('login')
 
 
-class StatusesDeleteView(CustomDeleteMixin, DeleteView):
+class StatusesDeleteView(CustomRequiredMixin, CustomDeleteMixin, DeleteView):
     """Delete status."""
 
     template_name = "removes.html"

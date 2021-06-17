@@ -31,8 +31,8 @@ class TestLabelView(TestCase):
 
     def test_create(self):
         """Test create labels."""
-        response = self.client.get(reverse_lazy('login'))
-        self.assertEqual(response.status_code, HTTPStatus.OK)
+        response = self.client.get(reverse_lazy('labels-create'))
+        self.assertRedirects(response, reverse_lazy('login'))
         response = self.client.post(
             reverse_lazy('login'),
             data={
@@ -40,7 +40,7 @@ class TestLabelView(TestCase):
                 'password': '12345',
             },
         )
-
+        self.assertRedirects(response, reverse_lazy('home'))
         response = self.client.get(reverse_lazy('labels'))
         self.assertEqual(response.status_code, HTTPStatus.OK)
         response = self.client.get(reverse_lazy('labels-create'))
@@ -61,9 +61,8 @@ class TestLabelView(TestCase):
 
     def test_delete(self):
         """Test delete status."""
-        self.assertTrue(Label.objects.filter(name='Тест'))
         response = self.client.get(self.url_delete)
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertRedirects(response, reverse_lazy('login'))
         response = self.client.post(
             reverse_lazy('login'),
             data={
@@ -71,6 +70,7 @@ class TestLabelView(TestCase):
                 'password': '12345',
             },
         )
+        self.assertRedirects(response, reverse_lazy('home'))
         response = self.client.get(reverse_lazy('labels'))
         self.assertEqual(response.status_code, HTTPStatus.OK)
         response = self.client.post(self.url_delete)
@@ -79,9 +79,8 @@ class TestLabelView(TestCase):
 
     def test_update(self):
         """Test update labels."""
-        self.assertTrue(Label.objects.filter(name='Тест'))
         response = self.client.get(self.url_update)
-        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertRedirects(response, reverse_lazy('login'))
         response = self.client.post(
             reverse_lazy('login'),
             data={
@@ -89,6 +88,7 @@ class TestLabelView(TestCase):
                 'password': '12345',
             },
         )
+        self.assertRedirects(response, reverse_lazy('home'))
         response = self.client.get(reverse_lazy('labels'))
         self.assertEqual(response.status_code, HTTPStatus.OK)
         response = self.client.post(
