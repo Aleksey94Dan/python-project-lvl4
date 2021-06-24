@@ -6,9 +6,8 @@ from django.utils.translation import gettext as _
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
-from statuses.forms import StatusForm
 from statuses.models import Status
-from user.mixins import CustomDeleteMixin, CustomRequiredMixin
+from utils.mixins import CustomDeleteMixin, CustomRequiredMixin
 
 
 class StatusesListView(CustomRequiredMixin, ListView):
@@ -25,7 +24,8 @@ class StatusesCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
 
     template_name = 'creates.html'
     success_message = _('Статус успешно создан')
-    form_class = StatusForm
+    model = Status
+    fields = ['name']
     success_url = reverse_lazy('statuses')
     login_url = reverse_lazy('login')
 
@@ -35,7 +35,7 @@ class StatusesUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
 
     template_name = 'updates.html'
     success_message = _('Статус успешно изменён')
-    form_class = StatusForm
+    fields = ['name']
     model = Status
     success_url = reverse_lazy('statuses')
     login_url = reverse_lazy('login')

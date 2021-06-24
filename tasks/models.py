@@ -5,32 +5,34 @@ from django.utils.translation import gettext as _
 
 from labels.models import Label
 from statuses.models import Status
-from user.models import CustomUser
+from user.models import User
 
 
 class Task(models.Model):
     """Status designation model."""
 
-    name = models.CharField(verbose_name=_('Имя'), max_length=100, unique=True)
+    name = models.CharField(
+        verbose_name=_('Name'),
+        max_length=100,
+        unique=True,
+    )
     created_at = models.DateTimeField(auto_now=True)
-    description = models.TextField(verbose_name=_('Описание'), blank=True)
+    description = models.TextField(verbose_name=_('Description'), blank=True)
     author = models.ForeignKey(
-        CustomUser,
-        verbose_name=_('Автор'),
-        blank=True,
-        null=False,
-        on_delete=models.CASCADE,
+        User,
+        verbose_name=_('Author'),
+        null=True,
+        on_delete=models.SET_NULL,
     )
     status = models.ForeignKey(
         Status,
-        verbose_name=_('Статус'),
+        verbose_name=_('Status'),
         on_delete=models.SET_NULL,
         null=True,
-        blank=False,
     )
     executor = models.ForeignKey(
-        CustomUser,
-        verbose_name=_('Исполнитель'),
+        User,
+        verbose_name=_('Executor'),
         on_delete=models.SET_NULL,
         related_name='executor',
         blank=True,
@@ -38,7 +40,7 @@ class Task(models.Model):
     )
     labels = models.ManyToManyField(
         Label,
-        verbose_name=_('Метки'),
+        verbose_name=_('Labels'),
         blank=True,
     )
 

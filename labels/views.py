@@ -6,9 +6,8 @@ from django.utils.translation import gettext as _
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
-from labels.forms import LabelForm
 from labels.models import Label
-from user.mixins import CustomDeleteMixin, CustomRequiredMixin
+from utils.mixins import CustomDeleteMixin, CustomRequiredMixin
 
 
 class LabelsListView(CustomRequiredMixin, ListView):
@@ -25,7 +24,7 @@ class LabelsCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
 
     template_name = 'creates.html'
     success_message = _('Метка успешно создана')
-    form_class = LabelForm
+    fields = ['name']
     model = Label
     login_url = reverse_lazy('login')
     success_url = reverse_lazy('labels')
@@ -36,7 +35,7 @@ class LabelsUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
 
     template_name = 'updates.html'
     success_message = _('Метка успешно изменена')
-    form_class = LabelForm
+    fields = ['name']
     model = Label
     success_url = reverse_lazy('labels')
     login_url = reverse_lazy('login')

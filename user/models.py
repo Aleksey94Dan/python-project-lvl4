@@ -1,13 +1,10 @@
 
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
-class CustomUser(User):
+class User(AbstractUser):
     """User mediator model."""
-
-    class Meta:
-        proxy = True
 
     def __str__(self):  # noqa: D105
         return self.get_full_name()

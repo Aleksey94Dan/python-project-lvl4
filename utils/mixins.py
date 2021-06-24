@@ -46,12 +46,6 @@ class UserEditMixin(CustomRequiredMixin, SuccessMessageMixin):
     message_error = _('У вас нет прав для изменения другого пользователя.')
     redirect_url = None
 
-    def get_queryset(self):
-        """Access to own records only."""
-        query_set = super().get_queryset()
-        user = self.request.user.pk
-        return query_set.filter(id=user)
-
     def get(self, request, *args, **kwargs):
         """Redirect user if he is not accessing his record."""
         pk = kwargs['pk']
@@ -75,9 +69,8 @@ class CustomDeleteMixin:
 
     def delete(self, request, *args, **kwargs):
         """Delete status and display message"""
-        object_ = self.get_object()  # noqa: WPS120
-        related_object_ = object_.task_set.exists()  # noqa: WPS120
-        if related_object_:
+        obj = self.get_object()  # noqa: WPS120
+        if obj.task_set.exists():
             messages.add_message(
                 request,
                 messages.ERROR,

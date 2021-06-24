@@ -6,7 +6,7 @@ import django_filters  # noqa: I001
 from labels.models import Label
 from statuses.models import Status
 from tasks.models import Task
-from user.models import CustomUser
+from user.models import User
 
 
 class TaskFilter(django_filters.FilterSet):
@@ -23,7 +23,7 @@ class TaskFilter(django_filters.FilterSet):
         label=_('Метка'),
     )
     executor = django_filters.ModelChoiceFilter(
-        queryset=CustomUser.objects.all(),
+        queryset=User.objects.all(),
         field_name='executor',
         label=_('Исполнитель'),
     )
@@ -41,4 +41,4 @@ class TaskFilter(django_filters.FilterSet):
         """Return only your tasks."""
         if value:
             return queryset.filter(author=self.request.user.pk)
-        return queryset.all()
+        return queryset

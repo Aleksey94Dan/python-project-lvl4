@@ -13,7 +13,7 @@ from django_filters.views import FilterView  # noqa: I001
 from tasks.filter import TaskFilter
 from tasks.forms import TaskForm
 from tasks.models import Task
-from user.mixins import CustomRequiredMixin
+from utils.mixins import CustomRequiredMixin
 
 
 class TasksListView(CustomRequiredMixin, FilterView):
@@ -43,9 +43,7 @@ class TasksCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         """Add author to form."""
-        self.object = form.save(commit=False)
-        self.object.author = self.request.user
-        self.object.save()
+        form.instance.author = self.request.user
         return super().form_valid(form)
 
 

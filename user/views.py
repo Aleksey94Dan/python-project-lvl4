@@ -9,15 +9,15 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from user.forms import AuthForm
-from user.mixins import CustomDeleteMixin, CustomRequiredMixin, UserEditMixin
-from user.models import CustomUser
+from user.models import User
+from utils.mixins import CustomDeleteMixin, CustomRequiredMixin, UserEditMixin
 
 
 class UsersListView(ListView):
     """User list view."""
 
     template_name = 'users.html'
-    model = CustomUser
+    model = User
     context_object_name = 'users'
 
 
@@ -26,7 +26,7 @@ class UserUpdateView(UserEditMixin, UpdateView):
 
     template_name = 'updates.html'
     form_class = AuthForm
-    model = CustomUser
+    model = User
 
     login_url = reverse_lazy('login')
     redirect_url = reverse_lazy('users-list')
@@ -39,7 +39,7 @@ class UserDeleteView(UserEditMixin, CustomDeleteMixin, DeleteView):
     """Delete user data."""
 
     template_name = 'removes.html'
-    model = CustomUser
+    model = User
 
     login_url = reverse_lazy('login')
     redirect_url = reverse_lazy('users-list')
