@@ -22,7 +22,7 @@ class StatusesListView(CustomRequiredMixin, ListView):
 class StatusesCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
     """Create status."""
 
-    template_name = 'creates.html'
+    template_name = 'create.html'
     success_message = _('Статус успешно создан')
     model = Status
     fields = ['name']
@@ -33,7 +33,7 @@ class StatusesCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
 class StatusesUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
     """Update status."""
 
-    template_name = 'updates.html'
+    template_name = 'update.html'
     success_message = _('Статус успешно изменён')
     fields = ['name']
     model = Status
@@ -44,7 +44,7 @@ class StatusesUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
 class StatusesDeleteView(CustomRequiredMixin, CustomDeleteMixin, DeleteView):
     """Delete status."""
 
-    template_name = "removes.html"
+    template_name = "delete.html"
     success_message = _('Статус успешно удалён')
     error_message = _('Невозможно удалить статус, потому что он используется')
     model = Status

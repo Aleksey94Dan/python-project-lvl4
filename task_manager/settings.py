@@ -23,6 +23,8 @@ logging.basicConfig(
 
 AUTH_USER_MODEL = 'user.User'
 
+LOGIN_REDIRECT_URL = '/'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/

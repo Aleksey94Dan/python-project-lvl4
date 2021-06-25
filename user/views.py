@@ -24,7 +24,7 @@ class UsersListView(ListView):
 class UserUpdateView(UserEditMixin, UpdateView):
     """Change user data."""
 
-    template_name = 'updates.html'
+    template_name = 'update.html'
     form_class = AuthForm
     model = User
 
@@ -38,7 +38,7 @@ class UserUpdateView(UserEditMixin, UpdateView):
 class UserDeleteView(UserEditMixin, CustomDeleteMixin, DeleteView):
     """Delete user data."""
 
-    template_name = 'removes.html'
+    template_name = 'delete.html'
     model = User
 
     login_url = reverse_lazy('login')
@@ -58,10 +58,6 @@ class CustomLoginView(SuccessMessageMixin, LoginView):
     template_name = 'registration/login.html'
     form_class = AuthenticationForm
     success_message = _('Вы залогинены')
-
-    def get_success_url(self):
-        """Redirect after successful check."""
-        return reverse_lazy('home')
 
 
 class CustomLogoutView(CustomRequiredMixin, LogoutView):

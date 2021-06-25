@@ -22,7 +22,7 @@ class LabelsListView(CustomRequiredMixin, ListView):
 class LabelsCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
     """Create status."""
 
-    template_name = 'creates.html'
+    template_name = 'create.html'
     success_message = _('Метка успешно создана')
     fields = ['name']
     model = Label
@@ -33,7 +33,7 @@ class LabelsCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
 class LabelsUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
     """Update status."""
 
-    template_name = 'updates.html'
+    template_name = 'update.html'
     success_message = _('Метка успешно изменена')
     fields = ['name']
     model = Label
@@ -44,7 +44,7 @@ class LabelsUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
 class LabelsDeleteView(CustomRequiredMixin, CustomDeleteMixin, DeleteView):
     """Delete status."""
 
-    template_name = "removes.html"
+    template_name = "delete.html"
     success_message = _('Метка успешно удалена')
     error_message = _('Невозможно удалить метку, потому что она используется')
     model = Label

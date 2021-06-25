@@ -35,7 +35,7 @@ class TasksTicketView(CustomRequiredMixin, DetailView):
 class TasksCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
     """Create tasks."""
 
-    template_name = 'creates.html'
+    template_name = 'create.html'
     success_message = _('Задача успешно создана')
     form_class = TaskForm
     success_url = reverse_lazy('tasks')
@@ -50,7 +50,7 @@ class TasksCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
 class TasksUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
     """Update tasks."""
 
-    template_name = 'updates.html'
+    template_name = 'update.html'
     success_message = _('Задача успешно изменена')
     form_class = TaskForm
     success_url = reverse_lazy('tasks')
@@ -61,7 +61,7 @@ class TasksUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
 class TasksDeleteView(CustomRequiredMixin, DeleteView):
     """Delete tasks."""
 
-    template_name = "removes.html"
+    template_name = "delete.html"
     success_message = _('Задача успешно удалена')
     error_message = _('Задачу может удалить только её автор')
     model = Task
