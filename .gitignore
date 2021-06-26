@@ -13,7 +13,4 @@ htmlcov/
 *.mo
 .coverage
 
-logs/
-
-
 settings.py
