@@ -10,7 +10,22 @@ from django.views.generic.list import ListView
 
 from user.forms import AuthForm
 from user.models import User
-from utils.mixins import CustomDeleteMixin, CustomRequiredMixin, UserEditMixin
+from utils.mixins import DeleteMixin, NextPageMixin, RequiredMixin
+
+
+class UserLoginView(SuccessMessageMixin, LoginView):
+    """User login view."""
+
+    template_name = 'registration/login.html'
+    form_class = AuthenticationForm
+    success_message = _('You are logged in')
+
+
+class UserLogoutView(NextPageMixin, LogoutView):
+    """User logout view."""
+
+    next_page = reverse_lazy('home')
+    message = _('You are logged in')
 
 
 class UsersListView(ListView):
@@ -21,7 +36,7 @@ class UsersListView(ListView):
     context_object_name = 'users'
 
 
-class UserUpdateView(UserEditMixin, UpdateView):
+class UserUpdateView(RequiredMixin, SuccessMessageMixin, UpdateView):
     """Change user data."""
 
     template_name = 'update.html'
@@ -32,10 +47,10 @@ class UserUpdateView(UserEditMixin, UpdateView):
     redirect_url = reverse_lazy('users-list')
     success_url = redirect_url
 
-    success_message = _('Пользователь успешно изменён')
+    success_message = _('User changed successfully')
 
 
-class UserDeleteView(UserEditMixin, CustomDeleteMixin, DeleteView):
+class UserDeleteView(RequiredMixin, DeleteMixin, DeleteView):
     """Delete user data."""
 
     template_name = 'delete.html'
@@ -45,25 +60,8 @@ class UserDeleteView(UserEditMixin, CustomDeleteMixin, DeleteView):
     redirect_url = reverse_lazy('users-list')
     success_url = reverse_lazy('users-list')
 
-    success_message = _('Пользователь успешно удалён')
-
-    error_message = _(
-        'Невозможно удалить пользователя, потому что он используется',
-    )
-
-
-class CustomLoginView(SuccessMessageMixin, LoginView):
-    """User login view."""
-
-    template_name = 'registration/login.html'
-    form_class = AuthenticationForm
-    success_message = _('Вы залогинены')
-
-
-class CustomLogoutView(CustomRequiredMixin, LogoutView):
-    """User logout view."""
-
-    next_page = reverse_lazy('home')
+    success_message = _('User deleted successfully')
+    error_message = _('Unable to delete user because he is in use')
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
@@ -72,4 +70,4 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     template_name = 'registration/registration.html'
     form_class = AuthForm
     success_url = reverse_lazy('login')
-    success_message = _('Пользователь успешно зарегистрирован')
+    success_message = _('User registered successfully')

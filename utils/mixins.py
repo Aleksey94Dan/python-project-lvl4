@@ -1,67 +1,62 @@
 """Customized mixins for privileges."""
 
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import AccessMixin
 from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 
 
-class CustomRequiredMixin(LoginRequiredMixin):
+class RequiredMixin(AccessMixin):
     """Add a info message on successful logout."""
 
-    login_url = reverse_lazy('home')
     redirect_field_name = None
-    info_message = _('Вы разлогинены')
-    error_messages = _('Вы не авторизованы! Пожалуйста, выполните вход.')
-
-    def get_next_page(self, **kwargs):  # noqa: WPS615
-        """Get redirect page."""
-        if self.info_message:
-            messages.add_message(
-                self.request,
-                messages.INFO,
-                self.info_message,
-            )
-        return super().get_next_page(**kwargs)
-
-    def handle_no_permission(self):  # noqa: D102
-        if self.error_messages:
-            messages.add_message(
-                self.request,
-                messages.ERROR,
-                self.error_messages,
-            )
-        return super().handle_no_permission()
-
-
-class UserEditMixin(CustomRequiredMixin, SuccessMessageMixin):
-    """
-    Overriding get, post, queryset methods
-
-    for user access only to their posts.
-    """
-
-    message_error = _('У вас нет прав для изменения другого пользователя.')
     redirect_url = None
+    error_message = _(
+        'You do not have permission to change the user otherwise.'
+    )
+    permission_denied_message = _(
+        'You are not authorized! Please sign in.'
+    )
 
-    def get(self, request, *args, **kwargs):
-        """Redirect user if he is not accessing his record."""
-        pk = kwargs['pk']
-        user = self.request.user.pk
-        if pk != user:
-            if self.message_error:
+    def dispatch(self, request, *args, **kwargs):
+        """Allow the user to edit only their own data."""
+        if not request.user.is_authenticated:
+            messages.add_message(
+                request,
+                messages.ERROR,
+                self.permission_denied_message,
+            )
+            return self.handle_no_permission()
+
+        if request.user.pk != kwargs['pk']:
+            if self.error_message:
                 messages.add_message(
-                    self.request,
+                    request,
                     messages.ERROR,
-                    self.message_error,
+                    self.error_message,
                 )
             return HttpResponseRedirect(self.redirect_url)
-        return super().get(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
-class CustomDeleteMixin:
+class NextPageMixin:
+    """Blending the transition to the next page."""
+
+    message = None
+
+    def get_next_page(self):
+        """Go to next page."""
+        next_page = super().get_next_page()
+        if self.message:
+            messages.add_message(
+                self.request,
+                messages.SUCCESS,
+                self.message,
+            )
+        return next_page
+
+
+class DeleteMixin:
     """Allow only unrelated objects to be deleted."""
 
     success_message = None
@@ -69,7 +64,7 @@ class CustomDeleteMixin:
 
     def delete(self, request, *args, **kwargs):
         """Delete status and display message"""
-        obj = self.get_object()  # noqa: WPS120
+        obj = self.get_object()  # noqa: WPS120, WPS110
         if obj.task_set.exists():
             messages.add_message(
                 request,
@@ -83,3 +78,27 @@ class CustomDeleteMixin:
             self.success_message,
         )
         return super().delete(request, *args, **kwargs)
+
+
+class TaskDeleteMixin:
+    """Delete mixin"""
+
+    success_message = None
+    error_message = None
+
+    def delete(self, request, *args, **kwargs):
+        """Delete tasks only self."""
+        obj = self.get_object()  # noqa: WPS110
+        if obj.author.pk == request.user.pk:
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                self.success_message,
+            )
+            return super().delete(request, *args, **kwargs)
+        messages.add_message(
+            request,
+            messages.ERROR,
+            self.error_message,
+        )
+        return HttpResponseRedirect(self.success_url)

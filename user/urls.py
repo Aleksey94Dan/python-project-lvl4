@@ -3,17 +3,17 @@
 from django.urls import path
 
 from user.views import (
-    CustomLoginView,
-    CustomLogoutView,
     UserCreateView,
     UserDeleteView,
+    UserLoginView,
+    UserLogoutView,
     UsersListView,
     UserUpdateView,
 )
 
 urlpatterns = [
-    path('login/', CustomLoginView.as_view(), name='login'),
-    path('logout/', CustomLogoutView.as_view(), name='logout'),
+    path('login/', UserLoginView.as_view(), name='login'),
+    path('logout/', UserLogoutView.as_view(), name='logout'),
     path('users/create/', UserCreateView.as_view(), name='user-create'),
     path('users/', UsersListView.as_view(), name='users-list'),
     path(

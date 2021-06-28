@@ -1,5 +1,6 @@
 """Logic for home, creating and editing labels."""
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
@@ -7,10 +8,10 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from labels.models import Label
-from utils.mixins import CustomDeleteMixin, CustomRequiredMixin
+from utils.mixins import DeleteMixin
 
 
-class LabelsListView(CustomRequiredMixin, ListView):
+class LabelsListView(LoginRequiredMixin, ListView):
     """Labels list view."""
 
     template_name = 'labels.html'
@@ -19,34 +20,34 @@ class LabelsListView(CustomRequiredMixin, ListView):
     login_url = reverse_lazy('login')
 
 
-class LabelsCreateView(CustomRequiredMixin, SuccessMessageMixin, CreateView):
+class LabelsCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     """Create status."""
 
     template_name = 'create.html'
-    success_message = _('Метка успешно создана')
+    success_message = _('Label created successfully')
     fields = ['name']
     model = Label
     login_url = reverse_lazy('login')
     success_url = reverse_lazy('labels')
 
 
-class LabelsUpdateView(CustomRequiredMixin, SuccessMessageMixin, UpdateView):
+class LabelsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """Update status."""
 
     template_name = 'update.html'
-    success_message = _('Метка успешно изменена')
+    success_message = _('Label deleted successfully')
     fields = ['name']
     model = Label
     success_url = reverse_lazy('labels')
     login_url = reverse_lazy('login')
 
 
-class LabelsDeleteView(CustomRequiredMixin, CustomDeleteMixin, DeleteView):
+class LabelsDeleteView(LoginRequiredMixin, DeleteMixin, DeleteView):
     """Delete status."""
 
     template_name = "delete.html"
-    success_message = _('Метка успешно удалена')
-    error_message = _('Невозможно удалить метку, потому что она используется')
+    success_message = _('Label deleted successfully')
+    error_message = _('Cannot remove a label because it is in use')
     model = Label
     success_url = reverse_lazy('labels')
     login_url = reverse_lazy('login')
