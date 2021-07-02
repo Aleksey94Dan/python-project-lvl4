@@ -1,14 +1,14 @@
 """Description of status models."""
 
 from django.db import models
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 
 class Status(models.Model):
     """Status designation model."""
 
     name = models.CharField(
-        verbose_name=_('name of status'),
+        verbose_name=_('Name'),
         max_length=100,
         unique=True,
     )

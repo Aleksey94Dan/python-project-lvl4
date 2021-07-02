@@ -1,6 +1,6 @@
 
 from django import forms
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 import django_filters  # noqa: I001
 from labels.models import Label
@@ -15,21 +15,21 @@ class TaskFilter(django_filters.FilterSet):
     status = django_filters.ModelChoiceFilter(
         queryset=Status.objects.all(),
         field_name='status',
-        label=_('Статус'),
+        label=_('Status'),
     )
     label = django_filters.ModelChoiceFilter(
         queryset=Label.objects.all(),
         field_name='labels',
-        label=_('Метка'),
+        label=_('Label'),
     )
     executor = django_filters.ModelChoiceFilter(
         queryset=User.objects.all(),
         field_name='executor',
-        label=_('Исполнитель'),
+        label=_('Executor'),
     )
     only_self = django_filters.BooleanFilter(
         method='filter_by_self',
-        label=_('Только свои задачи'),
+        label=_('Only your tasks'),
         widget=forms.CheckboxInput(),
     )
 

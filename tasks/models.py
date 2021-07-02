@@ -1,7 +1,7 @@
 """Description of tasks models."""
 
 from django.db import models
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from labels.models import Label
 from statuses.models import Status
@@ -34,7 +34,7 @@ class Task(models.Model):
         User,
         verbose_name=_('Executor'),
         on_delete=models.SET_NULL,
-        related_name='executor',
+        related_name='executors',
         blank=True,
         null=True,
     )

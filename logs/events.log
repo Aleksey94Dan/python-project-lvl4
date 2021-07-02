@@ -1,2 +1,1 @@
-17:51:13 - INFO - Watching for file changes with StatReloader
-17:51:14 - WARNING - Rollbar already initialized. Ignoring re-init.
+17:03:30 - DEBUG - Using selector: EpollSelector

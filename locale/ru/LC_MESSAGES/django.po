@@ -1,0 +1,134 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-02 20:59+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: labels/models.py:11 statuses/models.py:11 tasks/models.py:15
+#: templates/labels.html:15
+msgid "Name"
+msgstr "Имя"
+
+#: labels/views.py:27
+msgid "Label created successfully"
+msgstr "Метка успешно создана"
+
+#: labels/views.py:38 labels/views.py:49
+msgid "Label deleted successfully"
+msgstr "Метка успешно удалена"
+
+#: labels/views.py:50
+msgid "Cannot remove a label because it is in use"
+msgstr "Невозможно удалить метку, потому что она используется"
+
+#: statuses/views.py:32
+msgid "Status created successfully"
+msgstr "Статус успешно создан"
+
+#: statuses/views.py:46
+msgid "Status changed successfully"
+msgstr "Статус успешно изменен"
+
+#: statuses/views.py:58
+msgid "Status deleted successfully"
+msgstr "Статус успешно удален"
+
+#: statuses/views.py:59
+msgid "Unable to delete status because it is in use"
+msgstr "Невозможно удалить статус, потому что он используется"
+
+#: tasks/filter.py:18 tasks/models.py:29
+msgid "Status"
+msgstr "Статус"
+
+#: tasks/filter.py:23
+msgid "Label"
+msgstr "Метка"
+
+#: tasks/filter.py:28 tasks/models.py:35
+msgid "Executor"
+msgstr "Исполнитель"
+
+#: tasks/filter.py:32
+msgid "Only your tasks"
+msgstr "Только свои задачи"
+
+#: tasks/models.py:20
+msgid "Description"
+msgstr "Описание"
+
+#: tasks/models.py:23
+msgid "Author"
+msgstr "Автор"
+
+#: tasks/models.py:43
+msgid "Labels"
+msgstr "Метки"
+
+#: tasks/views.py:38
+msgid "Task successfully created"
+msgstr "Задача успешно создана"
+
+#: tasks/views.py:53
+msgid "Task successfully changed"
+msgstr "Задача успешно изменена"
+
+#: tasks/views.py:64
+msgid "Task successfully deleted"
+msgstr "Задача успешно удалена"
+
+#: tasks/views.py:65
+msgid "A task can only be deleted by its author"
+msgstr "Задачу может удалить только её автор"
+
+#: templates/bootstrap.html:3
+msgid "TaskManager"
+msgstr "Менеджер задач"
+
+#: templates/labels.html:16
+msgid "Created"
+msgstr "Создать"
+
+#: user/views.py:21 user/views.py:28
+msgid "You are logged in"
+msgstr "Вы залогиненны"
+
+#: user/views.py:50
+msgid "User changed successfully"
+msgstr "Пользователь успешно изменен"
+
+#: user/views.py:63
+msgid "User deleted successfully"
+msgstr "Пользователь успешно удален"
+
+#: user/views.py:64
+msgid "Unable to delete user because he is in use"
+msgstr "Невозможно удалить пользователя, потому что он используется"
+
+#: user/views.py:73
+msgid "User registered successfully"
+msgstr "Пользователь успешно зарегистрирован"
+
+#: utils/mixins.py:15
+msgid "You do not have permission to change the user otherwise."
+msgstr "У вас нет прав для изменения другого пользователя."
+
+#: utils/mixins.py:18
+msgid "You are not authorized! Please sign in."
+msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
