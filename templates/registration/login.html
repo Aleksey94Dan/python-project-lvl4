@@ -14,7 +14,7 @@
 
 <h1>Вход</h1>
 
-<form role="form" method="post">
+<form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons submit='Войти' %}{% endbuttons %}
