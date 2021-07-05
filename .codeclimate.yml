@@ -6,9 +6,3 @@ plugins:
       languages:
         python:
           python_version: 3
-exclude_patterns:
- - "templates/*"
- - "logs/*"
- - "*/tests/*"
- - "*/migrations/*"
- - "*/locale/*"
