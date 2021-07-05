@@ -168,7 +168,7 @@ LANGUAGE_CODE = 'ru-ru'
 
 LANGUAGES = [
     # ('en-us', _('English')),
-    ('ru-ru', _('Russian')),
+    ('ru', 'Russian'),
 ]
 
 LOCALE_PATHS = [
