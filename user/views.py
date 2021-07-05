@@ -25,7 +25,7 @@ class UserLogoutView(NextPageMixin, LogoutView):
     """User logout view."""
 
     next_page = reverse_lazy('home')
-    message = _('You are logged in')
+    message = _('You are logged out')
 
 
 class UsersListView(ListView):

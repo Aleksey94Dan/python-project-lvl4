@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-02 20:59+0700\n"
+"POT-Creation-Date: 2021-07-05 20:40+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,6 +52,10 @@ msgstr "Статус успешно удален"
 #: statuses/views.py:59
 msgid "Unable to delete status because it is in use"
 msgstr "Невозможно удалить статус, потому что он используется"
+
+#: task_manager/settings.py:171
+msgid "Russian"
+msgstr ""
 
 #: tasks/filter.py:18 tasks/models.py:29
 msgid "Status"
@@ -105,9 +109,13 @@ msgstr "Менеджер задач"
 msgid "Created"
 msgstr "Создать"
 
-#: user/views.py:21 user/views.py:28
+#: user/views.py:21
 msgid "You are logged in"
-msgstr "Вы залогиненны"
+msgstr "Вы залогинены"
+
+#: user/views.py:28
+msgid "You are logged out"
+msgstr "Вы разлогинены"
 
 #: user/views.py:50
 msgid "User changed successfully"
