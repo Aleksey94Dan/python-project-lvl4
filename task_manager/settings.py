@@ -7,6 +7,7 @@ from pathlib import Path
 import dj_database_url
 import rollbar
 from django.contrib.messages import constants as message
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -166,8 +167,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'ru-ru'
 
 LANGUAGES = [
-    ('en', 'English'),
-    ('ru', 'Russian'),
+    ('en-us', _('English')),
+    ('ru-ru', _('Russian')),
 ]
 
 LOCALE_PATHS = [
