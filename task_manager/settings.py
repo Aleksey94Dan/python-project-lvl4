@@ -12,15 +12,21 @@ from django.utils.translation import gettext_lazy as _
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-logging.basicConfig(
-    level=logging.DEBUG,
-    filename=os.path.join(BASE_DIR, 'logs/events.log'),
-    filemode='w',
-    format='{asctime} - {levelname} - {message}',
-    datefmt='%H:%M:%S',
-    style='{',
-)
-
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+        },
+    },
+}
 
 AUTH_USER_MODEL = 'user.User'
 
