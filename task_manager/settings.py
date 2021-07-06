@@ -139,6 +139,9 @@ CONN_MAX_AGE = 500
 if os.getenv('DATABASE_URL'):
     DATABASES['default'] = dj_database_url.config(conn_max_age=CONN_MAX_AGE)
 
+print(os.getenv('DATABASE_URL'))
+print()
+print()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
