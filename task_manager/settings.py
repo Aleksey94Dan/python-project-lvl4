@@ -136,7 +136,7 @@ if os.getenv('DB_ENGINE') == 'SQLite':
 
 CONN_MAX_AGE = 500
 
-if os.getenv('HEROKU_POSTGRESQL_PURPLE_URL'):
+if os.getenv('DATABASE_URL'):
     DATABASES['default'] = dj_database_url.config(conn_max_age=CONN_MAX_AGE)
 
 
