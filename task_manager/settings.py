@@ -136,12 +136,9 @@ if os.getenv('DB_ENGINE') == 'SQLite':
 
 CONN_MAX_AGE = 500
 
-if os.getenv('DATABASE_URL'):
+if os.getenv('HEROKU_POSTGRESQL_PURPLE_URL'):
     DATABASES['default'] = dj_database_url.config(conn_max_age=CONN_MAX_AGE)
 
-print(os.getenv('DATABASE_URL'))
-print()
-print()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
