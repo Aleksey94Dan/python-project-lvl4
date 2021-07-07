@@ -35,7 +35,7 @@ class LabelsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """Update status."""
 
     template_name = 'update.html'
-    success_message = _('Label deleted successfully')
+    success_message = _('Label updated successfully')
     fields = ['name']
     model = Label
     success_url = reverse_lazy('labels')

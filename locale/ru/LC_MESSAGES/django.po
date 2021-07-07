@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-05 21:32+0700\n"
+"POT-Creation-Date: 2021-07-07 21:14+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,6 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: labels/models.py:11 statuses/models.py:11 tasks/models.py:15
-#: templates/labels.html:15
 msgid "Name"
 msgstr "Имя"
 
@@ -29,7 +28,11 @@ msgstr "Имя"
 msgid "Label created successfully"
 msgstr "Метка успешно создана"
 
-#: labels/views.py:38 labels/views.py:49
+#: labels/views.py:38
+msgid "Label updated successfully"
+msgstr "Метка успешно изменена"
+
+#: labels/views.py:49
 msgid "Label deleted successfully"
 msgstr "Метка успешно удалена"
 
@@ -53,11 +56,11 @@ msgstr "Статус успешно удалён"
 msgid "Unable to delete status because it is in use"
 msgstr "Невозможно удалить статус, потому что он используется"
 
-#: task_manager/settings.py:170
+#: task_manager/settings.py:176
 msgid "English"
 msgstr "Английский"
 
-#: task_manager/settings.py:171
+#: task_manager/settings.py:177
 msgid "Russian"
 msgstr "Русский"
 
@@ -109,10 +112,6 @@ msgstr "Задачу может удалить только её автор"
 msgid "TaskManager"
 msgstr "Менеджер задач"
 
-#: templates/labels.html:16
-msgid "Created"
-msgstr "Создать"
-
 #: user/views.py:21
 msgid "You are logged in"
 msgstr "Вы залогинены"
@@ -144,3 +143,6 @@ msgstr "У вас нет прав для изменения другого по�
 #: utils/mixins.py:18
 msgid "You are not authorized! Please sign in."
 msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
+
+#~ msgid "Created"
+#~ msgstr "Создать"
