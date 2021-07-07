@@ -134,7 +134,7 @@ msgid "Unable to delete user because he is in use"
 msgstr "Невозможно удалить пользователя, потому что он используется"
 
 #: user/views.py:73
-msgid "User registered successfulёly"
+msgid "User registered successfully"
 msgstr "Пользователь успешно зарегистрирован"
 
 #: utils/mixins.py:15
