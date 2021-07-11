@@ -1,0 +1,35 @@
+{
+  "valid": {
+    "password1": "123",
+    "password2": "123",
+    "username": "123",
+    "first_name": "123",
+    "last_name": "123"
+  },
+  "invalid": {
+    "password1": "",
+    "password2": "",
+    "username": "",
+    "first_name": "",
+    "last_name": "111"
+  },
+  "new": {
+    "password": "123455",
+    "username": "test_username_3",
+    "first_name": "test first_name 2",
+    "last_name": "test last_name 2"
+  },
+  "authorized": {
+    "password": "",
+    "username": "",
+    "first_name": "",
+    "last_name": ""
+  },
+  "updated": {
+    "password1": "",
+    "password2": "",
+    "username": "",
+    "first_name": "",
+    "last_name": ""
+  }
+}

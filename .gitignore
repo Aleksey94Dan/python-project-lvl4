@@ -5,6 +5,7 @@
 __pycache__/
 staticfiles/
 htmlcov/
+/logs/
 
 .env
 .python-version

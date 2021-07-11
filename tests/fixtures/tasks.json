@@ -1,0 +1,63 @@
+[
+{
+    "model": "tasks.task",
+    "pk": 1,
+    "fields": {
+        "name": "First task",
+        "created_at": "2021-07-11T04:42:26.493Z",
+        "description": "First task",
+        "author": 3,
+        "status": 2,
+        "executor": 3,
+        "labels": [
+            3
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 2,
+    "fields": {
+        "name": "Second task",
+        "created_at": "2021-07-11T04:42:45.234Z",
+        "description": "Second task",
+        "author": 3,
+        "status": 2,
+        "executor": 4,
+        "labels": [
+            4
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 3,
+    "fields": {
+        "name": "Third task",
+        "created_at": "2021-07-11T04:43:08.286Z",
+        "description": "Third task",
+        "author": 3,
+        "status": 4,
+        "executor": 6,
+        "labels": [
+            5
+        ]
+    }
+},
+{
+    "model": "tasks.task",
+    "pk": 4,
+    "fields": {
+        "name": "Fourth task",
+        "created_at": "2021-07-11T04:44:00.526Z",
+        "description": "Fourth task",
+        "author": 4,
+        "status": 4,
+        "executor": 5,
+        "labels": [
+            4,
+            5
+        ]
+    }
+}
+]
