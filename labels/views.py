@@ -46,8 +46,8 @@ class LabelsDeleteView(LoginRequiredMixin, DeleteMixin, DeleteView):
     """Delete status."""
 
     template_name = "delete.html"
-    success_message = _('Label deleted successfully')
-    error_message = _('Cannot remove a label because it is in use')
+    success_message_delete = _('Label deleted successfully')
+    error_message_delete = _('Cannot remove a label because it is in use')
     model = Label
     success_url = reverse_lazy('labels')
     login_url = reverse_lazy('login')

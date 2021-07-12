@@ -55,5 +55,5 @@ class StatusesDeleteView(LoginRequiredMixin, DeleteMixin, DeleteView):
     success_url = reverse_lazy('statuses')
     login_url = reverse_lazy('login')
 
-    success_message = _('Status deleted successfully')
-    error_message = _('Unable to delete status because it is in use')
+    success_message_delete = _('Status deleted successfully')
+    error_message_delete = _('Unable to delete status because it is in use')
