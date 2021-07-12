@@ -60,8 +60,9 @@ class UserDeleteView(RequiredMixin, DeleteMixin, DeleteView):
     redirect_url = reverse_lazy('users-list')
     success_url = reverse_lazy('users-list')
 
-    success_message = _('User deleted successfully')
-    error_message = _('Unable to delete user because he is in use')
+    success_message_delete = _('User deleted successfully')
+    error_message_delete =_('Unable to delete user because he is in use')
+
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):

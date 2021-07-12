@@ -59,8 +59,8 @@ class NextPageMixin:
 class DeleteMixin:
     """Allow only unrelated objects to be deleted."""
 
-    success_message = None
-    error_message = None
+    success_message_delete = None
+    error_message_delete = None
 
     def delete(self, request, *args, **kwargs):
         """Delete status and display message"""
@@ -69,13 +69,13 @@ class DeleteMixin:
             messages.add_message(
                 request,
                 messages.ERROR,
-                self.error_message,
+                self.error_message_delete,
             )
             return HttpResponseRedirect(self.success_url)
         messages.add_message(
             request,
             messages.SUCCESS,
-            self.success_message,
+            self.success_message_delete,
         )
         return super().delete(request, *args, **kwargs)
 
