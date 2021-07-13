@@ -9,7 +9,7 @@ run:
 migrate:
 		poetry run python manage.py migrate
 lint:
-		poetry run flake8 user statuses labels tasks utils
+		poetry run flake8 user statuses labels tasks
 test:
 		poetry run python manage.py test --parallel
 check:

@@ -8,9 +8,9 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
+from task_manager.mixins import DeleteMixin, NextPageMixin, RequiredMixin
 from user.forms import AuthForm
 from user.models import User
-from utils.mixins import DeleteMixin, NextPageMixin, RequiredMixin
 
 
 class UserLoginView(SuccessMessageMixin, LoginView):

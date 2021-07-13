@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from statuses.models import Status
-from utils.mixins import DeleteMixin
+from task_manager.mixins import DeleteMixin
 
 
 class StatusesListView(LoginRequiredMixin, ListView):

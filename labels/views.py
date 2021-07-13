@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from labels.models import Label
-from utils.mixins import DeleteMixin
+from task_manager.mixins import DeleteMixin
 
 
 class LabelsListView(LoginRequiredMixin, ListView):

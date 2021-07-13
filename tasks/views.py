@@ -7,12 +7,12 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-
 from django_filters.views import FilterView  # noqa: I001
+
+from task_manager.mixins import TaskDeleteMixin
 from tasks.filter import TaskFilter
 from tasks.forms import TaskForm
 from tasks.models import Task
-from utils.mixins import TaskDeleteMixin
 
 
 class TasksListView(LoginRequiredMixin, FilterView):

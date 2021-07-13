@@ -11,4 +11,10 @@ class TaskForm(ModelForm):
 
     class Meta:
         model = Task
-        exclude = ['author']
+        fields = [
+            'name',
+            'description',
+            'status',
+            'executor',
+            'labels',
+        ]
