@@ -1,15 +1,14 @@
 """Logic for home, creating and editing tasks."""
 
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from django_filters.views import FilterView  # noqa: I001
 
-from task_manager.mixins import TaskDeleteMixin
+from django_filters.views import FilterView  # noqa: I001
+from task_manager.mixins import DeleteMixin, RequiredMixin
 from tasks.filter import TaskFilter
 from tasks.forms import TaskForm
 from tasks.models import Task
@@ -19,11 +18,10 @@ class TasksListView(LoginRequiredMixin, FilterView):
     """Tasks list view."""
 
     template_name = 'tasks.html'
-    login_url = reverse_lazy('login')
     filterset_class = TaskFilter
 
 
-class TasksTicketView(DetailView):
+class TasksTicketView(LoginRequiredMixin, DetailView):
     """Detail task."""
 
     template_name = 'task_ticket.html'
@@ -38,7 +36,6 @@ class TasksCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = _('Task successfully created')
     form_class = TaskForm
     success_url = reverse_lazy('tasks')
-    login_url = reverse_lazy('login')
 
     def form_valid(self, form):
         """Add author to form."""
@@ -53,16 +50,15 @@ class TasksUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = _('Task successfully changed')
     form_class = TaskForm
     success_url = reverse_lazy('tasks')
-    login_url = reverse_lazy('login')
     model = Task
 
 
-class TasksDeleteView(LoginRequiredMixin, TaskDeleteMixin, DeleteView):
+class TasksDeleteView(RequiredMixin, DeleteMixin, DeleteView):
     """Delete tasks."""
 
     template_name = "delete.html"
-    success_message = _('Task successfully deleted')
+    success_message_delete = _('Task successfully deleted')
     error_message = _('A task can only be deleted by its author')
     model = Task
     success_url = reverse_lazy('tasks')
-    login_url = reverse_lazy('login')
+    redirect_url = reverse_lazy('tasks')

@@ -2,7 +2,9 @@
 
 from django.contrib import messages
 from django.contrib.auth.mixins import AccessMixin
+from django.db import IntegrityError
 from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 
 
@@ -10,7 +12,7 @@ class RequiredMixin(AccessMixin):
     """Add a info message on successful logout."""
 
     redirect_field_name = None
-    redirect_url = None
+    login_url = reverse_lazy('login')
     error_message = _(
         'You do not have permission to change the user otherwise.'
     )
@@ -28,15 +30,21 @@ class RequiredMixin(AccessMixin):
             )
             return self.handle_no_permission()
 
-        if request.user.pk != kwargs['pk']:
-            if self.error_message:
-                messages.add_message(
-                    request,
-                    messages.ERROR,
-                    self.error_message,
-                )
-            return HttpResponseRedirect(self.redirect_url)
-        return super().dispatch(request, *args, **kwargs)
+        try:
+            obj = self.get_object().author
+        except AttributeError:
+            obj = self.get_object()
+
+        if self.request.user == obj:
+            return super().dispatch(request, *args, **kwargs)
+
+        if self.error_message:
+            messages.add_message(
+                request,
+                messages.ERROR,
+                self.error_message,
+            )
+        return HttpResponseRedirect(self.redirect_url)
 
 
 class NextPageMixin:
@@ -64,41 +72,17 @@ class DeleteMixin:
 
     def delete(self, request, *args, **kwargs):
         """Delete status and display message"""
-        obj = self.get_object()  # noqa: WPS120, WPS110
-        if obj.task_set.exists():
+        try:
+            self.get_object().delete()
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                self.success_message_delete,
+            )
+        except IntegrityError:
             messages.add_message(
                 request,
                 messages.ERROR,
                 self.error_message_delete,
             )
-            return HttpResponseRedirect(self.success_url)
-        messages.add_message(
-            request,
-            messages.SUCCESS,
-            self.success_message_delete,
-        )
-        return super().delete(request, *args, **kwargs)
-
-
-class TaskDeleteMixin:
-    """Delete mixin"""
-
-    success_message = None
-    error_message = None
-
-    def delete(self, request, *args, **kwargs):
-        """Delete tasks only self."""
-        obj = self.get_object()  # noqa: WPS110
-        if obj.author.pk == request.user.pk:
-            messages.add_message(
-                request,
-                messages.SUCCESS,
-                self.success_message,
-            )
-            return super().delete(request, *args, **kwargs)
-        messages.add_message(
-            request,
-            messages.ERROR,
-            self.error_message,
-        )
         return HttpResponseRedirect(self.success_url)

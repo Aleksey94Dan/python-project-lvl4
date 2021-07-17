@@ -24,11 +24,8 @@ LOGIN_REDIRECT_URL = '/'
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.getenv('DEBUG') == 'True':
-    DEBUG = True
-else:
-    DEBUG = False
 
+DEBUG = True if os.getenv('DEBUG') else False
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
@@ -157,7 +154,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-ru'
 
 LANGUAGES = [
     ('en', _('English')),

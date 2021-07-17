@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-07 21:14+0700\n"
+"POT-Creation-Date: 2021-07-17 16:19+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: labels/models.py:11 statuses/models.py:11 tasks/models.py:15
+#: labels/models.py:12 statuses/models.py:11 tasks/models.py:15
 msgid "Name"
 msgstr "Имя"
 
@@ -56,11 +56,19 @@ msgstr "Статус успешно удалён"
 msgid "Unable to delete status because it is in use"
 msgstr "Невозможно удалить статус, потому что он используется"
 
-#: task_manager/settings.py:176
+#: task_manager/mixins.py:16
+msgid "You do not have permission to change the user otherwise."
+msgstr "У вас нет прав для изменения другого пользователя."
+
+#: task_manager/mixins.py:19
+msgid "You are not authorized! Please sign in."
+msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
+
+#: task_manager/settings.py:163
 msgid "English"
 msgstr "Английский"
 
-#: task_manager/settings.py:177
+#: task_manager/settings.py:164
 msgid "Russian"
 msgstr "Русский"
 
@@ -92,19 +100,19 @@ msgstr "Автор"
 msgid "Labels"
 msgstr "Метки"
 
-#: tasks/views.py:38
+#: tasks/views.py:37
 msgid "Task successfully created"
 msgstr "Задача успешно создана"
 
-#: tasks/views.py:53
+#: tasks/views.py:52
 msgid "Task successfully changed"
 msgstr "Задача успешно изменена"
 
-#: tasks/views.py:64
+#: tasks/views.py:62
 msgid "Task successfully deleted"
 msgstr "Задача успешно удалена"
 
-#: tasks/views.py:65
+#: tasks/views.py:63
 msgid "A task can only be deleted by its author"
 msgstr "Задачу может удалить только её автор"
 
@@ -135,14 +143,6 @@ msgstr "Невозможно удалить пользователя, потом
 #: user/views.py:73
 msgid "User registered successfully"
 msgstr "Пользователь успешно зарегистрирован"
-
-#: utils/mixins.py:15
-msgid "You do not have permission to change the user otherwise."
-msgstr "У вас нет прав для изменения другого пользователя."
-
-#: utils/mixins.py:18
-msgid "You are not authorized! Please sign in."
-msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
 
 #~ msgid "Created"
 #~ msgstr "Создать"

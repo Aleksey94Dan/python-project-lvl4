@@ -22,18 +22,18 @@ class Task(models.Model):
         User,
         verbose_name=_('Author'),
         null=True,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
     )
     status = models.ForeignKey(
         Status,
         verbose_name=_('Status'),
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         null=True,
     )
     executor = models.ForeignKey(
         User,
         verbose_name=_('Executor'),
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='executors',
         blank=True,
         null=True,
