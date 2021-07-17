@@ -11,7 +11,7 @@ migrate:
 lint:
 		poetry run flake8
 test:
-		poetry run python manage.py test --parallel
+		poetry run python manage.py test
 check:
 		poetry check
 clean:

@@ -108,11 +108,11 @@ class TestUserView(TestCase):
         self.assertTrue(User.objects.filter(username='123'))
 
     def test_updated(self):
-        user = self.User.objects.filter(username='123')[0]
+        user = self.User.objects.get(pk=11)
         self.client.login(username=user.username, password='123')
 
         response = self.client.post(
-            reverse_lazy('user-update', kwargs={'pk': user.pk}),
+            reverse_lazy('user-update', kwargs={'pk': 11}),
             follow=True,
             data={
                 'first_name': user.first_name,
@@ -127,7 +127,7 @@ class TestUserView(TestCase):
         self.assertTrue(User.objects.filter(username='igor'))
 
     def test_updated_error(self):
-        user = self.User.objects.filter(username='123')[0]
+        user = self.User.objects.get(pk=11)
         self.client.login(username=user.username, password='123')
         user_err = self.User.objects.exclude(username='123')[:1][0]
 
@@ -150,22 +150,22 @@ class TestUserView(TestCase):
         self.assertFalse(User.objects.filter(username='igor'))
 
     def test_deleted(self):
-        user = self.User.objects.filter(username='789')[0]
-        self.client.login(username=user.username, password='789')
+        user = self.User.objects.get(pk=11)
+        self.client.login(username=user.username, password='123')
 
         response = self.client.post(
-            reverse_lazy('user-delete', kwargs={'pk': user.pk}),
+            reverse_lazy('user-delete', kwargs={'pk': 11}),
             follow=True,
         )
 
         self.assertIn('User deleted successfully', response.content.decode())
-        self.assertFalse(User.objects.filter(username='789'))
+        self.assertFalse(User.objects.filter(username=user.username))
 
     def test_deleted_other_user(self):
         """Remove another user"""
-        user = self.User.objects.filter(username='123')[0]
+        user = self.User.objects.get(pk=11)
         self.client.login(username=user.username, password='123')
-        user_err = self.User.objects.exclude(username='123')[:1][0]
+        user_err = self.User.objects.exclude(username=user.username)[:1][0]
 
         response = self.client.post(
             reverse_lazy('user-delete', kwargs={'pk': user_err.pk}),
