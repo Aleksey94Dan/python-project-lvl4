@@ -3,22 +3,16 @@
 
 from http import HTTPStatus
 
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse_lazy
 
 from labels.models import Label
 
 
-class TestStatusView(TestCase):
+class TestLabelsView(TestCase):
     """CRUD tests"""
 
     fixtures = ['statuses.json', 'users.json', 'labels.json', 'tasks.json']
-
-    @classmethod
-    def setUpTestData(cls):
-        """User initialization."""
-        cls.User = get_user_model()
 
     def assert_labels_in_html(self, labels, html):
         for label in labels:

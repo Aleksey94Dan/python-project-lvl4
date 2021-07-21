@@ -3,9 +3,9 @@
     "model": "tasks.task",
     "pk": 27,
     "fields": {
-        "name": "sfg",
+        "name": "First task",
         "created_at": "2021-07-17T10:10:22.674Z",
-        "description": "sdfg",
+        "description": "first",
         "author": 11,
         "status": 6,
         "executor": 18,
@@ -19,9 +19,9 @@
     "model": "tasks.task",
     "pk": 28,
     "fields": {
-        "name": "adsf",
+        "name": "Second task",
         "created_at": "2021-07-17T10:10:30.375Z",
-        "description": "asdfasdf",
+        "description": "second",
         "author": 11,
         "status": 6,
         "executor": 18,
