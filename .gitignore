@@ -4,6 +4,7 @@
 .devcontainer/
 __pycache__/
 staticfiles/
+static/
 htmlcov/
 /logs/
 
