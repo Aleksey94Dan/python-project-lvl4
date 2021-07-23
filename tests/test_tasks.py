@@ -1,16 +1,14 @@
-
 """Test tasks of views"""
 
-
 from http import HTTPStatus
-import labels
 
 from django.test import TestCase
 from django.urls import reverse_lazy
 
-from tasks.models import Task
 from labels.models import Label
 from statuses.models import Status
+from tasks.filter import TaskFilter
+from tasks.models import Task
 from user.models import User
 
 
@@ -33,8 +31,6 @@ class TestTasksView(TestCase):
         response = self.client.get(reverse_lazy('tasks'))
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        # self.assertIn('tasks', response.context)
-        # self.assertCountEqual(tasks, response.context.get('tasks'))
         self.assert_tasks_in_html(tasks, response.content.decode())
 
     def test_create_task(self):
@@ -50,8 +46,8 @@ class TestTasksView(TestCase):
                 'description': 'demo',
                 'status': status.pk,
                 'labels': label.pk,
-                'executor':  executor.pk,
-                },
+                'executor': executor.pk,
+            },
         )
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
@@ -74,8 +70,8 @@ class TestTasksView(TestCase):
                 'description': 'demo',
                 'status': status.pk,
                 'labels': label.pk,
-                'executor':  executor.pk,
-                },
+                'executor': executor.pk,
+            },
         )
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
@@ -97,8 +93,8 @@ class TestTasksView(TestCase):
                 'description': 'demo',
                 'status': status.pk,
                 'labels': label.pk,
-                'executor':  executor.pk,
-                },
+                'executor': executor.pk,
+            },
         )
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
@@ -145,3 +141,35 @@ class TestTasksView(TestCase):
             response.content.decode(),
         )
         self.assertTrue(Task.objects.filter(pk=27))
+
+    def test_filter(self):
+        self.client.login(username='123', password='123')
+
+        qs = Task.objects.all()
+
+        f = TaskFilter(queryset=qs)
+        self.assertQuerysetEqual(
+            f.qs, [27, 28, 29, 30], lambda o: o.pk, ordered=False,
+        )
+
+        f = TaskFilter({'status': 6}, queryset=qs)
+        self.assertQuerysetEqual(
+            f.qs, [27, 28], lambda o: o.pk, ordered=False,
+        )
+
+        f = TaskFilter({'status': 13}, queryset=qs)
+        self.assertQuerysetEqual(f.qs, [], lambda o: o.pk)
+
+        f = TaskFilter({'executor': 11}, queryset=qs)
+        self.assertQuerysetEqual(f.qs, [30], lambda o: o.pk)
+
+        f = TaskFilter({'executor': 20}, queryset=qs)
+        self.assertQuerysetEqual(f.qs, [], lambda o: o.pk)
+
+        f = TaskFilter({'label': 25}, queryset=qs)
+        self.assertQuerysetEqual(
+            f.qs, [27, 28, 29], lambda o: o.pk, ordered=False,
+        )
+
+        f = TaskFilter({'label': 29}, queryset=qs)
+        self.assertQuerysetEqual(f.qs, [], lambda o: o.pk)

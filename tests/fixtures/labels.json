@@ -22,5 +22,13 @@
         "name": "last",
         "created_at": "2021-07-17T13:35:39.339Z"
     }
+},
+{
+    "model": "labels.label",
+    "pk": 29,
+    "fields": {
+        "name": "not used",
+        "created_at": "2021-07-23T14:24:14.230Z"
+    }
 }
 ]

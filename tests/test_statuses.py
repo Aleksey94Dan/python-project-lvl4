@@ -20,7 +20,7 @@ class TestStatusView(TestCase):
             self.assertInHTML(status.name, html)
 
     def test_users_list(self):
-        login = self.client.login(username='123', password='123')
+        self.client.login(username='123', password='123')
         statuses = Status.objects.all()
         response = self.client.get(reverse_lazy('statuses'))
 
@@ -75,9 +75,9 @@ class TestStatusView(TestCase):
 
     def test_delete_status(self):
         self.client.login(username='123', password='123')
-        status = Status.objects.get(pk=12)
+        status = Status.objects.get(pk=13)
         response = self.client.post(
-            reverse_lazy('statuses-delete', kwargs={'pk': 12}),
+            reverse_lazy('statuses-delete', kwargs={'pk': 13}),
             follow=True,
         )
 

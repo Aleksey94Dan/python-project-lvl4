@@ -75,9 +75,9 @@ class TestLabelsView(TestCase):
 
     def test_delete_label(self):
         self.client.login(username='123', password='123')
-        label = Label.objects.get(pk=28)
+        label = Label.objects.get(pk=29)
         response = self.client.post(
-            reverse_lazy('labels-delete', kwargs={'pk': 28}),
+            reverse_lazy('labels-delete', kwargs={'pk': 29}),
             follow=True,
         )
 

@@ -4,7 +4,6 @@ import os
 from pathlib import Path
 
 import dj_database_url
-import rollbar
 from django.contrib.messages import constants as message
 from django.utils.translation import gettext_lazy as _
 
@@ -39,9 +38,9 @@ ROLLBAR = {
     'access_token': os.getenv('ACCESS_TOKEN_ROLLBAR'),
     'environment': 'development' if DEBUG else 'production',
     'branch': 'master',
-    'root': BASE_DIR,
+    'root': str(BASE_DIR),
 }
-rollbar.init(**ROLLBAR)
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -134,9 +133,9 @@ if os.getenv('DATABASE_URL'):
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    # },
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
         'OPTIONS': {'min_length': 3},
@@ -154,7 +153,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
+if DEBUG:
+    LANGUAGE_CODE = 'en-us'
 
 LANGUAGES = [
     ('en', _('English')),
