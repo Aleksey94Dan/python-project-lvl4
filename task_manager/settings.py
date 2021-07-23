@@ -154,8 +154,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 LANGUAGE_CODE = 'ru-ru'
-if DEBUG:
-    LANGUAGE_CODE = 'en-us'
+
 
 LANGUAGES = [
     ('en', _('English')),
