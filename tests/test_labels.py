@@ -7,6 +7,7 @@ from django.test import TestCase
 from django.urls import reverse_lazy
 
 from labels.models import Label
+from tasks.models import Task
 
 
 class TestLabelsView(TestCase):
@@ -75,9 +76,10 @@ class TestLabelsView(TestCase):
 
     def test_delete_label(self):
         self.client.login(username='123', password='123')
-        label = Label.objects.get(pk=29)
+        labels_id = Task.objects.all().values_list('labels', flat=True)
+        label = Label.objects.exclude(id__in=list(labels_id))[0]
         response = self.client.post(
-            reverse_lazy('labels-delete', kwargs={'pk': 29}),
+            reverse_lazy('labels-delete', kwargs={'pk': label.id}),
             follow=True,
         )
 
@@ -90,19 +92,20 @@ class TestLabelsView(TestCase):
 
     def test_labels_error404(self):
         self.client.login(username='123', password='123')
+        last_label = Label.objects.all().order_by('-pk')[0]
 
         for url in ['labels-delete', 'labels-update']:
             response = self.client.post(
-                reverse_lazy(url, kwargs={'pk': 999}),
+                reverse_lazy(url, kwargs={'pk': last_label.id + 1}),
                 follow=True,
             )
             self.assertTrue(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_delete_label_if_used(self):
         self.client.login(username='123', password='123')
-        label = Label.objects.get(pk=24)
+        label_id = Task.objects.all().values_list('labels', flat=True)[0]
         response = self.client.post(
-            reverse_lazy('labels-delete', kwargs={'pk': 24}),
+            reverse_lazy('labels-delete', kwargs={'pk': label_id}),
             follow=True,
         )
 
@@ -111,4 +114,4 @@ class TestLabelsView(TestCase):
             'Cannot remove a label because it is in use',
             response.content.decode(),
         )
-        self.assertTrue(Label.objects.filter(name=label.name))
+        self.assertTrue(Label.objects.filter(id=label_id))

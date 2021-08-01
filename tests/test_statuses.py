@@ -7,6 +7,7 @@ from django.test import TestCase
 from django.urls import reverse_lazy
 
 from statuses.models import Status
+from tasks.models import Task
 
 
 class TestStatusView(TestCase):
@@ -75,9 +76,10 @@ class TestStatusView(TestCase):
 
     def test_delete_status(self):
         self.client.login(username='123', password='123')
-        status = Status.objects.get(pk=13)
+        statuses_id = Task.objects.all().values_list('status', flat=True)
+        status = Status.objects.exclude(id__in=list(statuses_id))[0]
         response = self.client.post(
-            reverse_lazy('statuses-delete', kwargs={'pk': 13}),
+            reverse_lazy('statuses-delete', kwargs={'pk': status.pk}),
             follow=True,
         )
 
@@ -90,19 +92,20 @@ class TestStatusView(TestCase):
 
     def test_status_error404(self):
         self.client.login(username='123', password='123')
+        last_status = Status.objects.all().order_by('-pk')[0]
 
         for url in ['statuses-delete', 'statuses-update']:
             response = self.client.post(
-                reverse_lazy(url, kwargs={'pk': 999}),
+                reverse_lazy(url, kwargs={'pk': last_status.id + 1}),
                 follow=True,
             )
             self.assertTrue(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_delete_status_if_used(self):
         self.client.login(username='123', password='123')
-        status = Status.objects.get(pk=6)
+        status_id = Task.objects.all().values_list('status', flat=True)[0]
         response = self.client.post(
-            reverse_lazy('statuses-delete', kwargs={'pk': 6}),
+            reverse_lazy('statuses-delete', kwargs={'pk': status_id}),
             follow=True,
         )
 
@@ -111,4 +114,4 @@ class TestStatusView(TestCase):
             'Unable to delete status because it is in use',
             response.content.decode(),
         )
-        self.assertTrue(Status.objects.filter(name=status.name))
+        self.assertTrue(Status.objects.filter(id=status_id))

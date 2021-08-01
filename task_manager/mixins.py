@@ -2,13 +2,13 @@
 
 from django.contrib import messages
 from django.contrib.auth.mixins import AccessMixin
-from django.db import IntegrityError
+from django.db.models import ProtectedError
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 
 
-class RequiredMixin(AccessMixin):
+class AuthRequiredMixin(AccessMixin):
     """Add a info message on successful logout."""
 
     redirect_field_name = None
@@ -23,11 +23,7 @@ class RequiredMixin(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
         """Allow the user to edit only their own data."""
         if not request.user.is_authenticated:
-            messages.add_message(
-                request,
-                messages.ERROR,
-                self.permission_denied_message,
-            )
+            messages.add_message(request, messages.ERROR, self.permission_denied_message)
             return self.handle_no_permission()
 
         try:
@@ -39,29 +35,8 @@ class RequiredMixin(AccessMixin):
             return super().dispatch(request, *args, **kwargs)
 
         if self.error_message:
-            messages.add_message(
-                request,
-                messages.ERROR,
-                self.error_message,
-            )
+            messages.add_message(request, messages.ERROR, self.error_message)
         return HttpResponseRedirect(self.redirect_url)
-
-
-class NextPageMixin:
-    """Blending the transition to the next page."""
-
-    message = None
-
-    def get_next_page(self):
-        """Go to next page."""
-        next_page = super().get_next_page()
-        if self.message:
-            messages.add_message(
-                self.request,
-                messages.SUCCESS,
-                self.message,
-            )
-        return next_page
 
 
 class DeleteMixin:
@@ -73,16 +48,8 @@ class DeleteMixin:
     def delete(self, request, *args, **kwargs):
         """Delete status and display message"""
         try:
-            self.get_object().delete()
-            messages.add_message(
-                request,
-                messages.SUCCESS,
-                self.success_message_delete,
-            )
-        except IntegrityError:
-            messages.add_message(
-                request,
-                messages.ERROR,
-                self.error_message_delete,
-            )
+            messages.add_message(request, messages.SUCCESS, self.success_message_delete)
+            return super().delete(request, *args, **kwargs)
+        except ProtectedError:
+            messages.add_message(request, messages.ERROR, self.error_message_delete)
         return HttpResponseRedirect(self.success_url)

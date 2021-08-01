@@ -1,14 +1,15 @@
 """Logic for home, creating and editing labels."""
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from labels.models import Label
-from task_manager.mixins import DeleteMixin
 
 
 class LabelsListView(LoginRequiredMixin, ListView):
@@ -21,7 +22,7 @@ class LabelsListView(LoginRequiredMixin, ListView):
 
 
 class LabelsCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    """Create status."""
+    """Create label."""
 
     template_name = 'create.html'
     success_message = _('Label created successfully')
@@ -32,7 +33,7 @@ class LabelsCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 
 class LabelsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    """Update status."""
+    """Update label."""
 
     template_name = 'update.html'
     success_message = _('Label updated successfully')
@@ -42,12 +43,25 @@ class LabelsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     login_url = reverse_lazy('login')
 
 
-class LabelsDeleteView(LoginRequiredMixin, DeleteMixin, DeleteView):
-    """Delete status."""
+class LabelsDeleteView(LoginRequiredMixin, DeleteView):
+    """Delete labels."""
 
     template_name = "delete.html"
-    success_message_delete = _('Label deleted successfully')
-    error_message_delete = _('Cannot remove a label because it is in use')
     model = Label
     success_url = reverse_lazy('labels')
     login_url = reverse_lazy('login')
+
+    def delete(self, request, *args, **kwargs):  # noqa: D102
+        if self.get_object().task_set.exists():
+            messages.add_message(
+                request,
+                messages.ERROR,
+                _('Cannot remove a label because it is in use'),
+            )
+            return HttpResponseRedirect(self.success_url)
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            _('Label deleted successfully'),
+        )
+        return super().delete(request, *args, **kwargs)
