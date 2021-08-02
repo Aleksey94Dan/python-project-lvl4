@@ -9,7 +9,11 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
-from task_manager.mixins import AuthRequiredMixin, DeleteMixin
+from task_manager.mixins import (
+    AuthRequiredMixin,
+    DeleteMixin,
+    UserTestAccountMixin,
+)
 from user.forms import AuthForm
 from user.models import User
 
@@ -42,28 +46,32 @@ class UsersListView(ListView):
     context_object_name = 'users'
 
 
-class UserUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
+class UserUpdateView(  # noqa: WPS215
+    AuthRequiredMixin,
+    UserTestAccountMixin,
+    SuccessMessageMixin,
+    UpdateView,
+):
     """Change user data."""
 
     template_name = 'update.html'
     form_class = AuthForm
     model = User
 
-    login_url = reverse_lazy('login')
-    redirect_url = reverse_lazy('users-list')
-    success_url = redirect_url
-
     success_message = _('User changed successfully')
 
 
-class UserDeleteView(AuthRequiredMixin, DeleteMixin, DeleteView):
+class UserDeleteView(  # noqa: WPS215
+    AuthRequiredMixin,
+    UserTestAccountMixin,
+    DeleteMixin,
+    DeleteView,
+):
     """Delete user data."""
 
     template_name = 'delete.html'
     model = User
 
-    login_url = reverse_lazy('login')
-    redirect_url = reverse_lazy('users-list')
     success_url = reverse_lazy('users-list')
 
     success_message_delete = _('User deleted successfully')

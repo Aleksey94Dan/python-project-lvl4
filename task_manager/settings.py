@@ -141,7 +141,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'OPTIONS': {'min_length': 3},
     },
     # {
-    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    #    'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     # },
     # {
     #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
@@ -153,8 +153,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 
-LANGUAGE_CODE = 'ru-ru'
-# LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'en-us'
 
 
 LANGUAGES = [
