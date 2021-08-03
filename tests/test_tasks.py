@@ -33,6 +33,20 @@ class TestTasksView(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assert_tasks_in_html(tasks, response.content.decode())
 
+    def test_tasks_ticket(self):
+        self.client.login(username='123', password='123')
+        task = Task.objects.all()[0]
+        response = self.client.get(
+            reverse_lazy('task-ticket', kwargs={'pk': task.id}),
+        )
+        html = response.content.decode()
+
+        self.assertInHTML(task.name, html)
+        self.assertInHTML(task.author.get_full_name(), html)
+        self.assertInHTML(task.status.name, html)
+        for t in task.labels.all():
+            self.assertInHTML(t.name, html)
+
     def test_create_task(self):
         self.client.login(username='123', password='123')
         status = Status.objects.all()[:1][0]
