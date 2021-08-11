@@ -1,6 +1,5 @@
 """Logic for home, creating and editing statuses."""
 
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls.base import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -8,10 +7,10 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from statuses.models import Status
-from task_manager.mixins import DeleteMixin
+from task_manager.mixins import AuthRequiredMixin, DeleteMixin
 
 
-class StatusesListView(LoginRequiredMixin, ListView):
+class StatusesListView(AuthRequiredMixin, ListView):
     """Statuses list view."""
 
     template_name = 'statuses.html'
@@ -20,7 +19,7 @@ class StatusesListView(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
 
 
-class StatusesCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class StatusesCreateView(AuthRequiredMixin, SuccessMessageMixin, CreateView):
     """Create status."""
 
     template_name = 'create.html'
@@ -33,7 +32,7 @@ class StatusesCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('statuses')
 
 
-class StatusesUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class StatusesUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     """Update status."""
 
     template_name = 'update.html'
@@ -46,7 +45,7 @@ class StatusesUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = _('Status changed successfully')
 
 
-class StatusesDeleteView(LoginRequiredMixin, DeleteMixin, DeleteView):
+class StatusesDeleteView(AuthRequiredMixin, DeleteMixin, DeleteView):
     """Delete status."""
 
     template_name = "delete.html"

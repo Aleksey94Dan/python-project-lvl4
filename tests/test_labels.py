@@ -6,14 +6,11 @@ from http import HTTPStatus
 from django.test import TestCase
 from django.urls import reverse_lazy
 
-from labels.models import Label
-from tasks.models import Task
+from tests.mixins import TestSetUpMixin
 
 
-class TestLabelsView(TestCase):
+class TestLabelsView(TestSetUpMixin, TestCase):
     """CRUD tests"""
-
-    fixtures = ['statuses.json', 'users.json', 'labels.json', 'tasks.json']
 
     def assert_labels_in_html(self, labels, html):
         for label in labels:
@@ -21,17 +18,14 @@ class TestLabelsView(TestCase):
             self.assertInHTML(label.name, html)
 
     def test_labels_list(self):
-        self.client.login(username='123', password='123')
-        labels = Label.objects.all()
         response = self.client.get(reverse_lazy('labels'))
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertIn('labels', response.context)
-        self.assertCountEqual(labels, response.context.get('labels'))
-        self.assert_labels_in_html(labels, response.content.decode())
+        self.assertCountEqual(self.labels, response.context.get('labels'))
+        self.assert_labels_in_html(self.labels, response.content.decode())
 
     def test_create_label(self):
-        self.client.login(username='123', password='123')
         response = self.client.post(
             reverse_lazy('labels-create'),
             follow=True,
@@ -40,15 +34,13 @@ class TestLabelsView(TestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertIn('Label created successfully', response.content.decode())
-        self.assertTrue(Label.objects.filter(name='demo'))
+        self.assertTrue(self.labels.get(name='demo'))
 
     def test_create_same_label(self):
-        self.client.login(username='123', password='123')
-        label = Label.objects.all()[:1][0]
         response = self.client.post(
             reverse_lazy('labels-create'),
             follow=True,
-            data={'name': label.name},
+            data={'name': self.label.name},
         )
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
@@ -58,11 +50,8 @@ class TestLabelsView(TestCase):
         )
 
     def test_update_label(self):
-        self.client.login(username='123', password='123')
-        label = Label.objects.all()[:1][0]
-        pk = label.pk
         response = self.client.post(
-            reverse_lazy('labels-update', kwargs={'pk': pk}),
+            reverse_lazy('labels-update', kwargs={'pk': self.label.pk}),
             follow=True,
             data={'name': 'altered'},
         )
@@ -72,12 +61,10 @@ class TestLabelsView(TestCase):
             'Label updated successfully',
             response.content.decode(),
         )
-        self.assertTrue(Label.objects.filter(pk=pk, name='altered'))
+        self.assertTrue(self.labels.get(pk=self.label.pk, name='altered'))
 
     def test_delete_label(self):
-        self.client.login(username='123', password='123')
-        labels_id = Task.objects.all().values_list('labels', flat=True)
-        label = Label.objects.exclude(id__in=list(labels_id))[0]
+        label = self.labels.filter(task__isnull=True).first()
         response = self.client.post(
             reverse_lazy('labels-delete', kwargs={'pk': label.id}),
             follow=True,
@@ -88,24 +75,21 @@ class TestLabelsView(TestCase):
             'Label deleted successfully',
             response.content.decode(),
         )
-        self.assertFalse(Label.objects.filter(name=label.name))
+        self.assertFalse(self.labels.filter(name=label.name))
 
     def test_labels_error404(self):
-        self.client.login(username='123', password='123')
-        last_label = Label.objects.all().order_by('-pk')[0]
-
+        fake_id = 999
         for url in ['labels-delete', 'labels-update']:
             response = self.client.post(
-                reverse_lazy(url, kwargs={'pk': last_label.id + 1}),
+                reverse_lazy(url, kwargs={'pk': fake_id}),
                 follow=True,
             )
             self.assertTrue(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_delete_label_if_used(self):
-        self.client.login(username='123', password='123')
-        label_id = Task.objects.all().values_list('labels', flat=True)[0]
+        label = self.labels.filter(task__isnull=False).first()
         response = self.client.post(
-            reverse_lazy('labels-delete', kwargs={'pk': label_id}),
+            reverse_lazy('labels-delete', kwargs={'pk': label.id}),
             follow=True,
         )
 
@@ -114,4 +98,4 @@ class TestLabelsView(TestCase):
             'Cannot remove a label because it is in use',
             response.content.decode(),
         )
-        self.assertTrue(Label.objects.filter(id=label_id))
+        self.assertTrue(self.labels.get(id=label.id))

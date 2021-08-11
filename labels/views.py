@@ -1,7 +1,6 @@
 """Logic for home, creating and editing labels."""
 
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -9,10 +8,12 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
+from labels.mixins import LabelDeleteMixin
 from labels.models import Label
+from task_manager.mixins import AuthRequiredMixin
 
 
-class LabelsListView(LoginRequiredMixin, ListView):
+class LabelsListView(AuthRequiredMixin, ListView):
     """Labels list view."""
 
     template_name = 'labels.html'
@@ -21,7 +22,7 @@ class LabelsListView(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
 
 
-class LabelsCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class LabelsCreateView(AuthRequiredMixin, SuccessMessageMixin, CreateView):
     """Create label."""
 
     template_name = 'create.html'
@@ -32,7 +33,7 @@ class LabelsCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('labels')
 
 
-class LabelsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class LabelsUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     """Update label."""
 
     template_name = 'update.html'
@@ -43,7 +44,7 @@ class LabelsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     login_url = reverse_lazy('login')
 
 
-class LabelsDeleteView(LoginRequiredMixin, DeleteView):
+class LabelsDeleteView(AuthRequiredMixin, LabelDeleteMixin, DeleteView):
     """Delete labels."""
 
     template_name = "delete.html"

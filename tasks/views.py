@@ -7,13 +7,10 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django_filters.views import FilterView  # noqa: I001
 
-from task_manager.mixins import (
-    AuthRequiredMixin,
-    DeleteMixin,
-    TaskTestAccountMixin,
-)
+from task_manager.mixins import AuthRequiredMixin, DeleteMixin
 from tasks.filter import TaskFilter
 from tasks.forms import TaskForm
+from tasks.mixins import TaskTestAccountMixin
 from tasks.models import Task
 
 

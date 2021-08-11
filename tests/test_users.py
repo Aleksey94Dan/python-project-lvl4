@@ -6,13 +6,12 @@ from django.contrib import auth
 from django.test import TestCase
 from django.urls import reverse_lazy
 
+from tests.mixins import TestSetUpMixin
 from user.models import User
 
 
-class TestUserView(TestCase):
+class TestUserView(TestSetUpMixin, TestCase):
     """CRUD tests"""
-
-    fixtures = ['users.json']
 
     def assert_users_in_html(self, users, html):
         for user in users:
@@ -21,15 +20,15 @@ class TestUserView(TestCase):
             self.assertInHTML(user.get_full_name(), html)
 
     def test_users_list(self):
-        users = User.objects.all()
         response = self.client.get(reverse_lazy('users-list'))
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertIn('users', response.context)
-        self.assertCountEqual(users, response.context.get('users'))
-        self.assert_users_in_html(users, response.content.decode())
+        self.assertCountEqual(self.users, response.context.get('users'))
+        self.assert_users_in_html(self.users, response.content.decode())
 
     def test_login_user(self):
+        self.client.logout()
         response = self.client.post(
             reverse_lazy('login'),
             follow=True,
@@ -42,6 +41,7 @@ class TestUserView(TestCase):
         self.assertTrue(user.is_authenticated)
 
     def test_login_error(self):
+        self.client.logout()
         response = self.client.post(
             reverse_lazy('login'),
             follow=True,
@@ -58,7 +58,6 @@ class TestUserView(TestCase):
         self.assertFalse(user.is_authenticated)
 
     def test_logout_user(self):
-        self.client.login(username="123", password="123")
         response = self.client.post(
             reverse_lazy('logout'),
             follow=True,
@@ -86,9 +85,10 @@ class TestUserView(TestCase):
             'User registered successfully',
             response.content.decode(),
         )
-        self.assertTrue(User.objects.filter(
-            username='ivan', last_name='Ivanov', first_name='Ivan',
-        ),
+        self.assertTrue(
+            User.objects.get(
+                username='ivan', last_name='Ivanov', first_name='Ivan',
+            ),
         )
 
     def test_register_error(self):
@@ -109,14 +109,15 @@ class TestUserView(TestCase):
             'A user with that username already exists.',
             response.content.decode(),
         )
-        self.assertTrue(User.objects.filter(username='123'))
+        self.assertTrue(
+            User.objects.filter(
+                username='123', first_name='123', last_name='123',
+            ).exists(),
+        )
 
     def test_updated(self):
-        user = User.objects.get(pk=11)
-        self.client.login(username=user.username, password='123')
-
         response = self.client.post(
-            reverse_lazy('user-update', kwargs={'pk': 11}),
+            reverse_lazy('user-update', kwargs={'pk': self.user.pk}),
             follow=True,
             data={
                 'first_name': 'Igor',
@@ -128,22 +129,21 @@ class TestUserView(TestCase):
         )
 
         self.assertIn('User changed successfully', response.content.decode())
-        self.assertTrue(User.objects.filter(
-            username='igor', first_name='Igor', last_name='Ivanov',
-        ),
+        self.assertTrue(
+            User.objects.filter(
+                username='igor', first_name='Igor', last_name='Ivanov',
+            ),
         )
 
     def test_updated_error(self):
-        user = User.objects.get(pk=11)
-        self.client.login(username=user.username, password='123')
-        user_err = User.objects.exclude(username='123')[:1][0]
+        user_err = User.objects.exclude(pk=self.user.pk).first()
 
         response = self.client.post(
             reverse_lazy('user-update', kwargs={'pk': user_err.pk}),
             follow=True,
             data={
-                'first_name': user.first_name,
-                'last_name': user.last_name,
+                'first_name': self.user.first_name,
+                'last_name': self.user.last_name,
                 'username': "igor",
                 "password1": "111",
                 "password2": "111",
@@ -156,23 +156,22 @@ class TestUserView(TestCase):
         )
         self.assertFalse(User.objects.filter(username='igor'))
 
-    def test_deleted(self):
-        user = User.objects.get(pk=11)
-        self.client.login(username=user.username, password='123')
+    def test_deleted_if_used(self):
 
         response = self.client.post(
-            reverse_lazy('user-delete', kwargs={'pk': 11}),
+            reverse_lazy('user-delete', kwargs={'pk': self.user.pk}),
             follow=True,
         )
 
-        self.assertIn('User deleted successfully', response.content.decode())
-        self.assertFalse(User.objects.filter(username=user.username))
+        self.assertIn(
+            'Unable to delete user because he is in use',
+            response.content.decode(),
+        )
+        self.assertTrue(User.objects.get(username=self.user.username))
 
     def test_deleted_other_user(self):
         """Remove another user"""
-        user = User.objects.get(pk=11)
-        self.client.login(username=user.username, password='123')
-        user_err = User.objects.exclude(username=user.username)[:1][0]
+        user_err = User.objects.exclude(pk=self.user.pk).first()
 
         response = self.client.post(
             reverse_lazy('user-delete', kwargs={'pk': user_err.pk}),

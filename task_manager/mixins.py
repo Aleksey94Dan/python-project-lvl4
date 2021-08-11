@@ -1,7 +1,7 @@
 """Customized mixins for privileges."""
 
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import ProtectedError
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -19,34 +19,6 @@ class AuthRequiredMixin(LoginRequiredMixin):
     def handle_no_permission(self):
         messages.error(self.request, self.permission_denied_message)
         return HttpResponseRedirect(self.redirect_url)
-
-
-class UserTestAccountMixin(UserPassesTestMixin):
-    """Check user."""
-
-    def test_func(self):
-        return self.get_object() == self.request.user
-
-    def dispatch(self, request, *args, **kwargs):
-        self.permission_denied_message = _(
-            'You do not have permission to change the user otherwise.'
-        )
-        self.redirect_url = reverse_lazy('users-list')
-        return super().dispatch(request, *args, **kwargs)
-
-
-class TaskTestAccountMixin(UserPassesTestMixin):
-    """Check test."""
-
-    def test_func(self):
-        return self.get_object().author == self.request.user
-
-    def dispatch(self, request, *args, **kwargs):
-        self.permission_denied_message = _(
-            'A task can only be deleted by its author'
-        )
-        self.redirect_url = reverse_lazy('tasks')
-        return super().dispatch(request, *args, **kwargs)
 
 
 class DeleteMixin:

@@ -9,12 +9,9 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
-from task_manager.mixins import (
-    AuthRequiredMixin,
-    DeleteMixin,
-    UserTestAccountMixin,
-)
+from task_manager.mixins import AuthRequiredMixin, DeleteMixin
 from user.forms import AuthForm
+from user.mixins import UserTestAccountMixin
 from user.models import User
 
 
@@ -59,6 +56,7 @@ class UserUpdateView(  # noqa: WPS215
     model = User
 
     success_message = _('User changed successfully')
+    success_url = reverse_lazy('users-list')
 
 
 class UserDeleteView(  # noqa: WPS215
