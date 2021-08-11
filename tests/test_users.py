@@ -7,7 +7,6 @@ from django.test import TestCase
 from django.urls import reverse_lazy
 
 from tests.mixins import TestSetUpMixin
-from user.models import User
 
 
 class TestUserView(TestSetUpMixin, TestCase):
@@ -86,9 +85,9 @@ class TestUserView(TestSetUpMixin, TestCase):
             response.content.decode(),
         )
         self.assertTrue(
-            User.objects.get(
+            self.users.filter(
                 username='ivan', last_name='Ivanov', first_name='Ivan',
-            ),
+            ).exists(),
         )
 
     def test_register_error(self):
@@ -110,7 +109,7 @@ class TestUserView(TestSetUpMixin, TestCase):
             response.content.decode(),
         )
         self.assertTrue(
-            User.objects.filter(
+            self.users.filter(
                 username='123', first_name='123', last_name='123',
             ).exists(),
         )
@@ -130,13 +129,13 @@ class TestUserView(TestSetUpMixin, TestCase):
 
         self.assertIn('User changed successfully', response.content.decode())
         self.assertTrue(
-            User.objects.filter(
+            self.users.filter(
                 username='igor', first_name='Igor', last_name='Ivanov',
-            ),
+            ).exists(),
         )
 
     def test_updated_error(self):
-        user_err = User.objects.exclude(pk=self.user.pk).first()
+        user_err = self.users.exclude(pk=self.user.pk).first()
 
         response = self.client.post(
             reverse_lazy('user-update', kwargs={'pk': user_err.pk}),
@@ -154,7 +153,7 @@ class TestUserView(TestSetUpMixin, TestCase):
             'You do not have permission to change the user otherwise.',
             response.content.decode(),
         )
-        self.assertFalse(User.objects.filter(username='igor'))
+        self.assertFalse(self.users.filter(username='igor').exists())
 
     def test_deleted_if_used(self):
 
@@ -167,11 +166,13 @@ class TestUserView(TestSetUpMixin, TestCase):
             'Unable to delete user because he is in use',
             response.content.decode(),
         )
-        self.assertTrue(User.objects.get(username=self.user.username))
+        self.assertTrue(
+            self.users.filter(username=self.user.username).exists(),
+        )
 
     def test_deleted_other_user(self):
         """Remove another user"""
-        user_err = User.objects.exclude(pk=self.user.pk).first()
+        user_err = self.users.exclude(pk=self.user.pk).first()
 
         response = self.client.post(
             reverse_lazy('user-delete', kwargs={'pk': user_err.pk}),
@@ -182,4 +183,4 @@ class TestUserView(TestSetUpMixin, TestCase):
             'You do not have permission to change the user otherwise.',
             response.content.decode(),
         )
-        self.assertTrue(User.objects.filter(username=user_err.username))
+        self.assertTrue(self.users.filter(username=user_err.username).exists())

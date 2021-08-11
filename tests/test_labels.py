@@ -34,7 +34,7 @@ class TestLabelsView(TestSetUpMixin, TestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertIn('Label created successfully', response.content.decode())
-        self.assertTrue(self.labels.get(name='demo'))
+        self.assertTrue(self.labels.filter(name='demo').exists())
 
     def test_create_same_label(self):
         response = self.client.post(
@@ -61,7 +61,9 @@ class TestLabelsView(TestSetUpMixin, TestCase):
             'Label updated successfully',
             response.content.decode(),
         )
-        self.assertTrue(self.labels.get(pk=self.label.pk, name='altered'))
+        self.assertTrue(
+            self.labels.filter(pk=self.label.pk, name='altered').exists(),
+        )
 
     def test_delete_label(self):
         label = self.labels.filter(task__isnull=True).first()
@@ -75,7 +77,7 @@ class TestLabelsView(TestSetUpMixin, TestCase):
             'Label deleted successfully',
             response.content.decode(),
         )
-        self.assertFalse(self.labels.filter(name=label.name))
+        self.assertFalse(self.labels.filter(name=label.name).exists())
 
     def test_labels_error404(self):
         fake_id = 999
@@ -98,4 +100,4 @@ class TestLabelsView(TestSetUpMixin, TestCase):
             'Cannot remove a label because it is in use',
             response.content.decode(),
         )
-        self.assertTrue(self.labels.get(id=label.id))
+        self.assertTrue(self.labels.filter(id=label.id).exists())

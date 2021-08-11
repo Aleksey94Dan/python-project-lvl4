@@ -34,7 +34,7 @@ class TestStatusView(TestSetUpMixin, TestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertIn('Status created successfully', response.content.decode())
-        self.assertTrue(self.statuses.get(name='demo'))
+        self.assertTrue(self.statuses.filter(name='demo').exists())
 
     def test_create_same_status(self):
         response = self.client.post(
@@ -61,7 +61,9 @@ class TestStatusView(TestSetUpMixin, TestCase):
             'Status changed successfully',
             response.content.decode(),
         )
-        self.assertTrue(self.statuses.get(pk=self.status.pk, name='altered'))
+        self.assertTrue(
+            self.statuses.filter(pk=self.status.pk, name='altered').exists(),
+        )
 
     def test_delete_status(self):
         status = self.statuses.filter(task__isnull=True).first()
@@ -99,4 +101,4 @@ class TestStatusView(TestSetUpMixin, TestCase):
             'Unable to delete status because it is in use',
             response.content.decode(),
         )
-        self.assertTrue(self.statuses.get(id=status.id))
+        self.assertTrue(self.statuses.filter(id=status.id).exists())
