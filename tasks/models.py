@@ -16,7 +16,7 @@ class Task(models.Model):
         max_length=100,
         unique=True,
     )
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     description = models.TextField(verbose_name=_('Description'), blank=True)
     author = models.ForeignKey(
         User,
