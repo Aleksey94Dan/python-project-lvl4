@@ -12,7 +12,7 @@ class Status(models.Model):
         max_length=100,
         unique=True,
     )
-    created_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):  # noqa: D105
         return self.name

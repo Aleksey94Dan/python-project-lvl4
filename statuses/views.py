@@ -17,6 +17,7 @@ class StatusesListView(AuthRequiredMixin, ListView):
     model = Status
     context_object_name = 'statuses'
     login_url = reverse_lazy('login')
+    ordering = ['-created_at']
 
 
 class StatusesCreateView(AuthRequiredMixin, SuccessMessageMixin, CreateView):

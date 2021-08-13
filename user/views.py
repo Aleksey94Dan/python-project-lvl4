@@ -41,6 +41,7 @@ class UsersListView(ListView):
     template_name = 'users.html'
     model = User
     context_object_name = 'users'
+    ordering = ['-date_joined']
 
 
 class UserUpdateView(  # noqa: WPS215

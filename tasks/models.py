@@ -43,8 +43,5 @@ class Task(models.Model):
         blank=True,
     )
 
-    class Meta:
-        ordering = ['-created_at']
-
     def __str__(self):  # noqa: D105
         return self.name
