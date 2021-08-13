@@ -51,18 +51,3 @@ class LabelsDeleteView(AuthRequiredMixin, LabelDeleteMixin, DeleteView):
     model = Label
     success_url = reverse_lazy('labels')
     login_url = reverse_lazy('login')
-
-    def delete(self, request, *args, **kwargs):  # noqa: D102
-        if self.get_object().task_set.exists():
-            messages.add_message(
-                request,
-                messages.ERROR,
-                _('Cannot remove a label because it is in use'),
-            )
-            return HttpResponseRedirect(self.success_url)
-        messages.add_message(
-            request,
-            messages.SUCCESS,
-            _('Label deleted successfully'),
-        )
-        return super().delete(request, *args, **kwargs)
