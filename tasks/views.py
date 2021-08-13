@@ -19,7 +19,8 @@ class TasksListView(AuthRequiredMixin, FilterView):
 
     template_name = 'tasks.html'
     filterset_class = TaskFilter
-    ordering = ['created_at']
+    model = Task
+    ordering = ['-pk']
 
 
 class TasksTicketView(AuthRequiredMixin, DetailView):
