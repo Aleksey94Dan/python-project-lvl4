@@ -363,6 +363,19 @@ pygments = "*"
 restructuredtext-lint = "*"
 
 [[package]]
+name = "flake8-simplify"
+version = "0.14.1"
+description = "flake8 plugin which checks for code that can be simplified"
+category = "dev"
+optional = false
+python-versions = ">=3.6.1"
+
+[package.dependencies]
+astor = ">=0.1"
+flake8 = ">=3.7"
+importlib-metadata = {version = ">=0.9", markers = "python_version < \"3.8\""}
+
+[[package]]
 name = "flake8-string-format"
 version = "0.3.0"
 description = "string format checker, plugin for flake8"
@@ -868,7 +881,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "ce45d873759450a6d83671c3c34e0eac22ffa2493f73b62d715be0e4a74ce72f"
+content-hash = "d3dd88f8078d224fd9c1848d422bfad9e851b89ded8108e77431683f8d4ee319"
 
 [metadata.files]
 appnope = [
@@ -996,6 +1009,10 @@ flake8-quotes = [
 flake8-rst-docstrings = [
     {file = "flake8-rst-docstrings-0.2.3.tar.gz", hash = "sha256:3045794e1c8467fba33aaea5c246b8369efc9c44ef8b0b20199bb6df7a4bd47b"},
     {file = "flake8_rst_docstrings-0.2.3-py3-none-any.whl", hash = "sha256:565bbb391d7e4d0042924102221e9857ad72929cdd305b26501736ec22c1451a"},
+]
+flake8-simplify = [
+    {file = "flake8_simplify-0.14.1-py3-none-any.whl", hash = "sha256:ba5d2905dc277cd4800c6e7f4859f96322d83dd37991ae5f8305750132084dd6"},
+    {file = "flake8_simplify-0.14.1.tar.gz", hash = "sha256:d8b38feb97fd6c5943b5d9b2ab352acea83ec036a93215c0576b9e48c6aa2dcc"},
 ]
 flake8-string-format = [
     {file = "flake8-string-format-0.3.0.tar.gz", hash = "sha256:65f3da786a1461ef77fca3780b314edb2853c377f2e35069723348c8917deaa2"},

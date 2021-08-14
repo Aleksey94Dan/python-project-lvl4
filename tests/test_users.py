@@ -6,10 +6,10 @@ from django.contrib import auth
 from django.test import TestCase
 from django.urls import reverse_lazy
 
-from tests.mixins import TestSetUpMixin
+from tests.mixins import AuthMixn, FixturesMixin
 
 
-class TestUserView(TestSetUpMixin, TestCase):
+class TestUserView(FixturesMixin, AuthMixn, TestCase):
     """CRUD tests"""
 
     def assert_users_in_html(self, users, html):

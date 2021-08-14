@@ -6,11 +6,17 @@ from http import HTTPStatus
 from django.test import TestCase
 from django.urls import reverse_lazy
 
-from tests.mixins import TestSetUpMixin
+from labels.models import Label
+from tests.mixins import AuthMixn, FixturesMixin
 
 
-class TestLabelsView(TestSetUpMixin, TestCase):
+class TestLabelsView(FixturesMixin, AuthMixn, TestCase):
     """CRUD tests"""
+
+    def setUp(self):
+        super().setUp()
+        self.labels = Label.objects.all()
+        self.label = self.labels.first()
 
     def assert_labels_in_html(self, labels, html):
         for label in labels:

@@ -18,7 +18,7 @@ class LabelsListView(AuthRequiredMixin, ListView):
     model = Label
     context_object_name = 'labels'
     login_url = reverse_lazy('login')
-    ordering = ['-created_at']
+    ordering = ['-pk']
 
 
 class LabelsCreateView(AuthRequiredMixin, SuccessMessageMixin, CreateView):

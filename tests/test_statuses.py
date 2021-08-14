@@ -6,11 +6,17 @@ from http import HTTPStatus
 from django.test import TestCase
 from django.urls import reverse_lazy
 
-from tests.mixins import TestSetUpMixin
+from statuses.models import Status
+from tests.mixins import AuthMixn, FixturesMixin
 
 
-class TestStatusView(TestSetUpMixin, TestCase):
+class TestStatusView(FixturesMixin, AuthMixn, TestCase):
     """CRUD tests"""
+
+    def setUp(self):
+        super().setUp()
+        self.statuses = Status.objects.all()
+        self.status = self.statuses.first()
 
     def assert_statuses_in_html(self, statuses, html):
         for status in statuses:

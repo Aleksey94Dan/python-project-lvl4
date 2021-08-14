@@ -5,12 +5,33 @@ from http import HTTPStatus
 from django.test import TestCase
 from django.urls import reverse_lazy
 
+from labels.models import Label
+from statuses.models import Status
 from tasks.filter import TaskFilter
-from tests.mixins import TestSetUpMixin
+from tasks.models import Task
+from tests.mixins import AuthMixn, FixturesMixin
 
 
-class TestTasksView(TestSetUpMixin, TestCase):
+class TestTasksView(FixturesMixin, AuthMixn, TestCase):
     """CRUD tests"""
+
+    other_user_name = '777'
+
+    def setUp(self):
+        super().setUp()
+        self.statuses = Status.objects.all()
+        self.status = self.statuses.first()
+        self.labels = Label.objects.all()
+        self.label = self.labels.first()
+        self.tasks = Task.objects.all()
+        self.task = self.tasks.filter(
+            author__username=self.user_name,
+        ).first()
+        self.task_deletion = self.tasks.filter(
+            author__username=self.other_user_name,
+        ).first()  # noqa: E501
+        self.author = self.user
+        self.executor = self.users.first()
 
     def assert_tasks_in_html(self, tasks, html):
         for task in tasks:
@@ -156,7 +177,6 @@ class TestTasksView(TestSetUpMixin, TestCase):
         self.assertTrue(self.tasks.filter(pk=task.id).exists())
 
     def test_filter(self):
-
         qs = self.tasks
         status = self.status
         executor = self.executor
